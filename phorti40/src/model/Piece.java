@@ -1,6 +1,4 @@
 package model;
 
-public abstract class Piece extends Tile {
-
-	
+public abstract class Piece {
 }
