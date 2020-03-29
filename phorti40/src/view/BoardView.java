@@ -3,7 +3,10 @@ package view;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -24,10 +27,16 @@ public class BoardView extends Application {
 		// dummy generation 
 		for (int i = 0; i < WIDTH; i++) {
 			for (int j = 0; j < HEIGHT; j++) {
-				Rectangle tile = new Rectangle(TILE_SIZE, TILE_SIZE);
-				tile.setFill(Color.AZURE);
-				tile.setStroke(Color.BLACK);
+				StackPane tile = new StackPane();
 
+				Rectangle tileBackground = new Rectangle(TILE_SIZE, TILE_SIZE);
+				tileBackground.setFill(Color.AZURE);
+				tileBackground.setStroke(Color.BLACK);
+
+				tile.getChildren().add(tileBackground);
+
+				ImageView sprite = new ImageView(new Image(getClass().getResource("/resources/shark.png").toExternalForm()));
+				tile.getChildren().add(sprite);
 				
 				
 				GridPane.setRowIndex(tile, i);
@@ -35,8 +44,7 @@ public class BoardView extends Application {
 				gameBoard.getChildren().addAll(tile);
 			
 			}
-		}	
-
+		}
 		
 		return gameBoard;
 	}
