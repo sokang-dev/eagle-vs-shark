@@ -54,7 +54,7 @@ public class BoardView extends Application {
                     tile.getChildren().add(new ImageView(Sprites.Shark));
 
                 if (gameBoard.getPiece(i, j) instanceof DummyEagle)
-                    { /*TODO*/ }
+                    tile.getChildren().add(new ImageView(Sprites.Eagle));
 
 
                 GridPane.setRowIndex(tile, gameBoard.getHeight() - j);
