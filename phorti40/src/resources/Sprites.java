@@ -17,6 +17,6 @@ public class Sprites {
     public Sprites()
     {
         this.Shark = new Image(getClass().getResource("shark.png").toExternalForm());
-        // this.Eagle...
+        this.Eagle = new Image(getClass().getResource("eagle.png").toExternalForm());
     }
 }
