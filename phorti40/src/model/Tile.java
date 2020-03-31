@@ -1,15 +1,17 @@
 package model;
 
 public class Tile {
+
+    private Coord coord;
     private Piece piece;
+
+    // For instantiating empty tiles
+    public Tile(){}
 
     public Tile(Piece piece)
     {
         this.piece = piece;
     }
-
-    // For instantiating empty tiles
-    public Tile(){}
 
     public Piece getPiece() {
         return piece;

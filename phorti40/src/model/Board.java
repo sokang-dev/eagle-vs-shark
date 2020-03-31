@@ -16,10 +16,10 @@ public class Board {
 				boardMatrix[i][j] = new Tile();
 
 				if (j < 2)
-					boardMatrix[i][j].setPiece(new DummyShark());
+					boardMatrix[i][j].setPiece(new DummyShark(1));
 
 				if(j > HEIGHT - 3)
-					boardMatrix[i][j].setPiece(new DummyEagle());
+					boardMatrix[i][j].setPiece(new DummyEagle(1));
 			}
 		}
 	}
