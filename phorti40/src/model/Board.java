@@ -13,26 +13,22 @@ public class Board {
 
 		Tile tile1 = new Tile(new Coord(0, 0));
 
+		// Instaniate empty tiles
 		for (int i = 0; i < WIDTH; i++) {
 			for (int j = 0; j < HEIGHT; j++) {
 				boardMatrix[i][j] = new Tile(new Coord(i, j));
-
-//				if (j < 2)
-//					boardMatrix[i][j](new DummyShark(1));
-//
-//				if(j > HEIGHT - 3)
-//					boardMatrix[i][j](new DummyEagle(1));
 			}
 		}
 
-//		DummyShark dummyShark1 = new DummyShark()
+		DummyShark dummyShark1 = new DummyShark(boardMatrix[2][3]);
+		DummyEagle dummyEagle1 = new DummyEagle(boardMatrix[5][5]);
 	}
-		
+
 //	public void removePiece(int i, int j) {
 //		this.boardMatrix[i][j].setPiece(null);
 //	}
 
-	
+
 //	public void setPiece(Piece piece, int i, int j) {
 //		this.boardMatrix[i][j].setPiece(piece);
 //	}
