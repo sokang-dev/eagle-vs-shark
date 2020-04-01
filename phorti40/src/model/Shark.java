@@ -2,7 +2,9 @@ package model;
 
 public abstract class Shark extends Piece {
 
-    public Shark(int movement) {
-        super(movement);
+    protected int baseMovement = 1;
+
+    public Shark(Tile tile) {
+        super(tile);
     }
 }

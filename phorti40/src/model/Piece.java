@@ -5,29 +5,34 @@ import java.util.Set;
 
 public abstract class Piece {
 
-    protected int movement;
+    private Coord coord;
+    private Tile tile;
 
-    protected Piece(int movement) {
-        this.movement = movement;
+    protected Piece(Tile tile) {
+        this.tile = tile;
     }
 
-    public Set<Coord> getValidMoves(Coord currentCoord, int movement) {
+    protected Coord getCoord() {
+        return this.tile.getCoord();
+    }
+
+    protected Set<Coord> getValidMoves(Coord currentCoord, int movement) {
 
         Set<Coord> validMoves = new HashSet<>();
 
         try {
             if (movement == 0) {
-                validMoves.add(currentCoord);
+                validMoves.add(this.coord);
             } else {
-                validMoves.add(new Coord(currentCoord.getX() + 1, currentCoord.getY()));
-                validMoves.add(new Coord(currentCoord.getX(), currentCoord.getY() + 1));
-                validMoves.add(new Coord(currentCoord.getX() - 1, currentCoord.getY()));
-                validMoves.add(new Coord(currentCoord.getX(), currentCoord.getY() - 1));
+                validMoves.add(new Coord(this.coord.getX() + 1, this.coord.getY()));
+                validMoves.add(new Coord(this.coord.getX(), this.coord.getY() + 1));
+                validMoves.add(new Coord(this.coord.getX() - 1, this.coord.getY()));
+                validMoves.add(new Coord(this.coord.getX(), this.coord.getY() - 1));
 
                 Set<Coord> recursiveValidMoves = new HashSet<>();
 
                 for (Coord validMove : validMoves) {
-                    recursiveValidMoves.addAll(getValidMoves(validMove, movement));
+                    recursiveValidMoves.addAll(getValidMoves(validMove, movement - 1));
                 }
 
                 validMoves.addAll(recursiveValidMoves);
@@ -35,5 +40,11 @@ public abstract class Piece {
         } catch (ArrayIndexOutOfBoundsException ignored) {}
 
         return validMoves;
+    }
+
+    protected void move(Tile tile) {
+        this.tile.removePiece();
+        this.tile = tile;
+        this.tile.setPiece(this);
     }
 }

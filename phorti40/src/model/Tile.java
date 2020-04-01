@@ -6,11 +6,17 @@ public class Tile {
     private Piece piece;
 
     // For instantiating empty tiles
-    public Tile(){}
+    public Tile(Coord coord) {
+        this.coord = coord;
+    }
 
     public Tile(Piece piece)
     {
         this.piece = piece;
+    }
+
+    public Coord getCoord() {
+        return this.coord;
     }
 
     public Piece getPiece() {
@@ -20,4 +26,6 @@ public class Tile {
     public void setPiece(Piece piece) {
         this.piece = piece;
     }
+
+    public void removePiece() { this.piece = null; }
 }
