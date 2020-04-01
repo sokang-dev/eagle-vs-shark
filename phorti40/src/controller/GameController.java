@@ -1,9 +1,8 @@
 package controller;
 
-import model.Board;
-import model.DummyEagle;
-import model.DummyShark;
-import model.Tile;
+import model.*;
+
+import java.util.Set;
 
 public class GameController {
 
@@ -18,5 +17,15 @@ public class GameController {
     {
         Board gameBoard = new Board();
         return gameBoard;
+    }
+
+    public Set<Coord> getValidMoves(Piece piece) {
+        Set<Coord> validMoves = piece.getValidMoves(piece.getCoord(), piece.getBaseMovement());
+        Set<Coord> allPieceCoords = gameBoard.getAllPieceCoords();
+
+        // Remove coordinates that contain pieces
+        validMoves.removeAll(allPieceCoords);
+
+        return validMoves;
     }
 }

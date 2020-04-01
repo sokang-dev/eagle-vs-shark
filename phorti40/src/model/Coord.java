@@ -2,7 +2,7 @@ package model;
 
 import java.util.Objects;
 
-class Coord {
+public class Coord {
 
     private int x, y;
 

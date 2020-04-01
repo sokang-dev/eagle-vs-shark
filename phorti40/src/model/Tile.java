@@ -4,6 +4,7 @@ public class Tile {
 
     private Coord coord;
     private Piece piece;
+    private Terrain terrain;
 
     // For instantiating empty tiles
     public Tile(Coord coord) {

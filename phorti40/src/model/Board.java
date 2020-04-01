@@ -1,5 +1,8 @@
 package model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Board {
 	public static final int WIDTH = 10;
 	public static final int HEIGHT = 10;
@@ -10,8 +13,6 @@ public class Board {
 	public Board()
 	{
 		boardMatrix = new Tile[WIDTH][HEIGHT];
-
-		Tile tile1 = new Tile(new Coord(0, 0));
 
 		// Instaniate empty tiles
 		for (int i = 0; i < WIDTH; i++) {
@@ -40,6 +41,20 @@ public class Board {
 	
 	public Piece getPiece(int i, int j){
 		return this.boardMatrix[i][j].getPiece();
+	}
+
+	public Set<Coord> getAllPieceCoords() {
+		Set<Coord> coords = new HashSet<>();
+
+		for (Tile[] tileArr : boardMatrix) {
+			for (Tile tile : tileArr) {
+				if (tile.getPiece() != null) {
+					coords.add(tile.getCoord());
+				}
+			}
+		}
+
+		return coords;
 	}
 
 	public int getWidth() {

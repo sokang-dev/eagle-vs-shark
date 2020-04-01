@@ -5,18 +5,24 @@ import java.util.Set;
 
 public abstract class Piece {
 
+    protected int baseMovement;
     private Coord coord;
     private Tile tile;
 
     protected Piece(Tile tile) {
         this.tile = tile;
+        this.tile.setPiece(this);
     }
 
-    protected Coord getCoord() {
+    public int getBaseMovement() {
+        return this.baseMovement;
+    }
+
+    public Coord getCoord() {
         return this.tile.getCoord();
     }
 
-    protected Set<Coord> getValidMoves(Coord currentCoord, int movement) {
+    public Set<Coord> getValidMoves(Coord currentCoord, int movement) {
 
         Set<Coord> validMoves = new HashSet<>();
 
