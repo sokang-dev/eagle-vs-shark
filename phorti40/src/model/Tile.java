@@ -21,16 +21,8 @@ public class Tile {
         return x;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
-
     public int getY() {
         return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
     }
 
     public Piece getPiece() {
@@ -42,4 +34,12 @@ public class Tile {
     }
 
     public void removePiece() { this.piece = null; }
+
+    @Override
+    public String toString() {
+        return "Tile{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
+    }
 }

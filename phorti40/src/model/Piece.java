@@ -6,7 +6,6 @@ import java.util.Set;
 public abstract class Piece {
 
     private Tile tile;
-    private int x, y;
     protected int baseMovement;
 
     protected Piece(Tile tile) {
@@ -16,14 +15,6 @@ public abstract class Piece {
 
     public Tile getTile() {
         return this.tile;
-    }
-
-    public int getX() {
-        return this.tile.getX();
-    }
-
-    public int getY() {
-        return this.tile.getY();
     }
 
     public int getBaseMovement() {
@@ -75,8 +66,8 @@ public abstract class Piece {
                 if (x < 0 || x > 9 || y < 0 || y > 9)
                     continue;
 
-                // Don't add occupied Tiles
-                if (board.getTile(x, y).getPiece() != null)
+                // Add only unoccupied Tiles
+                if (board.getTile(x, y).getPiece() == null)
                     validMoves.add(new Tile(x, y));
             }
         }
