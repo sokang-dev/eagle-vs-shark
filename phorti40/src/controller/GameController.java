@@ -2,7 +2,6 @@ package controller;
 
 import model.*;
 
-import java.util.HashSet;
 import java.util.Set;
 
 public class GameController {
@@ -27,7 +26,6 @@ public class GameController {
 
     public Set<Coord> getValidMoves(Piece piece) {
         Set<Coord> allPieceCoords = this.gameBoard.getAllPieceCoords();
-
         Set<Coord> validMoves = piece.getValidMoves(piece.getCoord(), piece.getBaseMovement(), allPieceCoords);
 
         return validMoves;

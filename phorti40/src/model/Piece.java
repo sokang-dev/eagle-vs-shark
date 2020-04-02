@@ -34,8 +34,8 @@ public abstract class Piece {
             if (movement == 0) {
                 validMoves.add(currentCoord);
             } else {
+                // Add adjacent coordinates to validMoves with some rules
                 addAdjacentCoords(currentCoord, validMoves, pieceCoords);
-
                 Set<Coord> recursiveValidMoves = new HashSet<>();
 
                 for (Coord validMove : validMoves) {
@@ -58,13 +58,14 @@ public abstract class Piece {
     private void addAdjacentCoords(Coord currentCoord, Set<Coord> validMoves, Set<Coord> pieceCoords) {
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
-
+                // don't get diagonal coordinates
                 if (Math.abs(i) == Math.abs(j))
                     continue;
 
                 int x = currentCoord.getX() + i;
                 int y = currentCoord.getY() + j;
 
+                // don't add occupied coordinates
                 if (!pieceCoords.contains(new Coord(x, y)))
                     validMoves.add(new Coord(x, y));
             }
