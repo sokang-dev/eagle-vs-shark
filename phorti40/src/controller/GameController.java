@@ -2,6 +2,7 @@ package controller;
 
 import model.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class GameController {
@@ -16,15 +17,18 @@ public class GameController {
     public Board initialiseBoard()
     {
         Board gameBoard = new Board();
+        this.gameBoard = gameBoard;
+        return gameBoard;
+    }
+
+    public Board getGameBoard() {
         return gameBoard;
     }
 
     public Set<Coord> getValidMoves(Piece piece) {
-        Set<Coord> validMoves = piece.getValidMoves(piece.getCoord(), piece.getBaseMovement());
-        Set<Coord> allPieceCoords = gameBoard.getAllPieceCoords();
+        Set<Coord> allPieceCoords = this.gameBoard.getAllPieceCoords();
 
-        // Remove coordinates that contain pieces
-        validMoves.removeAll(allPieceCoords);
+        Set<Coord> validMoves = piece.getValidMoves(piece.getCoord(), piece.getBaseMovement(), allPieceCoords);
 
         return validMoves;
     }

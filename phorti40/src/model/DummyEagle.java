@@ -8,7 +8,7 @@ public class DummyEagle extends Eagle {
         super(tile);
     }
 
-    public Set<Coord> getValidMoves() {
-        return super.getValidMoves(new Coord(1,1), this.baseMovement);
-    }
+//    public Set<Coord> getValidMoves() {
+//        return super.getValidMoves(new Coord(1,1), this.baseMovement);
+//    }
 }

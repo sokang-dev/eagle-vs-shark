@@ -6,5 +6,6 @@ public abstract class Eagle extends Piece {
 
     public Eagle(Tile tile) {
         super(tile);
+        super.setBaseMovement(baseMovement);
     }
 }

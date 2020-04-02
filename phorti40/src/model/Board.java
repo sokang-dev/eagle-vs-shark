@@ -21,7 +21,7 @@ public class Board {
 			}
 		}
 
-		DummyShark dummyShark1 = new DummyShark(boardMatrix[2][3]);
+		DummyShark dummyShark1 = new DummyShark(boardMatrix[5][4]);
 		DummyEagle dummyEagle1 = new DummyEagle(boardMatrix[5][5]);
 	}
 

@@ -6,5 +6,6 @@ public abstract class Shark extends Piece {
 
     public Shark(Tile tile) {
         super(tile);
+        super.setBaseMovement(baseMovement);
     }
 }
