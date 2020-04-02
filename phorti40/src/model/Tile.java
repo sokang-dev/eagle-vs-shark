@@ -2,13 +2,14 @@ package model;
 
 public class Tile {
 
-    private Coord coord;
+    private int x, y;
     private Piece piece;
     private Terrain terrain;
 
     // For instantiating empty tiles
-    public Tile(Coord coord) {
-        this.coord = coord;
+    public Tile(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 
     public Tile(Piece piece)
@@ -16,8 +17,20 @@ public class Tile {
         this.piece = piece;
     }
 
-    public Coord getCoord() {
-        return this.coord;
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 
     public Piece getPiece() {

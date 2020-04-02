@@ -17,7 +17,7 @@ public class Board {
 		// Instaniate empty tiles
 		for (int i = 0; i < WIDTH; i++) {
 			for (int j = 0; j < HEIGHT; j++) {
-				boardMatrix[i][j] = new Tile(new Coord(i, j));
+				boardMatrix[i][j] = new Tile(i, j);
 			}
 		}
 
@@ -25,36 +25,12 @@ public class Board {
 		DummyEagle dummyEagle1 = new DummyEagle(boardMatrix[5][5]);
 	}
 
-//	public void removePiece(int i, int j) {
-//		this.boardMatrix[i][j].setPiece(null);
-//	}
-
-
-//	public void setPiece(Piece piece, int i, int j) {
-//		this.boardMatrix[i][j].setPiece(piece);
-//	}
-
-	public void movePiece(int oldI, int oldJ, int newI, int newJ) {
-		this.boardMatrix[newI][newJ].setPiece(this.boardMatrix[oldI][oldJ].getPiece());
-		this.boardMatrix[oldI][oldJ].setPiece(null);
+	public Tile getTile(int x, int y) {
+		return this.boardMatrix[x][y];
 	}
 	
 	public Piece getPiece(int i, int j){
 		return this.boardMatrix[i][j].getPiece();
-	}
-
-	public Set<Coord> getAllPieceCoords() {
-		Set<Coord> coords = new HashSet<>();
-
-		for (Tile[] tileArr : boardMatrix) {
-			for (Tile tile : tileArr) {
-				if (tile.getPiece() != null) {
-					coords.add(tile.getCoord());
-				}
-			}
-		}
-
-		return coords;
 	}
 
 	public int getWidth() {

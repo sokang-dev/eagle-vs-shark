@@ -24,9 +24,8 @@ public class GameController {
         return gameBoard;
     }
 
-    public Set<Coord> getValidMoves(Piece piece) {
-        Set<Coord> allPieceCoords = this.gameBoard.getAllPieceCoords();
-        Set<Coord> validMoves = piece.getValidMoves(piece.getCoord(), piece.getBaseMovement(), allPieceCoords);
+    public Set<Tile> getValidMoves(Piece piece) {
+        Set<Tile> validMoves = piece.getValidMoves(piece.getTile(), piece.getBaseMovement(), this.getGameBoard());
 
         return validMoves;
     }

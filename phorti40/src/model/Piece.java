@@ -5,13 +5,25 @@ import java.util.Set;
 
 public abstract class Piece {
 
-    protected int baseMovement;
-    private Coord coord;
     private Tile tile;
+    private int x, y;
+    protected int baseMovement;
 
     protected Piece(Tile tile) {
         this.tile = tile;
         this.tile.setPiece(this);
+    }
+
+    public Tile getTile() {
+        return this.tile;
+    }
+
+    public int getX() {
+        return this.tile.getX();
+    }
+
+    public int getY() {
+        return this.tile.getY();
     }
 
     public int getBaseMovement() {
@@ -22,29 +34,23 @@ public abstract class Piece {
         this.baseMovement = baseMovement;
     }
 
-    public Coord getCoord() {
-        return this.tile.getCoord();
-    }
+    public Set<Tile> getValidMoves(Tile currentCoord, int movement, Board board) {
 
-    public Set<Coord> getValidMoves(Coord currentCoord, int movement, Set<Coord> pieceCoords) {
+        Set<Tile> validMoves = new HashSet<>();
 
-        Set<Coord> validMoves = new HashSet<>();
+        if (movement == 0) {
+            validMoves.add(currentCoord);
+        } else {
+            // Add adjacent Tiles to validMoves with some rules
+            addAdjacentCoords(currentCoord, validMoves, board);
+            Set<Tile> recursiveValidMoves = new HashSet<>();
 
-        try {
-            if (movement == 0) {
-                validMoves.add(currentCoord);
-            } else {
-                // Add adjacent coordinates to validMoves with some rules
-                addAdjacentCoords(currentCoord, validMoves, pieceCoords);
-                Set<Coord> recursiveValidMoves = new HashSet<>();
-
-                for (Coord validMove : validMoves) {
-                    recursiveValidMoves.addAll(getValidMoves(validMove, movement - 1, pieceCoords));
-                }
-
-                validMoves.addAll(recursiveValidMoves);
+            for (Tile validMove : validMoves) {
+                recursiveValidMoves.addAll(getValidMoves(validMove, movement - 1, board));
             }
-        } catch (ArrayIndexOutOfBoundsException ignored) {}
+
+            validMoves.addAll(recursiveValidMoves);
+        }
 
         return validMoves;
     }
@@ -55,19 +61,23 @@ public abstract class Piece {
         this.tile.setPiece(this);
     }
 
-    private void addAdjacentCoords(Coord currentCoord, Set<Coord> validMoves, Set<Coord> pieceCoords) {
+    private void addAdjacentCoords(Tile currentCoord, Set<Tile> validMoves, Board board) {
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
-                // don't get diagonal coordinates
+                // Don't get diagonal Tiles
                 if (Math.abs(i) == Math.abs(j))
                     continue;
 
                 int x = currentCoord.getX() + i;
                 int y = currentCoord.getY() + j;
 
-                // don't add occupied coordinates
-                if (!pieceCoords.contains(new Coord(x, y)))
-                    validMoves.add(new Coord(x, y));
+                // Don't add out of bounds Tiles
+                if (x < 0 || x > 9 || y < 0 || y > 9)
+                    continue;
+
+                // Don't add occupied Tiles
+                if (board.getTile(x, y).getPiece() != null)
+                    validMoves.add(new Tile(x, y));
             }
         }
     }
