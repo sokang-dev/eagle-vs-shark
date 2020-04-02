@@ -33,7 +33,7 @@ public abstract class Piece {
             validMoves.add(currentCoord);
         } else {
             // Add adjacent Tiles to validMoves with some rules
-            addAdjacentCoords(currentCoord, validMoves, board);
+            addAdjacentTiles(currentCoord, validMoves, board);
             Set<Tile> recursiveValidMoves = new HashSet<>();
 
             for (Tile validMove : validMoves) {
@@ -52,7 +52,7 @@ public abstract class Piece {
         this.tile.setPiece(this);
     }
 
-    private void addAdjacentCoords(Tile currentCoord, Set<Tile> validMoves, Board board) {
+    private void addAdjacentTiles(Tile currentCoord, Set<Tile> validMoves, Board board) {
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 // Don't get diagonal Tiles
