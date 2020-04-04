@@ -3,20 +3,20 @@ package model;
 import java.util.HashSet;
 import java.util.Set;
 
+import static resources.Constants.BOARD_HEIGHT;
+import static resources.Constants.BOARD_WIDTH;
+
 public class Board {
-	public static final int WIDTH = 10;
-	public static final int HEIGHT = 10;
-	
 	private Tile[][] boardMatrix;
 
 	// Initialises board with initial piece positions
 	public Board()
 	{
-		boardMatrix = new Tile[WIDTH][HEIGHT];
+		boardMatrix = new Tile[BOARD_WIDTH][BOARD_HEIGHT];
 
 		// Instaniate empty tiles
-		for (int i = 0; i < WIDTH; i++) {
-			for (int j = 0; j < HEIGHT; j++) {
+		for (int i = 0; i < BOARD_WIDTH; i++) {
+			for (int j = 0; j < BOARD_HEIGHT; j++) {
 				boardMatrix[i][j] = new Tile(i, j);
 			}
 		}
@@ -34,10 +34,10 @@ public class Board {
 	}
 
 	public int getWidth() {
-		return WIDTH;
+		return BOARD_WIDTH;
 	}
 
 	public int getHeight() {
-		return HEIGHT;
+		return BOARD_HEIGHT;
 	}
 }

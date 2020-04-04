@@ -6,24 +6,21 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import model.*;
 import resources.Sprites;
 
+import static resources.Constants.TILE_SIZE;
+
 public class BoardView extends Application {
 
-    public static final int TILE_SIZE = 75;
     private static Sprites Sprites = new Sprites();
 
     // Grid of tiles to be displayed by the View
     GridPane visualBoard;
 
     private Parent createContent() {
-
         GameController gameController = new GameController();
         Board gameBoard = gameController.initialiseBoard();
 
@@ -40,25 +37,18 @@ public class BoardView extends Application {
     {
         for (int i = 0; i < gameBoard.getWidth(); i++) {
             for (int j = 0; j < gameBoard.getHeight(); j++) {
-                StackPane tile = new StackPane();
-
-                Rectangle tileBackground = new Rectangle(TILE_SIZE, TILE_SIZE);
-                tileBackground.setFill(Color.AZURE);
-                tileBackground.setStroke(Color.BLACK);
-
-                tile.getChildren().add(tileBackground);
+                TileView tile = new TileView(i,j);
 
                 // Set the appropriate sprite
                 // Note: best way to do this is probably a bunch of ifs
                 if (gameBoard.getPiece(i, j) instanceof DummyShark)
-                    tile.getChildren().add(new ImageView(Sprites.Shark));
+                    tile.setSprite(new DummyShark(), new ImageView(Sprites.Shark));
 
                 if (gameBoard.getPiece(i, j) instanceof DummyEagle)
-                    tile.getChildren().add(new ImageView(Sprites.Eagle));
+                    tile.setSprite(asd, new ImageView(Sprites.Eagle));
 
-
-                GridPane.setRowIndex(tile, gameBoard.getHeight() - j);
-                GridPane.setColumnIndex(tile, i);
+                GridPane.setRowIndex(tile, i);
+                GridPane.setColumnIndex(tile, j);
                 visualBoard.getChildren().addAll(tile);
             }
         }
@@ -72,7 +62,7 @@ public class BoardView extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
-	
+
 	public static void main(String[] args) {
 		launch(args);
 	}
