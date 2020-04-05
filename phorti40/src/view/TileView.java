@@ -4,7 +4,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import model.Coord;
 import model.Piece;
 import model.Tile;
 
@@ -15,11 +14,12 @@ public class TileView extends StackPane {
 
     private ImageView sprite;
     private Tile tile;
+    private Rectangle tileBackground;
 
     public TileView(int i, int j) {
-        tile = new Tile(new Coord(i,j));
+        tile = new Tile(i,j);
 
-        Rectangle tileBackground = new Rectangle(TILE_SIZE, TILE_SIZE);
+        this.tileBackground = new Rectangle(TILE_SIZE, TILE_SIZE);
         tileBackground.setFill(Color.AZURE);
         tileBackground.setStroke(Color.BLACK);
 
@@ -39,11 +39,13 @@ public class TileView extends StackPane {
     }
 
     public void setSprite(Piece piece, ImageView sprite) {
-        tile.setPiece(piece);
-
-        this.sprite = sprite;
-        this.getChildren().add(sprite);
-
-
+            tile.setPiece(piece);
+            this.sprite = sprite;
+            this.getChildren().add(sprite);
     }
+
+    public void highlightMovement() {
+        this.tileBackground.setFill(Color.ORANGE);
+    }
+
 }	

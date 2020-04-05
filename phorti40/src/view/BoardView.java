@@ -1,10 +1,10 @@
 package view;
 
 import controller.GameController;
+import controller.PieceController;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -28,12 +28,11 @@ public class BoardView extends Application {
         visualBoard = new GridPane();
         visualBoard.setPrefSize(gameBoard.getWidth() * TILE_SIZE,  gameBoard.getHeight() * TILE_SIZE);
 
-        refreshBoardView(gameBoard);
-		
+        createUITiles(gameBoard);
 		return visualBoard;
 	}
 
-	private void refreshBoardView(Board gameBoard)
+	private void createUITiles(Board gameBoard)
     {
         for (int i = 0; i < gameBoard.getWidth(); i++) {
             for (int j = 0; j < gameBoard.getHeight(); j++) {
@@ -42,14 +41,19 @@ public class BoardView extends Application {
                 // Set the appropriate sprite
                 // Note: best way to do this is probably a bunch of ifs
                 if (gameBoard.getPiece(i, j) instanceof DummyShark)
-                    tile.setSprite(new DummyShark(), new ImageView(Sprites.Shark));
+                    tile.setSprite(new DummyShark(tile.getTile()), new ImageView(Sprites.Shark));
 
                 if (gameBoard.getPiece(i, j) instanceof DummyEagle)
-                    tile.setSprite(asd, new ImageView(Sprites.Eagle));
+                    tile.setSprite(new DummyEagle(tile.getTile()), new ImageView(Sprites.Eagle));
 
                 GridPane.setRowIndex(tile, i);
                 GridPane.setColumnIndex(tile, j);
                 visualBoard.getChildren().addAll(tile);
+
+                // System.out.println(visualBoard.getChildren().get(0));
+
+                // do we need the TILE or the ENTIRE UI BOARD?
+                PieceController pieceController = new PieceController(visualBoard, gameBoard, tile);
             }
         }
     }
