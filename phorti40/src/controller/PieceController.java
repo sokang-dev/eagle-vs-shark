@@ -18,6 +18,7 @@ public class PieceController {
     Board board;
     TileView tile;
 
+    boolean tileSelected = false;
     Piece selectedPiece;
     Set<Tile> validMoves;
 
@@ -29,7 +30,11 @@ public class PieceController {
         tile.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<Event>() {
             @Override
             public void handle(Event event) {
-                selectTile();
+                if(!tileSelected) {
+                    selectTile();
+                } else {
+                    selectMovementTile(tile.getTile());
+                }
             }
         });
     }
@@ -37,15 +42,15 @@ public class PieceController {
     private void selectTile() {
         this.validMoves = calculateValidMoves();
         updateMovementTiles(Color.ORANGE);
+        this.tileSelected = true;
     }
 
     private void selectMovementTile(Tile tile) {
-         Tile destinationTile = tile;
-
          // If origin equals destination (clicking on same tile)
-         if (this.selectedPiece.getTile().equals(tile)) {
+         if (this.selectedPiece.getTile().getX() == tile.getX() && this.selectedPiece.getTile().getY() == tile.getY()) {
              updateMovementTiles(Color.AZURE);
              selectedPiece = null;
+             this.tileSelected = false;
          }
 
          // if destinationTile is not in ValidMoves
@@ -55,6 +60,8 @@ public class PieceController {
         // update model
         // updateMovementTiles(Color.AZURE);
         // refresh board
+
+        // if another piece is selected
     }
 
     private void updateMovementTiles(Color color){
