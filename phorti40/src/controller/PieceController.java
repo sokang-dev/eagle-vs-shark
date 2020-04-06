@@ -2,8 +2,10 @@ package controller;
 
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import model.Board;
 import model.Piece;
 import model.Tile;
@@ -16,6 +18,9 @@ public class PieceController {
     Board board;
     TileView tile;
 
+    Piece selectedPiece;
+    Set<Tile> validMoves;
+
     public PieceController(GridPane visualBoard, Board board, TileView tile) {
         this.visualBoard = visualBoard;
         this.board = board;
@@ -24,31 +29,59 @@ public class PieceController {
         tile.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<Event>() {
             @Override
             public void handle(Event event) {
-                Set<Tile> validMoves = calculateTilesToHighlight();
-                for(Tile validMove : validMoves) {
-                    int x = validMove.getX();
-                    int y = validMove.getY();
-
-                    // Iterate every tile on the board
-                    // Get their X and Y coordinates
-                    // If it matches the validMove, highlight the TileView at those coordinates
-                    for(int i = 0; i < 100; i++) {
-                            TileView tView = (TileView) visualBoard.getChildren().get(i);
-                            if(tView.getTile().getX() == x && tView.getTile().getY() == y) {
-                                tView.highlightMovement();
-                            }
-                    }
-                }
+                selectTile();
             }
         });
     }
 
-    private Set<Tile> calculateTilesToHighlight() {
+    private void selectTile() {
+        this.validMoves = calculateValidMoves();
+        updateMovementTiles(Color.ORANGE);
+    }
+
+    private void selectMovementTile(Tile tile) {
+         Tile destinationTile = tile;
+
+         // If origin equals destination (clicking on same tile)
+         if (this.selectedPiece.getTile().equals(tile)) {
+             updateMovementTiles(Color.AZURE);
+             selectedPiece = null;
+         }
+
+         // if destinationTile is not in ValidMoves
+         // updateMovementTiles(Color.AZURE);
+
+        // if destinationTile is in validMoves
+        // update model
+        // updateMovementTiles(Color.AZURE);
+        // refresh board
+    }
+
+    private void updateMovementTiles(Color color){
+        // Gets the valid moves of the selectedPiece and highlights them
+        if (validMoves.size() > 0) {
+            for (Tile t : validMoves) {
+                TileView validTile;
+
+                int validX = t.getX();
+                int validY = t.getY();
+
+                for (Node node : visualBoard.getChildren()) {
+                    if (GridPane.getRowIndex(node) == validX && GridPane.getColumnIndex(node) == validY) {
+                        validTile = (TileView) node;
+                        validTile.highlightMovement(color);
+                    }
+                }
+            }
+        }
+    }
+
+    private Set<Tile> calculateValidMoves() {
         int x = tile.getTile().getX();
         int y = tile.getTile().getY();
 
-        Piece selectedPiece = board.getPiece(x, y);
-        Set<Tile> validMoves = selectedPiece.getValidMoves(tile.getTile(), selectedPiece.getBaseMovement(), board);
+        this.selectedPiece = board.getPiece(x, y);
+        this.validMoves = selectedPiece.getValidMoves(tile.getTile(), selectedPiece.getBaseMovement(), board);
 
         return validMoves;
     }
