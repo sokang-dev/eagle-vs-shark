@@ -64,6 +64,8 @@ public class PieceController {
         if (board.getPiece(destinationTile.getX(), destinationTile.getY()) instanceof Piece) {
             updateMovementTiles(Color.AZURE);
             this.tileSelected = false;
+
+            board.printBoard();
         }
 
         // TODO: if destinationTile is NOT in ValidMoves -> updateMovementTiles(Color.AZURE); AND this.tileSelected = false;
@@ -75,8 +77,15 @@ public class PieceController {
                 int validY = t.getY();
 
                 if (destinationTile.getX() == validX && destinationTile.getY() == validY) {
+                    board.printBoard();
+
                     // Move the selected piece to the destination tile's coordinates
-                    selectedPiece.move(t);
+                    selectedPiece.move(board.getTile(validX, validY));
+
+                    System.out.println("Moved from " + selectedPiece.getTile().getX() + ", " + selectedPiece.getTile().getY());
+                    System.out.println("To " + validX + ", " + validY + "\n\n");
+
+                    board.printBoard();
 
                     // TODO: Refresh board
                     gameController.refreshBoard();
