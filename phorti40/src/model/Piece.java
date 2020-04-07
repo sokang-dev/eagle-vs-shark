@@ -46,7 +46,7 @@ public abstract class Piece {
         return validMoves;
     }
 
-    protected void move(Tile tile) {
+    public void move(Tile tile) {
         this.tile.removePiece();
         this.tile = tile;
         this.tile.setPiece(this);

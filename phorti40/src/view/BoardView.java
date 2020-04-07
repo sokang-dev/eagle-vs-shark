@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import model.*;
+import resources.Constants;
 import resources.Sprites;
 
 import static resources.Constants.TILE_SIZE;
@@ -19,24 +20,24 @@ public class BoardView extends Application {
 
     // Grid of tiles to be displayed by the View
     GridPane visualBoard;
+    GameController gameController;
 
     private Parent createContent() {
-        GameController gameController = new GameController();
+        this.gameController = new GameController();
         Board gameBoard = gameController.initialiseBoard();
 
         // Gridpane setup
         visualBoard = new GridPane();
-        visualBoard.setPrefSize(gameBoard.getWidth() * TILE_SIZE,  gameBoard.getHeight() * TILE_SIZE);
+        visualBoard.setPrefSize(Constants.BOARD_WIDTH * TILE_SIZE, Constants.BOARD_HEIGHT * TILE_SIZE);
 
         createUITiles(gameBoard);
-		return visualBoard;
-	}
+        return visualBoard;
+    }
 
-	private void createUITiles(Board gameBoard)
-    {
-        for (int i = 0; i < gameBoard.getWidth(); i++) {
-            for (int j = 0; j < gameBoard.getHeight(); j++) {
-                TileView tile = new TileView(i,j);
+    private void createUITiles(Board gameBoard) {
+        for (int i = 0; i < Constants.BOARD_WIDTH; i++) {
+            for (int j = 0; j < Constants.BOARD_HEIGHT; j++) {
+                TileView tile = new TileView(i, j);
 
                 // Set the appropriate sprite
                 // Note: best way to do this is probably a bunch of ifs
@@ -49,26 +50,22 @@ public class BoardView extends Application {
                 GridPane.setRowIndex(tile, i);
                 GridPane.setColumnIndex(tile, j);
                 visualBoard.getChildren().addAll(tile);
-
-                // System.out.println(visualBoard.getChildren().get(0));
-
-                // do we need the TILE or the ENTIRE UI BOARD?
-                PieceController pieceController = new PieceController(visualBoard, gameBoard, tile);
             }
         }
+        PieceController pieceController = new PieceController(visualBoard, gameController);
     }
-	
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		Scene scene = new Scene(createContent());
-		primaryStage.setTitle("4040 OOSP");
-		
-		primaryStage.setScene(scene);
-		primaryStage.show();
-	}
 
-	public static void main(String[] args) {
-		launch(args);
-	}
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        Scene scene = new Scene(createContent());
+        primaryStage.setTitle("4040 OOSP");
+
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 
 }
