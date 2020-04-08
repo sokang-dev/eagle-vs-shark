@@ -44,6 +44,10 @@ public class TileView extends StackPane {
             this.getChildren().add(sprite);
     }
 
+    public void removeSprite() {
+        this.sprite.imageProperty().set(null);
+    }
+
     public void highlightMovement(Color color) {
         this.tileBackground.setFill(color);
     }

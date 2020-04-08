@@ -53,10 +53,6 @@ public class GameController {
         PieceController pieceController = new PieceController(visualBoard, this);
     }
 
-    public void refreshBoard() {
-
-    }
-
     public Board getGameBoard() {
         return this.gameBoard;
     }

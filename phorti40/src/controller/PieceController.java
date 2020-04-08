@@ -2,12 +2,12 @@ package controller;
 
 import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import model.Board;
-import model.Piece;
-import model.Tile;
+import model.*;
+import resources.Sprites;
 import view.TileView;
 
 import java.util.Set;
@@ -45,15 +45,9 @@ public class PieceController {
         });
     }
 
-    private void calculateValidMoves(TileView tile) {
-        int x = tile.getTile().getX();
-        int y = tile.getTile().getY();
-
-        this.selectedPiece = board.getPiece(x, y);
-        this.validMoves = selectedPiece.getValidMoves(tile.getTile(), selectedPiece.getBaseMovement(), board);
-    }
-
     private void selectTile(TileView tile) {
+        // TODO: catch error for when a non Piece is selected
+
         calculateValidMoves(tile);
         updateMovementTiles(Color.ORANGE);
         this.tileSelected = true;
@@ -80,15 +74,16 @@ public class PieceController {
                     board.printBoard();
 
                     // Move the selected piece to the destination tile's coordinates
+                    int originX = selectedPiece.getTile().getX();
+                    int originY = selectedPiece.getTile().getY();
+
                     selectedPiece.move(board.getTile(validX, validY));
+                    updateSprites(originX, originY, validX, validY);
 
-                    System.out.println("Moved from " + selectedPiece.getTile().getX() + ", " + selectedPiece.getTile().getY());
+                    // Utility stuff
+                    System.out.println("Moved from " + originX + ", " + originY);
                     System.out.println("To " + validX + ", " + validY + "\n\n");
-
                     board.printBoard();
-
-                    // TODO: Refresh board
-                    gameController.refreshBoard();
 
                     updateMovementTiles(Color.AZURE);
                     selectedPiece = null;
@@ -96,6 +91,15 @@ public class PieceController {
                 }
             }
         }
+    }
+
+    private void calculateValidMoves(TileView selectedTile) {
+        int x = selectedTile.getTile().getX();
+        int y = selectedTile.getTile().getY();
+
+        // Store the selectedPiece and it's valid moves
+        this.selectedPiece = board.getPiece(x, y);
+        this.validMoves = selectedPiece.getValidMoves(selectedTile.getTile(), selectedPiece.getBaseMovement(), board);
     }
 
     private void updateMovementTiles(Color color) {
@@ -116,4 +120,34 @@ public class PieceController {
             }
         }
     }
+
+    private void updateSprites(int originX, int originY, int destinationX, int destinationY) {
+        for (Node node : visualBoard.getChildren()) {
+            TileView selectedTileView;
+
+            if (GridPane.getRowIndex(node) == originX && GridPane.getColumnIndex(node) == originY) {
+                // Remove sprite at the origin
+                selectedTileView = (TileView) node;
+                selectedTileView.removeSprite();
+            }
+
+            if (GridPane.getRowIndex(node) == destinationX && GridPane.getColumnIndex(node) == destinationY) {
+                selectedTileView = (TileView) node;
+                // The coordinates of the selectedTileView
+                int x = selectedTileView.getTile().getX();
+                int y = selectedTileView.getTile().getY();
+
+                if (board.getPiece(x, y) instanceof DummyShark)
+                    selectedTileView.setSprite(board.getPiece(x, y), new ImageView(Sprites.Shark));
+                if (board.getPiece(x, y) instanceof DummyEagle)
+                    selectedTileView.setSprite(board.getPiece(x, y), new ImageView(Sprites.Eagle));
+            }
+        }
+    }
+
+    // TODO: Make convenience method??
+    public void getTileView() {
+
+    }
+
 }
