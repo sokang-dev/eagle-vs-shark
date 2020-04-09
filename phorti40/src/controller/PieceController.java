@@ -17,7 +17,7 @@ public class PieceController {
     GameController gameController;
     Board board;
 
-    boolean tileSelected = false;
+    boolean pieceClicked = false;
     Piece selectedPiece;
     Set<Tile> validMoves;
 
@@ -34,7 +34,7 @@ public class PieceController {
                     if (node.getBoundsInParent().contains(event.getX(), event.getY())) {
                         TileView tile = (TileView) node;
 
-                        if (!tileSelected) {
+                        if (!pieceClicked) {
                             selectTile(tile);
                         } else {
                             selectMovementTile(tile.getTile());
@@ -47,17 +47,20 @@ public class PieceController {
 
     private void selectTile(TileView tile) {
         // TODO: catch error for when a non Piece is selected
-
-        calculateValidMoves(tile);
-        updateMovementTiles(Color.ORANGE);
-        this.tileSelected = true;
+        try {
+            calculateValidMoves(tile);
+            updateMovementTiles(Color.ORANGE);
+            this.pieceClicked = true;
+        } catch (Exception e) {
+            System.out.printf("Non piece selected!\n");
+        }
     }
 
     private void selectMovementTile(Tile destinationTile) {
         // If the selected destinationTile is another piece
         if (board.getPiece(destinationTile.getX(), destinationTile.getY()) instanceof Piece) {
             updateMovementTiles(Color.AZURE);
-            this.tileSelected = false;
+            this.pieceClicked = false;
 
             board.printBoard();
         }
@@ -67,27 +70,15 @@ public class PieceController {
         // If destinationTile is in validMoves
         else {
             for (Tile t : validMoves) {
-                int validX = t.getX();
-                int validY = t.getY();
-
-                if (destinationTile.getX() == validX && destinationTile.getY() == validY) {
-                    board.printBoard();
-
-                    // Move the selected piece to the destination tile's coordinates
+                if (destinationTile.getX() == t.getX() && destinationTile.getY() == t.getY()) {
                     int originX = selectedPiece.getTile().getX();
                     int originY = selectedPiece.getTile().getY();
 
-                    selectedPiece.move(board.getTile(validX, validY));
-                    updateSprites(originX, originY, validX, validY);
+                    // Move the selected piece to the destination tile's coordinates
+                    selectedPiece.move(board.getTile(t.getX(), t.getY()));
+                    refreshBoard(originX, originY, t.getX(), t.getY());
 
-                    // Utility stuff
-                    System.out.println("Moved from " + originX + ", " + originY);
-                    System.out.println("To " + validX + ", " + validY + "\n\n");
                     board.printBoard();
-
-                    updateMovementTiles(Color.AZURE);
-                    selectedPiece = null;
-                    this.tileSelected = false;
                 }
             }
         }
@@ -106,34 +97,34 @@ public class PieceController {
         // Looks at the validMoves of the selectedPiece and highlights them
         if (validMoves.size() > 0) {
             for (Tile t : validMoves) {
-                TileView validTile;
+                TileView selectedTile;
 
                 int validX = t.getX();
                 int validY = t.getY();
 
                 for (Node node : visualBoard.getChildren()) {
                     if (GridPane.getRowIndex(node) == validX && GridPane.getColumnIndex(node) == validY) {
-                        validTile = (TileView) node;
-                        validTile.highlightMovement(color);
+                        selectedTile = (TileView) node;
+                        selectedTile.highlightMovement(color);
                     }
                 }
             }
         }
     }
 
-    private void updateSprites(int originX, int originY, int destinationX, int destinationY) {
+    private void refreshBoard(int originX, int originY, int destinationX, int destinationY) {
         for (Node node : visualBoard.getChildren()) {
             TileView selectedTileView;
 
+            // Remove sprite at the origin
             if (GridPane.getRowIndex(node) == originX && GridPane.getColumnIndex(node) == originY) {
-                // Remove sprite at the origin
                 selectedTileView = (TileView) node;
                 selectedTileView.removeSprite();
             }
 
+            // The coordinates of the selectedTileView
             if (GridPane.getRowIndex(node) == destinationX && GridPane.getColumnIndex(node) == destinationY) {
                 selectedTileView = (TileView) node;
-                // The coordinates of the selectedTileView
                 int x = selectedTileView.getTile().getX();
                 int y = selectedTileView.getTile().getY();
 
@@ -143,11 +134,13 @@ public class PieceController {
                     selectedTileView.setSprite(board.getPiece(x, y), new ImageView(Sprites.Eagle));
             }
         }
+        updateMovementTiles(Color.AZURE);
+        selectedPiece = null;
+        this.pieceClicked = false;
     }
 
     // TODO: Make convenience method??
     public void getTileView() {
 
     }
-
 }

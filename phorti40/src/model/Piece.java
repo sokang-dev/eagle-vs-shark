@@ -37,9 +37,9 @@ public abstract class Piece {
             Set<Tile> recursiveValidMoves = new HashSet<>();
 
             for (Tile validMove : validMoves) {
+                // TODO: Corner tiles being added here are duplicate fsr
                 recursiveValidMoves.addAll(getValidMoves(validMove, movement - 1, board));
             }
-
             validMoves.addAll(recursiveValidMoves);
         }
 
