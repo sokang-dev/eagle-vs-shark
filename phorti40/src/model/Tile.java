@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 public class Tile {
 
     private int x, y;
@@ -41,5 +43,18 @@ public class Tile {
                 "x=" + x +
                 ", y=" + y +
                 '}';
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (! (obj instanceof Tile)) return false;
+
+        Tile tile = (Tile) obj;
+        return this.x == tile.x && this.y == tile.y;
     }
 }

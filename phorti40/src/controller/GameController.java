@@ -19,6 +19,11 @@ public class GameController {
     private Board gameBoard;
     // Visual board
     private GridPane visualBoard;
+    private BoardView boardView;
+
+    public GameController(BoardView boardView){
+        this.boardView = boardView;
+    }
 
     // Creates model
     public void initialiseBoard() {
@@ -56,4 +61,9 @@ public class GameController {
     public Board getGameBoard() {
         return this.gameBoard;
     }
+
+    public BoardView getBoardView() {
+        return this.boardView;
+    }
+
 }
