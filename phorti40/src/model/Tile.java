@@ -14,8 +14,7 @@ public class Tile {
         this.y = y;
     }
 
-    public Tile(Piece piece)
-    {
+    public Tile(Piece piece) {
         this.piece = piece;
     }
 
@@ -35,7 +34,9 @@ public class Tile {
         this.piece = piece;
     }
 
-    public void removePiece() { this.piece = null; }
+    public void removePiece() {
+        this.piece = null;
+    }
 
     @Override
     public String toString() {
@@ -52,7 +53,7 @@ public class Tile {
 
     @Override
     public boolean equals(Object obj) {
-        if (! (obj instanceof Tile)) return false;
+        if (!(obj instanceof Tile)) return false;
 
         Tile tile = (Tile) obj;
         return this.x == tile.x && this.y == tile.y;

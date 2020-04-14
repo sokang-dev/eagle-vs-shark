@@ -17,7 +17,7 @@ public class TileView extends StackPane {
     private Rectangle tileBackground;
 
     public TileView(int i, int j) {
-        tile = new Tile(i,j);
+        tile = new Tile(i, j);
 
         this.tileBackground = new Rectangle(TILE_SIZE, TILE_SIZE);
         tileBackground.setFill(Color.AZURE);
@@ -34,14 +34,10 @@ public class TileView extends StackPane {
         this.tile = tile;
     }
 
-    public ImageView getSprite() {
-        return sprite;
-    }
-
     public void setSprite(Piece piece, ImageView sprite) {
-            tile.setPiece(piece);
-            this.sprite = sprite;
-            this.getChildren().add(sprite);
+        tile.setPiece(piece);
+        this.sprite = sprite;
+        this.getChildren().add(sprite);
     }
 
     public void removeSprite() {

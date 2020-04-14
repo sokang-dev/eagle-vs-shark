@@ -43,12 +43,13 @@ public class PieceController {
     }
 
     private void selectTile(TileView tile) {
-        try {
+        // If tile is empty
+        if (board.getPiece(tile.getTile().getX(), tile.getTile().getY()) == null) {
+            System.out.println("Non piece selected");
+        } else {
             calculateValidMoves(tile);
             gameController.getBoardView().updateMovementTiles(this.validMoves, Color.ORANGE);
             this.pieceClicked = true;
-        } catch (Exception e) {
-            System.out.printf("Non piece selected!\n");
         }
     }
 
