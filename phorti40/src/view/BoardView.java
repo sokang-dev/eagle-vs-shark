@@ -1,5 +1,6 @@
 package view;
 
+import com.sun.tools.internal.jxc.ap.Const;
 import controller.GameController;
 import javafx.application.Application;
 import javafx.scene.Node;
@@ -13,35 +14,26 @@ import model.Board;
 import model.DummyEagle;
 import model.DummyShark;
 import model.Tile;
+import resources.Constants;
 import resources.Sprites;
 
 import java.util.Set;
 
+import static resources.Constants.TILE_SIZE;
+
 public class BoardView extends GridPane {
 
     private static Sprites Sprites = new Sprites();
-    GameController gameController;
-    GridPane visualBoard;
-    Board board;
+    private GameController gameController;
+    private Board board;
 
     public BoardView() {
-        this.gameController = new GameController(this);
-        // creates model
-        gameController.initialiseBoard();
-        // creates visual board
-        this.visualBoard = gameController.createBoard();
-        // populates visual board
-        gameController.populateUITiles();
-
-        this.board = gameController.getGameBoard();
-    }
-
-    private Parent createContent() {
-        return visualBoard;
+        super();
+        this.setPrefSize(Constants.BOARD_WIDTH * TILE_SIZE, Constants.BOARD_HEIGHT * TILE_SIZE);
     }
 
     public void refreshBoard(Board gameBoard, int originX, int originY, int destinationX, int destinationY, Set<Tile> validMoves) {
-        for (Node node : visualBoard.getChildren()) {
+        for (Node node : this.getChildren()) {
             TileView selectedTileView;
 
             // Remove sprite at the original coordinate
@@ -55,10 +47,10 @@ public class BoardView extends GridPane {
                 int x = selectedTileView.getTile().getX();
                 int y = selectedTileView.getTile().getY();
 
-                if (board.getPiece(x, y) instanceof DummyShark)
-                    selectedTileView.setSprite(board.getPiece(x, y), new ImageView(Sprites.Shark));
-                if (board.getPiece(x, y) instanceof DummyEagle)
-                    selectedTileView.setSprite(board.getPiece(x, y), new ImageView(Sprites.Eagle));
+                if (gameBoard.getPiece(x, y) instanceof DummyShark)
+                    selectedTileView.setSprite(gameBoard.getPiece(x, y), new ImageView(Sprites.Shark));
+                if (gameBoard.getPiece(x, y) instanceof DummyEagle)
+                    selectedTileView.setSprite(gameBoard.getPiece(x, y), new ImageView(Sprites.Eagle));
             }
         }
         updateMovementTiles(validMoves, Color.AZURE);
@@ -73,7 +65,7 @@ public class BoardView extends GridPane {
                 int validX = t.getX();
                 int validY = t.getY();
 
-                for (Node node : visualBoard.getChildren()) {
+                for (Node node : this.getChildren()) {
                     if (GridPane.getRowIndex(node) == validX && GridPane.getColumnIndex(node) == validY) {
                         selectedTile = (TileView) node;
                         selectedTile.highlightMovement(color);

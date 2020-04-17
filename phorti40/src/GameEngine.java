@@ -1,9 +1,9 @@
+import controller.GameController;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import view.BoardView;
 
 public class GameEngine extends Application {
 
@@ -21,9 +21,9 @@ public class GameEngine extends Application {
 
     private Parent createContent() {
         BorderPane pane = new BorderPane();
-        BoardView boardView = new BoardView();
+        GameController gameController = new GameController();
 
-        pane.setCenter(boardView);
+        pane.setCenter(gameController.getBoardView());
 
         return pane;
     }
