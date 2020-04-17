@@ -17,7 +17,7 @@ import resources.Sprites;
 
 import java.util.Set;
 
-public class BoardView extends Application {
+public class BoardView extends GridPane {
 
     private static Sprites Sprites = new Sprites();
     GameController gameController;
@@ -38,18 +38,6 @@ public class BoardView extends Application {
 
     private Parent createContent() {
         return visualBoard;
-    }
-
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        Scene scene = new Scene(createContent());
-        primaryStage.setTitle("4040 OOSP");
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 
     public void refreshBoard(Board gameBoard, int originX, int originY, int destinationX, int destinationY, Set<Tile> validMoves) {
