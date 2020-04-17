@@ -1,9 +1,8 @@
 package controller;
 
-import model.Board;
-import model.DummyEagle;
-import model.DummyShark;
-import model.Tile;
+import model.*;
+
+import java.util.Set;
 
 public class GameController {
 
@@ -17,6 +16,17 @@ public class GameController {
     public Board initialiseBoard()
     {
         Board gameBoard = new Board();
+        this.gameBoard = gameBoard;
         return gameBoard;
+    }
+
+    public Board getGameBoard() {
+        return gameBoard;
+    }
+
+    public Set<Tile> getValidMoves(Piece piece) {
+        Set<Tile> validMoves = piece.getValidMoves(piece.getTile(), piece.getBaseMovement(), this.getGameBoard());
+
+        return validMoves;
     }
 }

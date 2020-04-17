@@ -1,5 +1,5 @@
 package model;
 
-public class Terrain extends Tile  {
+public class Terrain  {
 
 }
