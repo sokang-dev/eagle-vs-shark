@@ -2,79 +2,97 @@ package view;
 
 import controller.GameController;
 import javafx.application.Application;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import model.*;
+import model.Board;
+import model.DummyEagle;
+import model.DummyShark;
+import model.Tile;
 import resources.Sprites;
+
+import java.util.Set;
 
 public class BoardView extends Application {
 
-    public static final int TILE_SIZE = 75;
     private static Sprites Sprites = new Sprites();
-
-    // Grid of tiles to be displayed by the View
+    GameController gameController;
     GridPane visualBoard;
+    Board board;
+
+    public BoardView() {
+        this.gameController = new GameController(this);
+        // creates model
+        gameController.initialiseBoard();
+        // creates visual board
+        this.visualBoard = gameController.createBoard();
+        // populates visual board
+        gameController.populateUITiles();
+
+        this.board = gameController.getGameBoard();
+    }
 
     private Parent createContent() {
+        return visualBoard;
+    }
 
-        GameController gameController = new GameController();
-        Board gameBoard = gameController.initialiseBoard();
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        Scene scene = new Scene(createContent());
+        primaryStage.setTitle("4040 OOSP");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
 
-        // Gridpane setup
-        visualBoard = new GridPane();
-        visualBoard.setPrefSize(gameBoard.getWidth() * TILE_SIZE,  gameBoard.getHeight() * TILE_SIZE);
+    public static void main(String[] args) {
+        launch(args);
+    }
 
-        refreshBoardView(gameBoard);
-		
-		return visualBoard;
-	}
+    public void refreshBoard(Board gameBoard, int originX, int originY, int destinationX, int destinationY, Set<Tile> validMoves) {
+        for (Node node : visualBoard.getChildren()) {
+            TileView selectedTileView;
 
-	private void refreshBoardView(Board gameBoard)
-    {
-        for (int i = 0; i < gameBoard.getWidth(); i++) {
-            for (int j = 0; j < gameBoard.getHeight(); j++) {
-                StackPane tile = new StackPane();
+            // Remove sprite at the original coordinate
+            if (GridPane.getRowIndex(node) == originX && GridPane.getColumnIndex(node) == originY) {
+                selectedTileView = (TileView) node;
+                selectedTileView.removeSprite();
+            }
 
-                Rectangle tileBackground = new Rectangle(TILE_SIZE, TILE_SIZE);
-                tileBackground.setFill(Color.AZURE);
-                tileBackground.setStroke(Color.BLACK);
+            if (GridPane.getRowIndex(node) == destinationX && GridPane.getColumnIndex(node) == destinationY) {
+                selectedTileView = (TileView) node;
+                int x = selectedTileView.getTile().getX();
+                int y = selectedTileView.getTile().getY();
 
-                tile.getChildren().add(tileBackground);
+                if (board.getPiece(x, y) instanceof DummyShark)
+                    selectedTileView.setSprite(board.getPiece(x, y), new ImageView(Sprites.Shark));
+                if (board.getPiece(x, y) instanceof DummyEagle)
+                    selectedTileView.setSprite(board.getPiece(x, y), new ImageView(Sprites.Eagle));
+            }
+        }
+        updateMovementTiles(validMoves, Color.AZURE);
+    }
 
-                // Set the appropriate sprite
-                // Note: best way to do this is probably a bunch of ifs
-                if (gameBoard.getPiece(i, j) instanceof DummyShark)
-                    tile.getChildren().add(new ImageView(Sprites.Shark));
+    public void updateMovementTiles(Set<Tile> tiles, Color color) {
+        // Looks at the validMoves of the selectedPiece and highlights them
+        if (tiles.size() > 0) {
+            for (Tile t : tiles) {
+                TileView selectedTile;
 
-                if (gameBoard.getPiece(i, j) instanceof DummyEagle)
-                    tile.getChildren().add(new ImageView(Sprites.Eagle));
+                int validX = t.getX();
+                int validY = t.getY();
 
-
-                GridPane.setRowIndex(tile, gameBoard.getHeight() - j);
-                GridPane.setColumnIndex(tile, i);
-                visualBoard.getChildren().addAll(tile);
+                for (Node node : visualBoard.getChildren()) {
+                    if (GridPane.getRowIndex(node) == validX && GridPane.getColumnIndex(node) == validY) {
+                        selectedTile = (TileView) node;
+                        selectedTile.highlightMovement(color);
+                    }
+                }
             }
         }
     }
-	
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		Scene scene = new Scene(createContent());
-		primaryStage.setTitle("4040 OOSP");
-		
-		primaryStage.setScene(scene);
-		primaryStage.show();
-	}
-	
-	public static void main(String[] args) {
-		launch(args);
-	}
 
 }

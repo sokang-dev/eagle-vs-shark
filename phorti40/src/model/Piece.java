@@ -1,6 +1,7 @@
 package model;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public abstract class Piece {
@@ -37,16 +38,16 @@ public abstract class Piece {
             Set<Tile> recursiveValidMoves = new HashSet<>();
 
             for (Tile validMove : validMoves) {
+                // TODO: Corner tiles being added here are duplicate fsr
                 recursiveValidMoves.addAll(getValidMoves(validMove, movement - 1, board));
             }
-
             validMoves.addAll(recursiveValidMoves);
         }
 
         return validMoves;
     }
 
-    protected void move(Tile tile) {
+    public void move(Tile tile) {
         this.tile.removePiece();
         this.tile = tile;
         this.tile.setPiece(this);
