@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class AttackEagle extends Eagle {
+
     public AttackEagle(Tile tile) {
         super(tile);
     }
