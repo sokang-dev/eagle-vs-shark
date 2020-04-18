@@ -64,7 +64,7 @@ public abstract class Piece {
                 int y = currentCoord.getY() + j;
 
                 // Don't add out of bounds Tiles
-                if (x < 0 || x > 9 || y < 0 || y > 9)
+                if (Tile.isOutOfBounds(x, y))
                     continue;
 
                 // Add only unoccupied Tiles

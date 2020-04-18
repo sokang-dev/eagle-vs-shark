@@ -21,13 +21,16 @@ public class AttackEagle extends Eagle {
                 if (i == 0 && j == 0)
                     continue;
 
-                Tile validTile = new Tile(currentCoord.getX() + i, currentCoord.getY() + j);
+                int x = currentCoord.getX() + i;
+                int y = currentCoord.getY() + j;
 
-                while (!validTile.isOutOfBounds()) {
-                    validMoves.add(new Tile(validTile.getX(), validTile.getY()));
+                while (!Tile.isOutOfBounds(x, y)) {
+                    // Add only unoccupied Tiles
+                    if (board.getTile(x, y).getPiece() == null)
+                        validMoves.add(new Tile(x, y));
 
-                    validTile.setX(validTile.getX() + i);
-                    validTile.setY(validTile.getY() + j);
+                    x += i;
+                    y += j;
                 }
             }
         }

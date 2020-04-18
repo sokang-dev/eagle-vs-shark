@@ -6,14 +6,14 @@ import java.util.Objects;
 
 public class Tile {
 
-    private int _x, _y;
+    private int x, y;
     private Piece piece;
     private Terrain terrain;
 
     // For instantiating empty tiles
     public Tile(int x, int y) {
-        _x = x;
-        _y = y;
+        this.x = x;
+        this.y = y;
     }
 
     public Tile(Piece piece) {
@@ -21,16 +21,16 @@ public class Tile {
     }
 
     public int getX() {
-        return _x;
+        return this.x;
     }
 
-    public void setX(int x) { _x = x; }
+    public void setX(int x) { this.x = x; }
 
     public int getY() {
-        return _y;
+        return this.y;
     }
 
-    public void setY(int y) { _y = y; }
+    public void setY(int y) { this.y = y; }
 
     public Piece getPiece() {
         return piece;
@@ -44,21 +44,21 @@ public class Tile {
         this.piece = null;
     }
 
-    public boolean isOutOfBounds() {
-        return (_x < 0 || _x > Constants.BOARD_WIDTH || _y < 0 || _y > Constants.BOARD_HEIGHT);
+    public static boolean isOutOfBounds(int x, int y) {
+        return (x < 0 || x > Constants.BOARD_WIDTH - 1 || y < 0 || y > Constants.BOARD_HEIGHT - 1);
     }
 
     @Override
     public String toString() {
         return "Tile{" +
-                "x=" + _x +
-                ", y=" + _y +
+                "x=" + this.x +
+                ", y=" + this.y +
                 '}';
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(_x, _y);
+        return Objects.hash(this.x, this.y);
     }
 
     @Override
@@ -66,6 +66,6 @@ public class Tile {
         if (!(obj instanceof Tile)) return false;
 
         Tile tile = (Tile) obj;
-        return _x == tile.getX() && _y == tile.getY();
+        return this.x == tile.getX() && this.y == tile.getY();
     }
 }
