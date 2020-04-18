@@ -9,10 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import model.Board;
-import model.DummyEagle;
-import model.DummyShark;
-import model.Tile;
+import model.*;
 import resources.Sprites;
 
 import java.util.Set;
@@ -70,6 +67,9 @@ public class BoardView extends Application {
                 if (board.getPiece(x, y) instanceof DummyShark)
                     selectedTileView.setSprite(board.getPiece(x, y), new ImageView(Sprites.Shark));
                 if (board.getPiece(x, y) instanceof DummyEagle)
+                    selectedTileView.setSprite(board.getPiece(x, y), new ImageView(Sprites.Eagle));
+
+                if (board.getPiece(x,y) instanceof AttackEagle)
                     selectedTileView.setSprite(board.getPiece(x, y), new ImageView(Sprites.Eagle));
             }
         }

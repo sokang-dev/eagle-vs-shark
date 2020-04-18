@@ -50,6 +50,9 @@ public class GameController {
                 if (gameBoard.getPiece(i, j) instanceof DummyEagle)
                     tile.setSprite(new DummyEagle(tile.getTile()), new ImageView(Sprites.Eagle));
 
+                if (gameBoard.getPiece(i, j) instanceof AttackEagle)
+                    tile.setSprite(new AttackEagle(tile.getTile()), new ImageView(Sprites.Eagle));
+
                 GridPane.setRowIndex(tile, i);
                 GridPane.setColumnIndex(tile, j);
                 visualBoard.getChildren().addAll(tile);

@@ -1,17 +1,19 @@
 package model;
 
+import resources.Constants;
+
 import java.util.Objects;
 
 public class Tile {
 
-    private int x, y;
+    private int _x, _y;
     private Piece piece;
     private Terrain terrain;
 
     // For instantiating empty tiles
     public Tile(int x, int y) {
-        this.x = x;
-        this.y = y;
+        _x = x;
+        _y = y;
     }
 
     public Tile(Piece piece) {
@@ -19,12 +21,16 @@ public class Tile {
     }
 
     public int getX() {
-        return x;
+        return _x;
     }
 
+    public void setX(int x) { _x = x; }
+
     public int getY() {
-        return y;
+        return _y;
     }
+
+    public void setY(int y) { _y = y; }
 
     public Piece getPiece() {
         return piece;
@@ -38,17 +44,21 @@ public class Tile {
         this.piece = null;
     }
 
+    public boolean isOutOfBounds() {
+        return (_x < 0 || _x > Constants.BOARD_WIDTH || _y < 0 || _y > Constants.BOARD_HEIGHT);
+    }
+
     @Override
     public String toString() {
         return "Tile{" +
-                "x=" + x +
-                ", y=" + y +
+                "x=" + _x +
+                ", y=" + _y +
                 '}';
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(x, y);
+        return Objects.hash(_x, _y);
     }
 
     @Override
@@ -56,6 +66,6 @@ public class Tile {
         if (!(obj instanceof Tile)) return false;
 
         Tile tile = (Tile) obj;
-        return this.x == tile.x && this.y == tile.y;
+        return _x == tile.getX() && _y == tile.getY();
     }
 }
