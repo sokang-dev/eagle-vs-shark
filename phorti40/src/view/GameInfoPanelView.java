@@ -1,7 +1,11 @@
 package view;
 
+import controller.ActionsRemainingPropertyController;
+import controller.CurrentPlayerPropertyController;
 import controller.EndTurnButtonController;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,6 +23,9 @@ public class GameInfoPanelView extends VBox {
         super();
         this.gameInfoPanel = gameInfoPanel;
         drawGameInfoPanel();
+
+        gameInfoPanel.getActionsRemainingProperty().addListener(new ActionsRemainingPropertyController(this));
+        gameInfoPanel.getCurrentPlayerProperty().addListener(new CurrentPlayerPropertyController(this, gameInfoPanel));
     }
 
     private void drawGameInfoPanel(){
@@ -34,13 +41,16 @@ public class GameInfoPanelView extends VBox {
         this.getChildren().addAll(playerTurn, timeRemaining, actionsRemaining, endTurnButton);
     }
 
-    public void updateGameInfoPanel(){
-        Platform.runLater(() -> actionsRemaining.setText("Actions Left: " + gameInfoPanel.getActionsRemaining()));
-        Platform.runLater(() -> playerTurn.setText("Player Turn: " + gameInfoPanel.getCurrentPlayerName()));
-    }
-
     public GameInfoPanel getGameInfoPanel(){
         return gameInfoPanel;
+    }
+
+    public Label getActionsRemaining() {
+        return actionsRemaining;
+    }
+
+    public Label getPlayerTurn() {
+        return playerTurn;
     }
 }
 

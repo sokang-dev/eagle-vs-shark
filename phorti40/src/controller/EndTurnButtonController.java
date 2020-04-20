@@ -17,6 +17,5 @@ public class EndTurnButtonController implements EventHandler {
     @Override
     public void handle(Event event) {
         Platform.runLater(() -> gameInfoPanelView.getGameInfoPanel().setActionsRemaining(0));
-        gameInfoPanelView.updateGameInfoPanel();
     }
 }

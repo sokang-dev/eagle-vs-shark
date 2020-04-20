@@ -89,7 +89,6 @@ public class PieceController {
                     selectedPiece = null;
                     this.pieceClicked = false;
                     Platform.runLater(() -> gameController.getGameInfoPanel().deductActionsRemaining());
-                    gameController.getGameInfoPanelView().updateGameInfoPanel();
                     board.printBoard();
                 }
             }
