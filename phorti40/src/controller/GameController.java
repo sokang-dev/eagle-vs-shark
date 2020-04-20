@@ -1,8 +1,8 @@
 package controller;
-import javafx.application.Platform;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import model.*;
+import model.Enums.PieceType;
 import resources.Constants;
 import resources.Sprites;
 import view.BoardView;
@@ -10,11 +10,7 @@ import view.GameInfoPanelView;
 import view.TileView;
 
 public class GameController {
-    Player playerOne;
-    Player playerTwo;
-    Player currentPlayer;
-    int actionsRemaining;
-    Boolean gameIsOver = false;
+
     // Logical representation of gameboard
     private Board gameBoard;
     // Visual board
@@ -23,11 +19,17 @@ public class GameController {
     private GameInfoPanel gameInfoPanel;
     private GameInfoPanelView gameInfoPanelView;
 
+    private Player playerOne;
+    private Player playerTwo;
+    private Player currentPlayer;
+
+    private Boolean gameIsOver = false;
+
     public GameController() {
 
         //initialise the players
-        playerOne = new Player("Player 1 (Shark)", "shark");
-        playerTwo = new Player("Player 2 (Eagle)", "eagle");
+        playerOne = new Player("Player 1 (Shark)", PieceType.Shark);
+        playerTwo = new Player("Player 2 (Eagle)", PieceType.Eagle);
         //set current turn
         currentPlayer = playerOne;
 
@@ -36,11 +38,10 @@ public class GameController {
         this.gameInfoPanel = new GameInfoPanel(currentPlayer.getPlayerName());
         this.gameInfoPanelView = new GameInfoPanelView(gameInfoPanel);
         initialiseBoard();
-
     }
 
     public int GameStart(){
-        //game loop
+        //Overarching game loop
         while(!gameIsOver)
         {
             Turn();
@@ -53,22 +54,11 @@ public class GameController {
         {
             Thread.yield();
         }
-        if (gameInfoPanel.getActionsRemaining() <= 0)
-        {
-            gameInfoPanel.setActionsRemaining(3);
-        }
-       if (currentPlayer == playerOne)
-       {
-           currentPlayer = playerTwo;
-           gameInfoPanel.setCurrentPlayer(playerTwo);
-       }
-       else
-       {
-           currentPlayer = playerOne;
-           gameInfoPanel.setCurrentPlayer(playerOne);
-
-       }
+        //After turn ends reset Actions and swap Players
+        gameInfoPanel.setActionsRemaining(3);
+        setNewCurrentPlayer(currentPlayer);
     }
+
     private void initialiseBoard() {
         for (int i = 0; i < Constants.BOARD_WIDTH; i++) {
             for (int j = 0; j < Constants.BOARD_HEIGHT; j++) {
@@ -90,26 +80,26 @@ public class GameController {
         PieceController pieceController = new PieceController(boardView, this);
     }
 
+    private void setNewCurrentPlayer(Player currentPlayer){
+        if (currentPlayer == playerOne)
+        {
+            this.currentPlayer = playerTwo;
+            gameInfoPanel.setCurrentPlayer(playerTwo);
+        }
+        else
+        {
+            this.currentPlayer = playerOne;
+            gameInfoPanel.setCurrentPlayer(playerOne);
+        }
+    }
+
     public Board getGameBoard() {
         return this.gameBoard;
     }
-
     public BoardView getBoardView() {
         return this.boardView;
     }
-
-    public GameInfoPanel getGameInfoPanel() {
-        return this.gameInfoPanel;
-    }
-
-    public GameInfoPanelView getGameInfoPanelView() {
-        return this.gameInfoPanelView;
-    }
-
-    public Player getCurrentPlayer(){
-        return currentPlayer;
-    }
-
-
-
+    public GameInfoPanel getGameInfoPanel() { return this.gameInfoPanel; }
+    public GameInfoPanelView getGameInfoPanelView() { return this.gameInfoPanelView; }
+    public Player getCurrentPlayer(){ return currentPlayer; }
 }

@@ -7,6 +7,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import model.*;
+import model.Enums.PieceType;
 import view.TileView;
 
 import java.util.Set;
@@ -44,13 +45,16 @@ public class PieceController {
     }
 
     private void selectTile(TileView tile) {
+        Piece tilePiece = board.getPiece(tile.getTile().getX(), tile.getTile().getY());
+        PieceType currentPlayerPieceType = gameController.getCurrentPlayer().getPieceType();
+
         // If tile is empty
-        Piece tilePiece=board.getPiece(tile.getTile().getX(), tile.getTile().getY());
         if (tilePiece == null) {
             System.out.println("Non piece selected");
         }
-        else if ((gameController.getCurrentPlayer().getPieceType()=="shark" && tilePiece instanceof DummyEagle)
-        || gameController.getCurrentPlayer().getPieceType()=="eagle" && tilePiece instanceof DummyShark) {
+        // If tile contains a piece not belonging to player
+        else if ((currentPlayerPieceType == PieceType.Shark && tilePiece instanceof DummyEagle)
+        || currentPlayerPieceType == PieceType.Eagle && tilePiece instanceof DummyShark) {
             System.out.println("Wrong piece dumbass.");
         }
         else {

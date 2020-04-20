@@ -1,11 +1,12 @@
 package model;
 
+import model.Enums.PieceType;
+
 public class Player {
     private String playerName;
+    private PieceType pieceType;
 
-    private String pieceType;
-
-    public Player(String playerName, String pieceType) {
+    public Player(String playerName, PieceType pieceType) {
        this.playerName = playerName;
        this.pieceType = pieceType;
     }
@@ -13,8 +14,7 @@ public class Player {
     public String getPlayerName() {
         return playerName;
     }
-
-    public String getPieceType(){
+    public PieceType getPieceType(){
         return pieceType;
     }
 }

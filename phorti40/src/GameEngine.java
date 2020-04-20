@@ -12,27 +12,21 @@ public class GameEngine extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    GameController gameController;
+    private GameController gameController;
     @Override
     public void start(Stage primaryStage) {
         Scene scene = new Scene(createContent());
         primaryStage.setTitle("4040 OOSP");
         primaryStage.setScene(scene);
-        primaryStage.setOnShown(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent event) {
-               new Thread(() -> {
-                    gameController.GameStart();
-                }).start();
-            }
-        });
+        primaryStage.setOnShown(event -> new Thread(() -> {
+             gameController.GameStart();
+         }).start());
         primaryStage.show();
     }
 
     private Parent createContent() {
         BorderPane pane = new BorderPane();
         gameController = new GameController();
-
         pane.setCenter(gameController.getBoardView());
         pane.setRight(gameController.getGameInfoPanelView());
         return pane;
