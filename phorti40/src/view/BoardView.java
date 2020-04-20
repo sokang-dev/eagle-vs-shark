@@ -1,6 +1,5 @@
 package view;
 
-
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -11,7 +10,6 @@ import model.DummyShark;
 import model.Tile;
 import resources.Constants;
 import resources.Sprites;
-
 import java.util.Set;
 
 import static resources.Constants.TILE_SIZE;

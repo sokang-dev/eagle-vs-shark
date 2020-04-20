@@ -88,7 +88,7 @@ public class PieceController {
                     gameController.getBoardView().refreshBoard(board, originX, originY, t.getX(), t.getY(), validMoves);
                     selectedPiece = null;
                     this.pieceClicked = false;
-                    Platform.runLater(() -> gameController.getGameInfoPanel().deductActionsRemaining());
+                    Platform.runLater(() -> gameController.getGameInfoPanel().setActionsRemaining(gameController.getGameInfoPanel().getActionsRemaining()-1));
                     board.printBoard();
                 }
             }

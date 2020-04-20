@@ -26,7 +26,6 @@ public class GameController {
     private Boolean gameIsOver = false;
 
     public GameController() {
-
         //initialise the players
         playerOne = new Player("Player 1 (Shark)", PieceType.Shark);
         playerTwo = new Player("Player 2 (Eagle)", PieceType.Eagle);

@@ -23,18 +23,9 @@ public class GameInfoPanel {
     public int getActionsRemaining(){
         return actionsRemaining.get();
     }
-    public void deductActionsRemaining(){ actionsRemaining.setValue(getActionsRemaining() - 1); }
     public void setActionsRemaining (int actionsRemaining){this.actionsRemaining.setValue(actionsRemaining); }
     public int getTimeRemaining(){ return timeRemaining;}
-    public void setCurrentPlayer(Player player)
-    {
-        currentPlayer.setValue(player.getPlayerName());
-    }
-    public IntegerProperty getActionsRemainingProperty(){
-        return actionsRemaining;
-    }
-    public StringProperty getCurrentPlayerProperty(){
-        return currentPlayer;
-    }
-
+    public void setCurrentPlayer(Player player) { currentPlayer.setValue(player.getPlayerName()); }
+    public IntegerProperty getActionsRemainingProperty(){ return actionsRemaining; }
+    public StringProperty getCurrentPlayerProperty(){ return currentPlayer; }
 }
