@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
@@ -44,9 +45,15 @@ public class PieceController {
 
     private void selectTile(TileView tile) {
         // If tile is empty
-        if (board.getPiece(tile.getTile().getX(), tile.getTile().getY()) == null) {
+        Piece tilePiece=board.getPiece(tile.getTile().getX(), tile.getTile().getY());
+        if (tilePiece == null) {
             System.out.println("Non piece selected");
-        } else {
+        }
+        else if ((gameController.getCurrentPlayer().getPieceType()=="shark" && tilePiece instanceof DummyEagle)
+        || gameController.getCurrentPlayer().getPieceType()=="eagle" && tilePiece instanceof DummyShark) {
+            System.out.println("Wrong piece dumbass.");
+        }
+        else {
             calculateValidMoves(tile);
             gameController.getBoardView().updateMovementTiles(this.validMoves, Color.ORANGE);
             this.pieceClicked = true;
@@ -73,12 +80,12 @@ public class PieceController {
 
                     // Move the piece in the Model
                     selectedPiece.move(board.getTile(t.getX(), t.getY()));
-
                     // Update the View
                     gameController.getBoardView().refreshBoard(board, originX, originY, t.getX(), t.getY(), validMoves);
                     selectedPiece = null;
                     this.pieceClicked = false;
-
+                    Platform.runLater(() -> gameController.getGameInfoPanel().deductActionsRemaining());
+                    gameController.getGameInfoPanelView().updateGameInfoPanel();
                     board.printBoard();
                 }
             }

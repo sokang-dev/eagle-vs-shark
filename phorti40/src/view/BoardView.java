@@ -1,15 +1,10 @@
 package view;
 
-import com.sun.tools.internal.jxc.ap.Const;
-import controller.GameController;
-import javafx.application.Application;
+
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import model.Board;
 import model.DummyEagle;
 import model.DummyShark;
@@ -24,7 +19,6 @@ import static resources.Constants.TILE_SIZE;
 public class BoardView extends GridPane {
 
     private static Sprites Sprites = new Sprites();
-    private GameController gameController;
     private Board board;
 
     public BoardView() {
