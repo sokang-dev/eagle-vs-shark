@@ -53,8 +53,8 @@ public class PieceController {
             System.out.println("Non piece selected");
         }
         // If tile contains a piece not belonging to player
-        else if ((currentPlayerPieceType == PieceType.Shark && tilePiece instanceof DummyEagle)
-        || currentPlayerPieceType == PieceType.Eagle && tilePiece instanceof DummyShark) {
+        else if ((currentPlayerPieceType == PieceType.Shark && tilePiece instanceof Eagle)
+        || currentPlayerPieceType == PieceType.Eagle && tilePiece instanceof Shark) {
             System.out.println("Wrong piece dumbass.");
         }
         else {

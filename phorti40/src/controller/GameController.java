@@ -49,7 +49,7 @@ public class GameController {
     }
 
     private void Turn(){
-        while(gameInfoPanel.getActionsRemaining() >0)
+        while(gameInfoPanel.getActionsRemaining() > 0)
         {
             Thread.yield();
         }
