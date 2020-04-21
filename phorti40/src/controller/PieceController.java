@@ -1,11 +1,13 @@
 package controller;
 
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import model.*;
+import model.Enums.PieceType;
 import view.TileView;
 
 import java.util.Set;
@@ -43,10 +45,19 @@ public class PieceController {
     }
 
     private void selectTile(TileView tile) {
+        Piece tilePiece = board.getPiece(tile.getTile().getX(), tile.getTile().getY());
+        PieceType currentPlayerPieceType = gameController.getCurrentPlayer().getPieceType();
+
         // If tile is empty
-        if (board.getPiece(tile.getTile().getX(), tile.getTile().getY()) == null) {
+        if (tilePiece == null) {
             System.out.println("Non piece selected");
-        } else {
+        }
+        // If tile contains a piece not belonging to player
+        else if ((currentPlayerPieceType == PieceType.Shark && tilePiece instanceof DummyEagle)
+        || currentPlayerPieceType == PieceType.Eagle && tilePiece instanceof DummyShark) {
+            System.out.println("Wrong piece dumbass.");
+        }
+        else {
             calculateValidMoves(tile);
             gameController.getBoardView().updateMovementTiles(this.validMoves, Color.ORANGE);
             this.pieceClicked = true;
@@ -73,12 +84,11 @@ public class PieceController {
 
                     // Move the piece in the Model
                     selectedPiece.move(board.getTile(t.getX(), t.getY()));
-
                     // Update the View
                     gameController.getBoardView().refreshBoard(board, originX, originY, t.getX(), t.getY(), validMoves);
                     selectedPiece = null;
                     this.pieceClicked = false;
-
+                    Platform.runLater(() -> gameController.getGameInfoPanel().setActionsRemaining(gameController.getGameInfoPanel().getActionsRemaining()-1));
                     board.printBoard();
                 }
             }

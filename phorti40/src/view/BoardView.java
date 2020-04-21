@@ -8,7 +8,6 @@ import javafx.scene.paint.Color;
 import model.*;
 import resources.Constants;
 import resources.Sprites;
-
 import java.util.Set;
 
 import static resources.Constants.TILE_SIZE;
