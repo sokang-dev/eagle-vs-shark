@@ -10,34 +10,21 @@ import resources.Sprites;
 import view.BoardView;
 import view.TileView;
 
-import java.util.Set;
-
-import static resources.Constants.TILE_SIZE;
-
 public class GameController {
     // Logical representation of gameboard
     private Board gameBoard;
+
     // Visual board
-    private GridPane visualBoard;
     private BoardView boardView;
 
-    public GameController(BoardView boardView){
-        this.boardView = boardView;
-    }
-
-    // Creates model
-    public void initialiseBoard() {
+    public GameController() {
         this.gameBoard = new Board();
+        this.boardView = new BoardView();
+
+        initialiseBoard();
     }
 
-    // Creates view
-    public GridPane createBoard() {
-        this.visualBoard = new GridPane();
-        visualBoard.setPrefSize(Constants.BOARD_WIDTH * TILE_SIZE, Constants.BOARD_HEIGHT * TILE_SIZE);
-        return visualBoard;
-    }
-
-    public void populateUITiles() {
+    private void initialiseBoard() {
         for (int i = 0; i < Constants.BOARD_WIDTH; i++) {
             for (int j = 0; j < Constants.BOARD_HEIGHT; j++) {
                 TileView tile = new TileView(i, j);
@@ -55,10 +42,10 @@ public class GameController {
 
                 GridPane.setRowIndex(tile, i);
                 GridPane.setColumnIndex(tile, j);
-                visualBoard.getChildren().addAll(tile);
+                boardView.getChildren().addAll(tile);
             }
         }
-        PieceController pieceController = new PieceController(visualBoard, this);
+        PieceController pieceController = new PieceController(boardView, this);
     }
 
     public Board getGameBoard() {
