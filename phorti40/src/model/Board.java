@@ -23,6 +23,7 @@ public class Board {
         DummyShark dummyShark1 = new DummyShark(boardMatrix[5][4]);
         DummyEagle dummyEagle1 = new DummyEagle(boardMatrix[5][5]);
         AttackEagle attackEagle = new AttackEagle(boardMatrix[3][3]);
+        AttackShark attackShark = new AttackShark(boardMatrix[3][2]);
     }
 
     public Tile getTile(int x, int y) {
