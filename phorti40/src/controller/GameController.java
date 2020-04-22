@@ -49,7 +49,7 @@ public class GameController {
     }
 
     private void Turn(){
-        while(gameInfoPanel.getActionsRemaining() >0)
+        while(gameInfoPanel.getActionsRemaining() > 0)
         {
             Thread.yield();
         }
@@ -70,6 +70,18 @@ public class GameController {
 
                 if (gameBoard.getPiece(i, j) instanceof DummyEagle)
                     tile.setSprite(new DummyEagle(tile.getTile()), new ImageView(Sprites.Eagle));
+
+                if (gameBoard.getPiece(i, j) instanceof AttackEagle)
+                    tile.setSprite(new AttackEagle(tile.getTile()), new ImageView(Sprites.Eagle));
+
+                if (gameBoard.getPiece(i, j) instanceof AttackShark)
+                    tile.setSprite(new AttackEagle(tile.getTile()), new ImageView(Sprites.Shark));
+
+                if (gameBoard.getPiece(i, j) instanceof UtilityEagle)
+                    tile.setSprite(new AttackEagle(tile.getTile()), new ImageView(Sprites.Eagle));
+
+                if (gameBoard.getPiece(i, j) instanceof UtilityShark)
+                    tile.setSprite(new AttackEagle(tile.getTile()), new ImageView(Sprites.Shark));
 
                 GridPane.setRowIndex(tile, i);
                 GridPane.setColumnIndex(tile, j);

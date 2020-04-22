@@ -4,10 +4,8 @@ import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import model.Board;
-import model.DummyEagle;
-import model.DummyShark;
-import model.Tile;
+
+import model.*;
 import resources.Constants;
 import resources.Sprites;
 import java.util.Set;
@@ -17,7 +15,6 @@ import static resources.Constants.TILE_SIZE;
 public class BoardView extends GridPane {
 
     private static Sprites Sprites = new Sprites();
-    private Board board;
 
     public BoardView() {
         super();
@@ -43,6 +40,16 @@ public class BoardView extends GridPane {
                     selectedTileView.setSprite(gameBoard.getPiece(x, y), new ImageView(Sprites.Shark));
                 if (gameBoard.getPiece(x, y) instanceof DummyEagle)
                     selectedTileView.setSprite(gameBoard.getPiece(x, y), new ImageView(Sprites.Eagle));
+
+                if (gameBoard.getPiece(x,y) instanceof AttackEagle)
+                    selectedTileView.setSprite(gameBoard.getPiece(x, y), new ImageView(Sprites.Eagle));
+                if (gameBoard.getPiece(x,y) instanceof AttackShark)
+                    selectedTileView.setSprite(gameBoard.getPiece(x, y), new ImageView(Sprites.Shark));
+
+                if (gameBoard.getPiece(x,y) instanceof UtilityEagle)
+                    selectedTileView.setSprite(gameBoard.getPiece(x, y), new ImageView(Sprites.Eagle));
+                if (gameBoard.getPiece(x,y) instanceof UtilityShark)
+                    selectedTileView.setSprite(gameBoard.getPiece(x, y), new ImageView(Sprites.Shark));
             }
         }
         updateMovementTiles(validMoves, Color.AZURE);

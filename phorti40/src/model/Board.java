@@ -22,6 +22,10 @@ public class Board {
 
         DummyShark dummyShark1 = new DummyShark(boardMatrix[5][4]);
         DummyEagle dummyEagle1 = new DummyEagle(boardMatrix[5][5]);
+        AttackEagle attackEagle = new AttackEagle(boardMatrix[3][3]);
+        AttackShark attackShark = new AttackShark(boardMatrix[3][2]);
+        UtilityEagle utilityEagle = new UtilityEagle(boardMatrix[2][2]);
+        UtilityShark utilityShark = new UtilityShark(boardMatrix[8][5]);
     }
 
     public Tile getTile(int x, int y) {
@@ -48,6 +52,8 @@ public class Board {
                     System.out.print(" E ");
                 } else if (this.getPiece(i, j) instanceof DummyShark) {
                     System.out.print(" S ");
+                } else if (this.getPiece(i, j) instanceof AttackEagle) {
+                    System.out.print(" A ");
                 } else {
                     System.out.print(" O ");
                 }

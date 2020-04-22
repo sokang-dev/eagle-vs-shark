@@ -1,5 +1,7 @@
 package model;
 
+import resources.Constants;
+
 import java.util.Objects;
 
 public class Tile {
@@ -19,12 +21,16 @@ public class Tile {
     }
 
     public int getX() {
-        return x;
+        return this.x;
     }
 
+    public void setX(int x) { this.x = x; }
+
     public int getY() {
-        return y;
+        return this.y;
     }
+
+    public void setY(int y) { this.y = y; }
 
     public Piece getPiece() {
         return piece;
@@ -38,17 +44,21 @@ public class Tile {
         this.piece = null;
     }
 
+    public static boolean isOutOfBounds(int x, int y) {
+        return (x < 0 || x > Constants.BOARD_WIDTH - 1 || y < 0 || y > Constants.BOARD_HEIGHT - 1);
+    }
+
     @Override
     public String toString() {
         return "Tile{" +
-                "x=" + x +
-                ", y=" + y +
+                "x=" + this.x +
+                ", y=" + this.y +
                 '}';
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(x, y);
+        return Objects.hash(this.x, this.y);
     }
 
     @Override
@@ -56,6 +66,6 @@ public class Tile {
         if (!(obj instanceof Tile)) return false;
 
         Tile tile = (Tile) obj;
-        return this.x == tile.x && this.y == tile.y;
+        return this.x == tile.getX() && this.y == tile.getY();
     }
 }
