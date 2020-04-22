@@ -72,16 +72,16 @@ public class GameController {
                     tile.setSprite(new DummyEagle(tile.getTile()), new ImageView(Sprites.Eagle));
 
                 if (gameBoard.getPiece(i, j) instanceof AttackEagle)
-                    tile.setSprite(new AttackEagle(tile.getTile()), new ImageView(Sprites.Eagle));
+                    tile.setSprite(new AttackEagle(tile.getTile()), new ImageView(Sprites.AttackEagle));
 
                 if (gameBoard.getPiece(i, j) instanceof AttackShark)
-                    tile.setSprite(new AttackEagle(tile.getTile()), new ImageView(Sprites.Shark));
+                    tile.setSprite(new AttackShark(tile.getTile()), new ImageView(Sprites.AttackShark));
 
                 if (gameBoard.getPiece(i, j) instanceof UtilityEagle)
-                    tile.setSprite(new AttackEagle(tile.getTile()), new ImageView(Sprites.Eagle));
+                    tile.setSprite(new UtilityEagle(tile.getTile()), new ImageView(Sprites.UtilityEagle));
 
                 if (gameBoard.getPiece(i, j) instanceof UtilityShark)
-                    tile.setSprite(new AttackEagle(tile.getTile()), new ImageView(Sprites.Shark));
+                    tile.setSprite(new UtilityShark(tile.getTile()), new ImageView(Sprites.UtilityShark));
 
                 GridPane.setRowIndex(tile, i);
                 GridPane.setColumnIndex(tile, j);
