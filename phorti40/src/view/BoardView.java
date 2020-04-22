@@ -42,14 +42,14 @@ public class BoardView extends GridPane {
                     selectedTileView.setSprite(gameBoard.getPiece(x, y), new ImageView(Sprites.Eagle));
 
                 if (gameBoard.getPiece(x,y) instanceof AttackEagle)
-                    selectedTileView.setSprite(gameBoard.getPiece(x, y), new ImageView(Sprites.Eagle));
+                    selectedTileView.setSprite(gameBoard.getPiece(x, y), new ImageView(Sprites.AttackEagle));
                 if (gameBoard.getPiece(x,y) instanceof AttackShark)
-                    selectedTileView.setSprite(gameBoard.getPiece(x, y), new ImageView(Sprites.Shark));
+                    selectedTileView.setSprite(gameBoard.getPiece(x, y), new ImageView(Sprites.AttackShark));
 
                 if (gameBoard.getPiece(x,y) instanceof UtilityEagle)
-                    selectedTileView.setSprite(gameBoard.getPiece(x, y), new ImageView(Sprites.Eagle));
+                    selectedTileView.setSprite(gameBoard.getPiece(x, y), new ImageView(Sprites.UtilityEagle));
                 if (gameBoard.getPiece(x,y) instanceof UtilityShark)
-                    selectedTileView.setSprite(gameBoard.getPiece(x, y), new ImageView(Sprites.Shark));
+                    selectedTileView.setSprite(gameBoard.getPiece(x, y), new ImageView(Sprites.UtilityShark));
             }
         }
         updateMovementTiles(validMoves, Color.AZURE);
