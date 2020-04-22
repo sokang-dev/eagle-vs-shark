@@ -48,6 +48,8 @@ public class BoardView extends GridPane {
 
                 if (gameBoard.getPiece(x,y) instanceof UtilityEagle)
                     selectedTileView.setSprite(gameBoard.getPiece(x, y), new ImageView(Sprites.Eagle));
+                if (gameBoard.getPiece(x,y) instanceof UtilityShark)
+                    selectedTileView.setSprite(gameBoard.getPiece(x, y), new ImageView(Sprites.Shark));
             }
         }
         updateMovementTiles(validMoves, Color.AZURE);

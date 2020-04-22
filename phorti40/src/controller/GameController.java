@@ -80,6 +80,9 @@ public class GameController {
                 if (gameBoard.getPiece(i, j) instanceof UtilityEagle)
                     tile.setSprite(new AttackEagle(tile.getTile()), new ImageView(Sprites.Eagle));
 
+                if (gameBoard.getPiece(i, j) instanceof UtilityShark)
+                    tile.setSprite(new AttackEagle(tile.getTile()), new ImageView(Sprites.Shark));
+
                 GridPane.setRowIndex(tile, i);
                 GridPane.setColumnIndex(tile, j);
                 boardView.getChildren().addAll(tile);

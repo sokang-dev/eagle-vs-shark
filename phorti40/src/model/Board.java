@@ -25,6 +25,7 @@ public class Board {
         AttackEagle attackEagle = new AttackEagle(boardMatrix[3][3]);
         AttackShark attackShark = new AttackShark(boardMatrix[3][2]);
         UtilityEagle utilityEagle = new UtilityEagle(boardMatrix[2][2]);
+        UtilityShark utilityShark = new UtilityShark(boardMatrix[8][5]);
     }
 
     public Tile getTile(int x, int y) {
