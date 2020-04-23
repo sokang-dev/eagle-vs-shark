@@ -12,7 +12,7 @@ import static resources.Constants.TILE_SIZE;
 
 public class TileView extends StackPane {
 
-    private ImageView sprite;
+    // private ImageView sprite;
     private Tile tile;
     private Rectangle tileBackground;
 
@@ -30,19 +30,16 @@ public class TileView extends StackPane {
         return tile;
     }
 
-    public void setTile(Tile tile) {
-        this.tile = tile;
+
+    public void setSprite(Piece piece) {
+        this.getChildren().add(piece.get);
     }
 
-    public void setSprite(Piece piece, ImageView sprite) {
-        tile.setPiece(piece);
-        this.sprite = sprite;
-        this.getChildren().add(sprite);
-    }
-
+    /*
     public void removeSprite() {
         this.sprite.imageProperty().set(null);
     }
+     */
 
     public void highlightMovement(Color color) {
         this.tileBackground.setFill(color);

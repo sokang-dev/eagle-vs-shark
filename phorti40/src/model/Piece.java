@@ -1,5 +1,7 @@
 package model;
 
+import javafx.scene.image.ImageView;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -7,6 +9,7 @@ public abstract class Piece {
 
     private Tile tile;
     protected int baseMovement;
+    private ImageView sprite;
 
     protected Piece(Tile tile) {
         this.tile = tile;
@@ -71,5 +74,9 @@ public abstract class Piece {
                     validMoves.add(new Tile(x, y));
             }
         }
+    }
+
+    public ImageView getSprite() {
+        return sprite;
     }
 }

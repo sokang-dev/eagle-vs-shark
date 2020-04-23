@@ -1,12 +1,18 @@
 package model;
 
+import javafx.scene.image.ImageView;
+import resources.Sprites;
+
 import java.util.HashSet;
 import java.util.Set;
 
 public class UtilityShark extends Shark {
 
+    private ImageView sprite;
+
     public UtilityShark(Tile tile) {
         super(tile);
+        this.sprite = new ImageView(Sprites.UtilityShark);
     }
 
     @Override

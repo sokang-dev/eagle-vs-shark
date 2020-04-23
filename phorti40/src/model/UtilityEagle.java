@@ -1,12 +1,18 @@
 package model;
 
+import javafx.scene.image.ImageView;
+import resources.Sprites;
+
 import java.util.HashSet;
 import java.util.Set;
 
 public class UtilityEagle extends Eagle {
 
+    private ImageView sprite;
+
     public UtilityEagle(Tile tile) {
         super(tile);
+        this.sprite = new ImageView(Sprites.UtilityEagle);
     }
 
     @Override
