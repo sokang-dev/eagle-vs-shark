@@ -9,7 +9,7 @@ public abstract class Piece {
 
     private Tile tile;
     protected int baseMovement;
-    private ImageView sprite;
+    protected ImageView sprite;
 
     protected Piece(Tile tile) {
         this.tile = tile;
@@ -18,6 +18,14 @@ public abstract class Piece {
 
     public Tile getTile() {
         return this.tile;
+    }
+
+    public ImageView getSprite() {
+        return this.sprite;
+    }
+
+    public void setSprite(ImageView sprite) {
+        this.sprite = sprite;
     }
 
     public int getBaseMovement() {
@@ -74,9 +82,5 @@ public abstract class Piece {
                     validMoves.add(new Tile(x, y));
             }
         }
-    }
-
-    public ImageView getSprite() {
-        return sprite;
     }
 }

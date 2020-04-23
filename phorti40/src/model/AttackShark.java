@@ -9,11 +9,9 @@ import java.util.Set;
 
 public class AttackShark extends Shark {
 
-    private ImageView sprite;
-
     public AttackShark(Tile tile) {
         super(tile);
-        this.sprite = new ImageView(Sprites.AttackShark);
+        super.setSprite(new ImageView(Sprites.AttackShark));
     }
 
     @Override

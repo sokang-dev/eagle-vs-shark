@@ -9,11 +9,9 @@ import java.util.Set;
 
 public class AttackEagle extends Eagle {
 
-    ImageView sprite;
-
     public AttackEagle(Tile tile) {
         super(tile);
-        this.sprite = new ImageView(Sprites.UtilityEagle);
+        super.setSprite(new ImageView(Sprites.UtilityEagle));
     }
 
     // AttackEagle can move across unlimited tiles in one direction

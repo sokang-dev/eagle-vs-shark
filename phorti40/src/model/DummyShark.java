@@ -5,10 +5,8 @@ import resources.Sprites;
 
 public class DummyShark extends Shark {
 
-    ImageView sprite;
-
     public DummyShark(Tile tile) {
         super(tile);
-        this.sprite = new ImageView(Sprites.Shark);
+        super.setSprite(new ImageView(Sprites.Shark));
     }
 }

@@ -8,11 +8,9 @@ import java.util.Set;
 
 public class UtilityShark extends Shark {
 
-    private ImageView sprite;
-
     public UtilityShark(Tile tile) {
         super(tile);
-        this.sprite = new ImageView(Sprites.UtilityShark);
+        super.setSprite(new ImageView(Sprites.UtilityShark));
     }
 
     @Override
