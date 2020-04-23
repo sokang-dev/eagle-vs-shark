@@ -3,11 +3,13 @@ package view;
 import controller.ActionsRemainingPropertyController;
 import controller.CurrentPlayerPropertyController;
 import controller.EndTurnButtonController;
+import controller.TimeRemainingListener;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import model.GameInfoPanel;
+import resources.Utilities;
 
 public class GameInfoPanelView extends VBox {
 
@@ -23,6 +25,7 @@ public class GameInfoPanelView extends VBox {
 
         gameInfoPanel.getActionsRemainingProperty().addListener(new ActionsRemainingPropertyController(this));
         gameInfoPanel.getCurrentPlayerProperty().addListener(new CurrentPlayerPropertyController(this, gameInfoPanel));
+        gameInfoPanel.getTimeRemainingProperty().addListener(new TimeRemainingListener(this));
     }
 
     private void drawGameInfoPanel(){
@@ -30,7 +33,7 @@ public class GameInfoPanelView extends VBox {
         this.setPrefWidth(200);
         this.setSpacing(50);
         playerTurn = new Label("Player Turn: " + gameInfoPanel.getCurrentPlayerName());
-        timeRemaining = new Label("Timer: "+ gameInfoPanel.getTimeRemaining());
+        timeRemaining = new Label("Timer: "+ Utilities.formatMilliseconds(gameInfoPanel.getTimeRemaining()));
         actionsRemaining = new Label("Actions Left: " + gameInfoPanel.getActionsRemaining());
 
         Button endTurnButton = new Button("End Turn");
@@ -48,6 +51,10 @@ public class GameInfoPanelView extends VBox {
 
     public Label getPlayerTurn() {
         return playerTurn;
+    }
+
+    public Label getTimeRemaining() {
+        return timeRemaining;
     }
 }
 
