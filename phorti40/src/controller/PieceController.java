@@ -50,12 +50,12 @@ public class PieceController {
 
         // If tile is empty
         if (tilePiece == null) {
-            System.out.println("Non piece selected");
+            System.out.println("Non-piece selected");
         }
         // If tile contains a piece not belonging to player
         else if ((currentPlayerPieceType == PieceType.Shark && tilePiece instanceof Eagle)
         || currentPlayerPieceType == PieceType.Eagle && tilePiece instanceof Shark) {
-            System.out.println("Wrong piece dumbass.");
+            System.out.println("Wrong piece");
         }
         else {
             calculateValidMoves(tile);

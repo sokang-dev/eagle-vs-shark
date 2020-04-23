@@ -34,7 +34,9 @@ public class MainMenuView extends VBox {
 
         Button newGameButton = new Button("New Game");
         newGameButton.setAlignment(Pos.CENTER);
-        newGameButton.setOnAction(event -> mainMenuController.handleNewGameButton(Integer.parseInt(turnTimerInput.getText()), event));
+        newGameButton.setOnAction(event -> {
+            mainMenuController.handleNewGameButton(Integer.parseInt(turnTimerInput.getText()), event);
+        });
 
         HBox newGameBox = new HBox(turnTimerInput, newGameButton);
         newGameBox.setSpacing(5);

@@ -25,4 +25,6 @@ public class GameInfoPanel {
     public void setCurrentPlayer(Player player) { currentPlayer.setValue(player.getPlayerName()); }
     public void setTimeRemaining(long timeRemaining) { this.timeRemaining.setValue(timeRemaining); }
 
+    public void decrementTimeRemaining(long time) { this.timeRemaining.setValue(this.timeRemaining.getValue() - time); }
+
 }
