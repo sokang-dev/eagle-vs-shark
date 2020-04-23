@@ -1,27 +1,28 @@
-package model;
+package model.Eagle;
 
 import javafx.scene.image.ImageView;
+import model.Board;
+import model.Tile;
 import resources.Sprites;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class UtilityShark extends Shark {
+public class UtilityEagle extends Eagle {
 
-    public UtilityShark(Tile tile) {
+    public UtilityEagle(Tile tile) {
         super(tile);
-        super.setSprite(new ImageView(Sprites.UtilityShark));
+        super.setSprite(new ImageView(Sprites.UtilityEagle));
     }
 
     @Override
     public Set<Tile> getValidMoves(Tile currentCoord, int movement, Board board) {
         Set<Tile> validMoves = new HashSet<>();
 
-        for (int i = -2; i <= 2; i++) {
-            for (int j = -2; j <= 2; j++) {
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
 
-                // Don't get diagonal tiles
-                if (Math.abs(i) == Math.abs(j))
+                if (Math.abs(i) != Math.abs(j))
                     continue;
 
                 int x = currentCoord.getX() + i;

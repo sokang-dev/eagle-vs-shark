@@ -1,7 +1,8 @@
-package model;
+package model.Eagle;
 
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import model.Board;
+import model.Tile;
 import resources.Sprites;
 
 import java.util.HashSet;
@@ -11,7 +12,7 @@ public class AttackEagle extends Eagle {
 
     public AttackEagle(Tile tile) {
         super(tile);
-        super.setSprite(new ImageView(Sprites.UtilityEagle));
+        super.setSprite(new ImageView(Sprites.AttackEagle));
     }
 
     // AttackEagle can move across unlimited tiles in one direction

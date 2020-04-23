@@ -2,7 +2,13 @@ package controller;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import model.*;
+import model.Eagle.AttackEagle;
+import model.Eagle.DummyEagle;
+import model.Eagle.UtilityEagle;
 import model.Enums.PieceType;
+import model.Shark.AttackShark;
+import model.Shark.DummyShark;
+import model.Shark.UtilityShark;
 import resources.Constants;
 import resources.Sprites;
 import view.BoardView;
@@ -37,10 +43,10 @@ public class GameController {
         currentPlayer = playerOne;
 
         this.gameBoard = new Board();
-        this.boardView = new BoardView();
+        this.boardView = new BoardView(gameBoard);
         this.gameInfoPanel = new GameInfoPanel(currentPlayer.getPlayerName(), currentPlayer.getTimeRemaining());
         this.gameInfoPanelView = new GameInfoPanelView(gameInfoPanel);
-        initialiseBoard();
+        PieceController pieceController = new PieceController(boardView, this);
     }
 
     public int GameStart() {
@@ -85,39 +91,6 @@ public class GameController {
 
     }
 
-    private void initialiseBoard() {
-        for (int i = 0; i < Constants.BOARD_WIDTH; i++) {
-            for (int j = 0; j < Constants.BOARD_HEIGHT; j++) {
-                TileView tile = new TileView(i, j);
-
-                // Set the appropriate sprite
-                // Note: best way to do this is probably a bunch of ifs
-                if (gameBoard.getPiece(i, j) instanceof DummyShark)
-                    tile.setSprite(new DummyShark(tile.getTile()), new ImageView(Sprites.Shark));
-
-                if (gameBoard.getPiece(i, j) instanceof DummyEagle)
-                    tile.setSprite(new DummyEagle(tile.getTile()), new ImageView(Sprites.Eagle));
-
-                if (gameBoard.getPiece(i, j) instanceof AttackEagle)
-                    tile.setSprite(new AttackEagle(tile.getTile()), new ImageView(Sprites.AttackEagle));
-
-                if (gameBoard.getPiece(i, j) instanceof AttackShark)
-                    tile.setSprite(new AttackShark(tile.getTile()), new ImageView(Sprites.AttackShark));
-
-                if (gameBoard.getPiece(i, j) instanceof UtilityEagle)
-                    tile.setSprite(new UtilityEagle(tile.getTile()), new ImageView(Sprites.UtilityEagle));
-
-                if (gameBoard.getPiece(i, j) instanceof UtilityShark)
-                    tile.setSprite(new UtilityShark(tile.getTile()), new ImageView(Sprites.UtilityShark));
-
-                GridPane.setRowIndex(tile, i);
-                GridPane.setColumnIndex(tile, j);
-                boardView.getChildren().addAll(tile);
-            }
-        }
-        PieceController pieceController = new PieceController(boardView, this);
-    }
-
     private void setNewCurrentPlayer(Player currentPlayer){
         if (currentPlayer == playerOne)
         {
@@ -139,5 +112,5 @@ public class GameController {
     }
     public GameInfoPanel getGameInfoPanel() { return this.gameInfoPanel; }
     public GameInfoPanelView getGameInfoPanelView() { return this.gameInfoPanelView; }
-    public Player getCurrentPlayer(){ return currentPlayer; }
+    public Player getCurrentPlayer() { return currentPlayer; }
 }

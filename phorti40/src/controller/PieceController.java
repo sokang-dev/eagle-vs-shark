@@ -7,7 +7,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import model.*;
+import model.Eagle.Eagle;
 import model.Enums.PieceType;
+import model.Shark.Shark;
 import view.TileView;
 
 import java.util.Set;
@@ -85,7 +87,7 @@ public class PieceController {
                     // Move the piece in the Model
                     selectedPiece.move(board.getTile(t.getX(), t.getY()));
                     // Update the View
-                    gameController.getBoardView().refreshBoard(board, originX, originY, t.getX(), t.getY(), validMoves);
+//                    gameController.getBoardView().refreshBoard(board, originX, originY, t.getX(), t.getY(), validMoves);
                     selectedPiece = null;
                     this.pieceClicked = false;
                     Platform.runLater(() -> gameController.getGameInfoPanel().setActionsRemaining(gameController.getGameInfoPanel().getActionsRemaining()-1));

@@ -1,7 +1,7 @@
-package model;
+package model.Eagle;
 
-import javafx.scene.image.ImageView;
-import resources.Sprites;
+import model.Piece;
+import model.Tile;
 
 public abstract class Eagle extends Piece {
 

@@ -1,4 +1,7 @@
-package model;
+package model.Shark;
+
+import model.Piece;
+import model.Tile;
 
 public abstract class Shark extends Piece {
 
