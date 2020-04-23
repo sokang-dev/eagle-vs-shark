@@ -1,5 +1,6 @@
 package model;
 
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.util.HashSet;
@@ -9,31 +10,11 @@ public abstract class Piece {
 
     private Tile tile;
     protected int baseMovement;
-    protected ImageView sprite;
+    protected Image sprite;
 
     protected Piece(Tile tile) {
         this.tile = tile;
         this.tile.setPiece(this);
-    }
-
-    public Tile getTile() {
-        return this.tile;
-    }
-
-    public ImageView getSprite() {
-        return this.sprite;
-    }
-
-    public void setSprite(ImageView sprite) {
-        this.sprite = sprite;
-    }
-
-    public int getBaseMovement() {
-        return this.baseMovement;
-    }
-
-    protected void setBaseMovement(int baseMovement) {
-        this.baseMovement = baseMovement;
     }
 
     public Set<Tile> getValidMoves(Tile currentCoord, int movement, Board board) {
@@ -82,5 +63,21 @@ public abstract class Piece {
                     validMoves.add(new Tile(x, y));
             }
         }
+    }
+
+    public Image getSprite() {
+        return this.sprite;
+    }
+    public Tile getTile() {
+        return this.tile;
+    }
+    public void setSprite(Image sprite) {
+        this.sprite = sprite;
+    }
+    public int getBaseMovement() {
+        return this.baseMovement;
+    }
+    protected void setBaseMovement(int baseMovement) {
+        this.baseMovement = baseMovement;
     }
 }

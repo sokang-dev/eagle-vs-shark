@@ -12,7 +12,7 @@ public class AttackEagle extends Eagle {
 
     public AttackEagle(Tile tile) {
         super(tile);
-        super.setSprite(new ImageView(Sprites.AttackEagle));
+        super.setSprite(Sprites.AttackEagle);
     }
 
     // AttackEagle can move across unlimited tiles in one direction

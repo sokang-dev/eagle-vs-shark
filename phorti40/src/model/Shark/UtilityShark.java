@@ -12,7 +12,7 @@ public class UtilityShark extends Shark {
 
     public UtilityShark(Tile tile) {
         super(tile);
-        super.setSprite(new ImageView(Sprites.UtilityShark));
+        super.setSprite(Sprites.UtilityShark);
     }
 
     @Override

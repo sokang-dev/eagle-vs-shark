@@ -27,7 +27,7 @@ public class Board {
         DummyShark dummyShark1 = new DummyShark(board[5][4]);
         DummyEagle dummyEagle1 = new DummyEagle(board[5][5]);
         AttackEagle attackEagle = new AttackEagle(board[3][3]);
-        AttackShark attackShark = new AttackShark(board[3][2]);
+        AttackShark attackShark = new AttackShark(board[0][0]);
         UtilityEagle utilityEagle = new UtilityEagle(board[2][2]);
         UtilityShark utilityShark = new UtilityShark(board[8][5]);
     }

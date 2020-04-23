@@ -12,7 +12,7 @@ public class UtilityEagle extends Eagle {
 
     public UtilityEagle(Tile tile) {
         super(tile);
-        super.setSprite(new ImageView(Sprites.UtilityEagle));
+        super.setSprite(Sprites.UtilityEagle);
     }
 
     @Override

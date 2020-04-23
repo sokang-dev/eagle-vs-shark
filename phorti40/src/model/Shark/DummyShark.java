@@ -8,6 +8,6 @@ public class DummyShark extends Shark {
 
     public DummyShark(Tile tile) {
         super(tile);
-        super.setSprite(new ImageView(Sprites.Shark));
+        super.setSprite(Sprites.Shark);
     }
 }

@@ -1,6 +1,4 @@
 package model.Shark;
-
-import javafx.scene.image.ImageView;
 import model.Board;
 import model.Tile;
 import resources.Constants;
@@ -13,7 +11,7 @@ public class AttackShark extends Shark {
 
     public AttackShark(Tile tile) {
         super(tile);
-        super.setSprite(new ImageView(Sprites.AttackShark));
+        super.setSprite(Sprites.AttackShark);
     }
 
     @Override

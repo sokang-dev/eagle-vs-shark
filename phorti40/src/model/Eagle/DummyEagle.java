@@ -8,6 +8,6 @@ public class DummyEagle extends Eagle {
 
     public DummyEagle(Tile tile) {
         super(tile);
-        super.setSprite(new ImageView(Sprites.Eagle));
+        super.setSprite(Sprites.Eagle);
     }
 }

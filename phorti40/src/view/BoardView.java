@@ -19,7 +19,7 @@ import resources.Sprites;
 import static resources.Constants.*;
 
 public class BoardView extends GridPane {
-    
+
     private Board gameBoard;
     private TileView[][] boardView;
 
@@ -46,26 +46,19 @@ public class BoardView extends GridPane {
                 this.getChildren().addAll(tileView);
             }
         }
-//        for (int i = 0; i < Constants.BOARD_WIDTH; i++) {
-//            for (int j = 0; j < Constants.BOARD_HEIGHT; j++) {
-//                TileView tileView = new TileView(this.gameBoard.getTile(i, j));
-//                GridPane.setRowIndex(tileView, i);
-//                GridPane.setColumnIndex(tileView, j);
-//                this.getChildren().addAll(tileView);
-//            }
-//        }
     }
 
-//    public void refreshBoard() {
-//        for (Tile[] tileArr : gameBoard.getBoard()) {
-//            for (Tile tile : tileArr) {
-//                int x = tile.getX();
-//                int y = tile.getY();
-//
-//                boardView[x][y]
-//            }
-//        }
-//    }
+    public void refreshBoard(Set<Tile> validMoves) {
+        for (Tile[] tileArr : gameBoard.getBoard()) {
+            for (Tile tile : tileArr) {
+                int x = tile.getX();
+                int y = tile.getY();
+
+                boardView[x][y].setSprite();
+            }
+        }
+        updateMovementTiles(validMoves, Color.AZURE);
+    }
 
 //    public void refreshBoard(Board gameBoard, int originX, int originY, int destinationX, int destinationY, Set<Tile> validMoves) {
 //        for (Node node : this.getChildren()) {

@@ -75,8 +75,6 @@ public class PieceController {
             board.printBoard();
         }
 
-        // TODO: if destinationTile is NOT in ValidMoves -> updateMovementTiles(Color.AZURE); AND this.tileSelected = false;
-
         // If destinationTile is in validMoves
         else {
             for (Tile t : validMoves) {
@@ -87,7 +85,7 @@ public class PieceController {
                     // Move the piece in the Model
                     selectedPiece.move(board.getTile(t.getX(), t.getY()));
                     // Update the View
-//                    gameController.getBoardView().refreshBoard(board, originX, originY, t.getX(), t.getY(), validMoves);
+                    gameController.getBoardView().refreshBoard(validMoves);
                     selectedPiece = null;
                     this.pieceClicked = false;
                     Platform.runLater(() -> gameController.getGameInfoPanel().setActionsRemaining(gameController.getGameInfoPanel().getActionsRemaining()-1));

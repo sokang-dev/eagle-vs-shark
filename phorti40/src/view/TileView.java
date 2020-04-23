@@ -4,28 +4,30 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import model.Piece;
+
 import model.Tile;
 import resources.Sprites;
-
 
 import static resources.Constants.TILE_SIZE;
 
 public class TileView extends StackPane {
 
-    // private ImageView sprite;
     private Tile tile;
     private Rectangle tileBackground;
     private ImageView sprite;
 
     public TileView(Tile tile) {
         this.tile = tile;
+        this.sprite = new ImageView();
+
+        setSprite();
 
         this.tileBackground = new Rectangle(TILE_SIZE, TILE_SIZE);
         tileBackground.setFill(Color.AZURE);
         tileBackground.setStroke(Color.BLACK);
 
         this.getChildren().add(tileBackground);
+        this.getChildren().add(sprite);
     }
 
     public Tile getTile() {
@@ -34,15 +36,17 @@ public class TileView extends StackPane {
 
 
     public void setSprite() {
-        if (tile.getPiece() != null) {
-            sprite = this.tile.getPiece().getSprite();
-            this.getChildren().add(sprite);
-        }
+        // if tile contains a piece
+        if (tile.getPiece() != null)
+            sprite.imageProperty().set(this.tile.getPiece().getSprite());
+        else
+            sprite.imageProperty().set(null);
     }
 
-    public void removeSprite() {
-        this.sprite.imageProperty().set(null);
-    }
+//    public void removeSprite() {
+////        this.getChildren().remove(sprite);
+//        this.sprite.imageProperty().set(null);
+//    }
 
     public void highlightMovement(Color color) {
         this.tileBackground.setFill(color);
