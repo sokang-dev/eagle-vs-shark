@@ -9,8 +9,8 @@ import java.util.Set;
 
 public class AttackShark extends Shark {
 
-    public AttackShark(Tile tile) {
-        super(tile);
+    public AttackShark() {
+        super();
         super.setSprite(Sprites.AttackShark);
     }
 
@@ -28,5 +28,11 @@ public class AttackShark extends Shark {
         }
 
         return validMoves;
+    }
+
+    // Used for debugging only - returns ANSI_BLUE A
+    @Override
+    public String toString() {
+        return "\u001B[34m A \u001B[0m";
     }
 }

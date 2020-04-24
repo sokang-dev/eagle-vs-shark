@@ -10,8 +10,8 @@ import java.util.Set;
 
 public class AttackEagle extends Eagle {
 
-    public AttackEagle(Tile tile) {
-        super(tile);
+    public AttackEagle() {
+        super();
         super.setSprite(Sprites.AttackEagle);
     }
 
@@ -42,5 +42,11 @@ public class AttackEagle extends Eagle {
         }
 
         return validMoves;
+    }
+
+    // Used for debugging only - returns ANSI_RED A
+    @Override
+    public String toString() {
+        return "\u001B[31m A \u001B[0m";
     }
 }

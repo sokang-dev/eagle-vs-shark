@@ -1,6 +1,5 @@
 package model.Eagle;
 
-import javafx.scene.image.ImageView;
 import model.Board;
 import model.Tile;
 import resources.Sprites;
@@ -10,8 +9,8 @@ import java.util.Set;
 
 public class UtilityEagle extends Eagle {
 
-    public UtilityEagle(Tile tile) {
-        super(tile);
+    public UtilityEagle() {
+        super();
         super.setSprite(Sprites.UtilityEagle);
     }
 
@@ -37,5 +36,11 @@ public class UtilityEagle extends Eagle {
         }
 
         return validMoves;
+    }
+
+    // Used for debugging only - returns ANSI_RED U
+    @Override
+    public String toString() {
+        return "\u001B[31m U \u001B[0m";
     }
 }

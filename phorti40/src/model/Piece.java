@@ -14,9 +14,7 @@ public abstract class Piece {
     protected Image sprite;
     protected PieceType pieceType;
 
-    protected Piece(Tile tile, PieceType pieceType) {
-        this.tile = tile;
-        this.tile.setPiece(this);
+    protected Piece(PieceType pieceType) {
         this.pieceType = pieceType;
     }
 
@@ -43,8 +41,7 @@ public abstract class Piece {
 
     public void move(Tile tile) {
         this.tile.removePiece();
-        this.tile = tile;
-        this.tile.setPiece(this);
+        tile.setPiece(this);
     }
 
     private void addAdjacentTiles(Tile currentCoord, Set<Tile> validMoves, Board board) {
@@ -76,6 +73,9 @@ public abstract class Piece {
     }
     public Tile getTile() {
         return this.tile;
+    }
+    public void setTile(Tile tile) {
+        this.tile = tile;
     }
     public void setSprite(Image sprite) {
         this.sprite = sprite;

@@ -57,6 +57,7 @@ public class Tile {
     }
     public void setPiece(Piece piece) {
         this.piece = piece;
+        this.piece.setTile(this);
     }
     public void removePiece() {
         this.piece = null;

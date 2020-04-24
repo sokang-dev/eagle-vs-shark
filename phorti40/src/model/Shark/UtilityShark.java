@@ -10,8 +10,8 @@ import java.util.Set;
 
 public class UtilityShark extends Shark {
 
-    public UtilityShark(Tile tile) {
-        super(tile);
+    public UtilityShark() {
+        super();
         super.setSprite(Sprites.UtilityShark);
     }
 
@@ -38,5 +38,11 @@ public class UtilityShark extends Shark {
         }
 
         return validMoves;
+    }
+
+    // Used for debugging only - returns ANSI_BLUE U
+    @Override
+    public String toString() {
+        return "\u001B[34m U \u001B[0m";
     }
 }

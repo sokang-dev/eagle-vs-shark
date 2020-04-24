@@ -24,31 +24,30 @@ public class Board {
             }
         }
 
-        DummyShark dummyShark1 = new DummyShark(board[5][4]);
-        DummyEagle dummyEagle1 = new DummyEagle(board[5][5]);
-        AttackEagle attackEagle = new AttackEagle(board[3][3]);
-        AttackShark attackShark = new AttackShark(board[0][0]);
-        UtilityEagle utilityEagle = new UtilityEagle(board[2][2]);
-        UtilityShark utilityShark = new UtilityShark(board[8][5]);
+        board[0][0].setPiece(new DummyShark());
+        board[0][1].setPiece(new UtilityShark());
+        board[0][2].setPiece(new AttackShark());
+
+        board[9][9].setPiece(new DummyEagle());
+        board[9][8].setPiece(new UtilityEagle());
+        board[9][7].setPiece(new AttackEagle());
+
+        printBoard();
     }
 
-    // Utility
+    // Used for debugging only
     public void printBoard() {
         for (int i = 0; i < BOARD_WIDTH; i++) {
             for (int j = 0; j < BOARD_HEIGHT; j++) {
-                if (this.getPiece(i, j) instanceof DummyEagle) {
-                    System.out.print(" E ");
-                } else if (this.getPiece(i, j) instanceof DummyShark) {
-                    System.out.print(" S ");
-                } else if (this.getPiece(i, j) instanceof AttackEagle) {
-                    System.out.print(" A ");
-                } else {
-                    System.out.print(" O ");
-                }
+                Piece piece = this.getPiece(i, j);
+                if (piece != null)
+                    System.out.print(piece.toString());
+                else
+                    System.out.print(" 0 ");
             }
-            System.out.println("");
+            System.out.println();
         }
-        System.out.println("");
+        System.out.println();
     }
 
     public Tile[][] getBoard() {
