@@ -12,13 +12,12 @@ import view.TileView;
 import java.util.Set;
 
 public class PieceController {
-    GridPane visualBoard;
-    GameController gameController;
-    Board board;
-
-    boolean pieceClicked = false;
-    Piece selectedPiece;
-    Set<Tile> validMoves;
+    private GridPane visualBoard;
+    private GameController gameController;
+    private Board board;
+    private boolean pieceClicked = false;
+    private Piece selectedPiece;
+    private Set<Tile> validMoves;
 
     public PieceController(GridPane visualBoard, GameController gameController) {
         this.visualBoard = visualBoard;
