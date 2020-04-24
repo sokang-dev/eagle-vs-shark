@@ -24,6 +24,7 @@
 bin/
 tmp/
 .metadata
+
 # *.classpath
 .project
 *.tmp
@@ -39,7 +40,6 @@ hs_err_pid*
 
 #Idea
 .idea/
-*.iml
 
 # User-specific stuff
 .idea/**/workspace.xml
