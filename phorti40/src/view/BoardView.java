@@ -49,10 +49,10 @@ public class BoardView extends GridPane {
                 boardView[x][y].setSprite();
             }
         }
-        updateMovementTiles(validMoves, EMPTY_TILE_COLOR);
+        highlightPieceValidMoves(validMoves, EMPTY_TILE_COLOR);
     }
 
-    public void updateMovementTiles(Set<Tile> tiles, Color color) {
+    public void highlightPieceValidMoves(Set<Tile> tiles, Color color) {
         // Looks at the validMoves of the selectedPiece and highlights them
         if (tiles.size() > 0) {
             for (Tile t : tiles) {
