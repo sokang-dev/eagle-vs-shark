@@ -34,22 +34,15 @@ public class TileView extends StackPane {
         return tile;
     }
 
-
+    // Handles adding and removing Piece's sprite
     public void setSprite() {
-        // if tile contains a piece
         if (tile.getPiece() != null)
             sprite.imageProperty().set(this.tile.getPiece().getSprite());
         else
             sprite.imageProperty().set(null);
     }
 
-//    public void removeSprite() {
-////        this.getChildren().remove(sprite);
-//        this.sprite.imageProperty().set(null);
-//    }
-
-    public void highlightMovement(Color color) {
+    public void setTileBackgroundColor(Color color) {
         this.tileBackground.setFill(color);
     }
-
 }	

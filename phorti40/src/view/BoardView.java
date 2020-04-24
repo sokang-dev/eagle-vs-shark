@@ -40,7 +40,7 @@ public class BoardView extends GridPane {
         }
     }
 
-    public void refreshBoard(Set<Tile> validMoves) {
+    public void refreshBoard() {
         for (Tile[] tileArr : gameBoard.getBoard()) {
             for (Tile tile : tileArr) {
                 int x = tile.getX();
@@ -49,7 +49,6 @@ public class BoardView extends GridPane {
                 boardView[x][y].setSprite();
             }
         }
-        highlightPieceValidMoves(validMoves, EMPTY_TILE_COLOR);
     }
 
     public void highlightPieceValidMoves(Set<Tile> tiles, Color color) {
@@ -64,7 +63,7 @@ public class BoardView extends GridPane {
                 for (Node node : this.getChildren()) {
                     if (GridPane.getRowIndex(node) == validX && GridPane.getColumnIndex(node) == validY) {
                         selectedTile = (TileView) node;
-                        selectedTile.highlightMovement(color);
+                        selectedTile.setTileBackgroundColor(color);
                     }
                 }
             }

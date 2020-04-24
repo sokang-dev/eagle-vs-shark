@@ -60,7 +60,7 @@ public class PieceController {
             System.out.println("Wrong piece dumbass.");
         }
         else {
-            calculateValidMoves(piece);
+            storePieceAndValidMoves(piece);
             gameController.getBoardView().highlightPieceValidMoves(this.validMoves, Constants.VALID_MOVE_TILE_COLOR);
             this.pieceClicked = true;
         }
@@ -82,7 +82,9 @@ public class PieceController {
             selectedPiece.move(board.getTile(destinationTile.getX(), destinationTile.getY()));
 
             // Update the View
-            gameController.getBoardView().refreshBoard(validMoves);
+            gameController.getBoardView().highlightPieceValidMoves(this.validMoves, Constants.EMPTY_TILE_COLOR);
+            gameController.getBoardView().refreshBoard();
+
             selectedPiece = null;
             this.pieceClicked = false;
             Platform.runLater(() -> gameController.getGameInfoPanel().setActionsRemaining(gameController.getGameInfoPanel().getActionsRemaining()-1));
@@ -92,7 +94,7 @@ public class PieceController {
             System.out.println("Can't move there :|");
     }
 
-    private void calculateValidMoves(Piece selectedPiece) {
+    private void storePieceAndValidMoves(Piece selectedPiece) {
         // Store the selectedPiece and it's valid moves
         this.selectedPiece = selectedPiece;
         this.validMoves = selectedPiece.getValidMoves(selectedPiece.getTile(), selectedPiece.getBaseMovement(), board);
