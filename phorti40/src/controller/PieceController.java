@@ -10,6 +10,7 @@ import model.*;
 import model.Eagle.Eagle;
 import model.Enums.PieceType;
 import model.Shark.Shark;
+import resources.Constants;
 import view.TileView;
 
 import java.util.Set;
@@ -61,15 +62,15 @@ public class PieceController {
         }
         else {
             calculateValidMoves(tile);
-            gameController.getBoardView().updateMovementTiles(this.validMoves, Color.ORANGE);
+            gameController.getBoardView().updateMovementTiles(this.validMoves, Constants.VALID_MOVE_TILE_COLOR);
             this.pieceClicked = true;
         }
     }
 
     private void selectMovementTile(Tile destinationTile) {
         // If the selected destinationTile is another piece
-        if (board.getPiece(destinationTile.getX(), destinationTile.getY()) instanceof Piece) {
-            gameController.getBoardView().updateMovementTiles(this.validMoves, Color.AZURE);
+        if (board.getPiece(destinationTile.getX(), destinationTile.getY()) != null) {
+            gameController.getBoardView().updateMovementTiles(this.validMoves, Constants.VALID_MOVE_TILE_COLOR);
             this.pieceClicked = false;
 
             board.printBoard();

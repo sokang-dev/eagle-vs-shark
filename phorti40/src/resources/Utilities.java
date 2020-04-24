@@ -3,7 +3,7 @@ package resources;
 import javafx.stage.Stage;
 import java.util.concurrent.TimeUnit;
 
-public class Utilities {
+public final class Utilities {
 
     // Initial stage given by JavaFX
     private static Stage primaryStage;

@@ -46,7 +46,7 @@ public class GameController {
         this.boardView = new BoardView(gameBoard);
         this.gameInfoPanel = new GameInfoPanel(currentPlayer.getPlayerName(), currentPlayer.getTimeRemaining());
         this.gameInfoPanelView = new GameInfoPanelView(gameInfoPanel);
-        PieceController pieceController = new PieceController(boardView, this);
+        new PieceController(boardView, this);
     }
 
     public int GameStart() {
