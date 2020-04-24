@@ -6,12 +6,12 @@ import javafx.beans.value.ObservableValue;
 import model.GameInfoPanel;
 import view.GameInfoPanelView;
 
-public class CurrentPlayerPropertyController implements ChangeListener {
+public class CurrentPlayerListener implements ChangeListener {
 
     private GameInfoPanelView gameInfoPanelView;
     private GameInfoPanel gameInfoPanel;
 
-    public CurrentPlayerPropertyController(GameInfoPanelView view, GameInfoPanel gameInfoPanel)
+    public CurrentPlayerListener(GameInfoPanelView view, GameInfoPanel gameInfoPanel)
     {
         gameInfoPanelView = view;
         this.gameInfoPanel = gameInfoPanel;

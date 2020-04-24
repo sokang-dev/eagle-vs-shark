@@ -6,9 +6,6 @@ import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import model.*;
-import model.Eagle.Eagle;
-import model.Enums.PieceType;
-import model.Shark.Shark;
 import resources.Constants;
 import view.TileView;
 

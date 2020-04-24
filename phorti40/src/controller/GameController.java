@@ -1,23 +1,14 @@
 package controller;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import model.*;
-import model.Eagle.AttackEagle;
-import model.Eagle.DummyEagle;
-import model.Eagle.UtilityEagle;
-import model.Enums.PieceType;
-import model.Shark.AttackShark;
-import model.Shark.DummyShark;
-import model.Shark.UtilityShark;
-import resources.Constants;
-import resources.Sprites;
-import view.BoardView;
-import view.GameInfoPanelView;
-import view.TileView;
-
+import javafx.application.Platform;
+import javafx.event.Event;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
+
+import model.*;
+import model.Enums.PieceType;
+import view.BoardView;
+import view.GameInfoPanelView;
 
 public class GameController {
 
@@ -35,17 +26,21 @@ public class GameController {
 
     private Boolean gameIsOver = false;
 
+    private long timeLimit;
+
     public GameController(int timerInput) {
+        timeLimit = TimeUnit.SECONDS.toMillis(timerInput);
+
         //initialise the players
-        playerOne = new Player("Player 1 (Shark)", PieceType.Shark, TimeUnit.SECONDS.toMillis(timerInput));
-        playerTwo = new Player("Player 2 (Eagle)", PieceType.Eagle, TimeUnit.SECONDS.toMillis(timerInput));
+        playerOne = new Player("Player 1 (Shark)", PieceType.Shark);
+        playerTwo = new Player("Player 2 (Eagle)", PieceType.Eagle);
         //set current turn
         currentPlayer = playerOne;
 
         this.gameBoard = new Board();
         this.boardView = new BoardView(gameBoard);
-        this.gameInfoPanel = new GameInfoPanel(currentPlayer.getPlayerName(), currentPlayer.getTimeRemaining());
-        this.gameInfoPanelView = new GameInfoPanelView(gameInfoPanel);
+        this.gameInfoPanel = new GameInfoPanel(currentPlayer.getPlayerName(), timeLimit);
+        this.gameInfoPanelView = new GameInfoPanelView(gameInfoPanel, this);
         new PieceController(boardView, this);
     }
 
@@ -68,10 +63,10 @@ public class GameController {
         // After turn ends reset Actions and swap Players
         gameInfoPanel.setActionsRemaining(3);
         setNewCurrentPlayer(currentPlayer);
-        gameInfoPanel.setTimeRemaining(currentPlayer.getTimeRemaining());
+        gameInfoPanel.setTimeRemaining(timeLimit);
     }
 
-    // Setup a timer that decrements the current players time, ending the game when it hits 0
+    // Setup a timer that decrements time remaining, ending the turn when it hits 0
     private void initialiseTimer()
     {
         long second = 1000l;
@@ -79,12 +74,11 @@ public class GameController {
         Timer turnTimer = new Timer();
         turnTimer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
-                if(currentPlayer.getTimeRemaining() > 0) {
-                    currentPlayer.decrementTimeRemaining(second); // Decrement a second
-                    gameInfoPanel.setTimeRemaining(currentPlayer.getTimeRemaining());
+                if(gameInfoPanel.getTimeRemaining() > 0) {
+                    gameInfoPanel.decrementTimeRemaining(second); // Decrement a second
                 } else {
-                    gameIsOver = true;
-                    turnTimer.cancel();
+                    // End the turn
+                    gameInfoPanel.setActionsRemaining(0);
                 }
             }
         }, 0, 1000);
@@ -102,6 +96,10 @@ public class GameController {
             this.currentPlayer = playerOne;
             gameInfoPanel.setCurrentPlayer(playerOne);
         }
+    }
+
+    public void handleEndTurnButton(Event event) {
+        Platform.runLater(() -> gameInfoPanelView.getGameInfoPanel().setActionsRemaining(0));
     }
 
     public Board getGameBoard() {
