@@ -5,11 +5,11 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import view.GameInfoPanelView;
 
-public class ActionsRemainingPropertyController implements ChangeListener {
+public class ActionsRemainingListener implements ChangeListener {
 
     private GameInfoPanelView gameInfoPanelView;
 
-    public ActionsRemainingPropertyController(GameInfoPanelView view)
+    public ActionsRemainingListener(GameInfoPanelView view)
     {
         gameInfoPanelView = view;
     }

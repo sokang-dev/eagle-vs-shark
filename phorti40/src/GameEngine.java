@@ -1,31 +1,27 @@
-import controller.GameController;
+import controller.MainMenuController;
 import javafx.application.Application;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import resources.Utilities;
 
 public class GameEngine extends Application {
 
     public static void main(String[] args) {
         launch(args);
     }
+
     @Override
     public void start(Stage primaryStage) {
-        GameController gameController = new GameController();
-        Scene scene = new Scene(createContent(gameController));
+        // Save a reference to the primary stage for later use
+        Utilities.setPrimaryStage(primaryStage);
         primaryStage.setTitle("4040 OOSP");
-        primaryStage.setScene(scene);
-        primaryStage.setOnShown(event -> new Thread(() -> {
-             gameController.GameStart();
-         }).start());
-        primaryStage.show();
-    }
 
-    private Parent createContent(GameController gameController) {
+        MainMenuController mainMenuController = new MainMenuController();
         BorderPane pane = new BorderPane();
-        pane.setCenter(gameController.getBoardView());
-        pane.setRight(gameController.getGameInfoPanelView());
-        return pane;
+        pane.setCenter(mainMenuController.getMainMenuView());
+        Scene scene = new Scene(pane);
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 }

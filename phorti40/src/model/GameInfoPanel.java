@@ -1,31 +1,30 @@
 package model;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 
 public class GameInfoPanel {
 
     private StringProperty currentPlayer = new SimpleStringProperty();
     private IntegerProperty actionsRemaining = new SimpleIntegerProperty();
-    private int timeRemaining;
+    private LongProperty timeRemaining = new SimpleLongProperty();
 
-    public GameInfoPanel(String currentPlayerName) {
+    public GameInfoPanel(String currentPlayerName, long timeRemaining) {
         currentPlayer.setValue(currentPlayerName);
         actionsRemaining.setValue(3);
-        timeRemaining = 60;
+        this.timeRemaining.setValue(timeRemaining);
     }
 
-    public String getCurrentPlayerName() {
-        return currentPlayer.get();
-    }
-    public int getActionsRemaining(){
-        return actionsRemaining.get();
-    }
-    public void setActionsRemaining (int actionsRemaining){this.actionsRemaining.setValue(actionsRemaining); }
-    public int getTimeRemaining(){ return timeRemaining;}
+    public String getCurrentPlayerName() { return currentPlayer.get(); }
+    public int getActionsRemaining() { return actionsRemaining.get(); }
+    public long getTimeRemaining() { return timeRemaining.get(); }
+    public IntegerProperty getActionsRemainingProperty() { return actionsRemaining; }
+    public StringProperty getCurrentPlayerProperty() { return currentPlayer; }
+    public LongProperty getTimeRemainingProperty() { return timeRemaining; }
+
+    public void setActionsRemaining(int actionsRemaining) { this.actionsRemaining.setValue(actionsRemaining); }
     public void setCurrentPlayer(Player player) { currentPlayer.setValue(player.getPlayerName()); }
-    public IntegerProperty getActionsRemainingProperty(){ return actionsRemaining; }
-    public StringProperty getCurrentPlayerProperty(){ return currentPlayer; }
+    public void setTimeRemaining(long timeRemaining) { this.timeRemaining.setValue(timeRemaining); }
+
+    public void decrementTimeRemaining(long time) { this.timeRemaining.setValue(this.timeRemaining.getValue() - time); }
+
 }

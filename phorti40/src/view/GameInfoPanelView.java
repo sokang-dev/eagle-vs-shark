@@ -1,28 +1,30 @@
 package view;
 
-import controller.ActionsRemainingPropertyController;
-import controller.CurrentPlayerPropertyController;
-import controller.EndTurnButtonController;
+import controller.*;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import model.GameInfoPanel;
+import resources.Utilities;
 
 public class GameInfoPanelView extends VBox {
 
     private GameInfoPanel gameInfoPanel;
+    private GameController gameController;
     private Label playerTurn;
     private Label timeRemaining;
     private Label actionsRemaining;
 
-    public GameInfoPanelView(GameInfoPanel gameInfoPanel) {
+    public GameInfoPanelView(GameInfoPanel gameInfoPanel, GameController gameController) {
         super();
+        this.gameController = gameController;
         this.gameInfoPanel = gameInfoPanel;
         drawGameInfoPanel();
 
-        gameInfoPanel.getActionsRemainingProperty().addListener(new ActionsRemainingPropertyController(this));
-        gameInfoPanel.getCurrentPlayerProperty().addListener(new CurrentPlayerPropertyController(this, gameInfoPanel));
+        gameInfoPanel.getActionsRemainingProperty().addListener(new ActionsRemainingListener(this));
+        gameInfoPanel.getCurrentPlayerProperty().addListener(new CurrentPlayerListener(this, gameInfoPanel));
+        gameInfoPanel.getTimeRemainingProperty().addListener(new TimeRemainingListener(this));
     }
 
     private void drawGameInfoPanel(){
@@ -30,11 +32,11 @@ public class GameInfoPanelView extends VBox {
         this.setPrefWidth(200);
         this.setSpacing(50);
         playerTurn = new Label("Player Turn: " + gameInfoPanel.getCurrentPlayerName());
-        timeRemaining = new Label("Timer: "+ gameInfoPanel.getTimeRemaining());
+        timeRemaining = new Label("Timer: "+ Utilities.formatMilliseconds(gameInfoPanel.getTimeRemaining()));
         actionsRemaining = new Label("Actions Left: " + gameInfoPanel.getActionsRemaining());
 
         Button endTurnButton = new Button("End Turn");
-        endTurnButton.setOnAction(new EndTurnButtonController(this));
+        endTurnButton.setOnAction(gameController::handleEndTurnButton);
         this.getChildren().addAll(playerTurn, timeRemaining, actionsRemaining, endTurnButton);
     }
 
@@ -48,6 +50,10 @@ public class GameInfoPanelView extends VBox {
 
     public Label getPlayerTurn() {
         return playerTurn;
+    }
+
+    public Label getTimeRemaining() {
+        return timeRemaining;
     }
 }
 
