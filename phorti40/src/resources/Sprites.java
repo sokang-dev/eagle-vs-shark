@@ -1,7 +1,6 @@
 package resources;
 
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 public final class Sprites {
 

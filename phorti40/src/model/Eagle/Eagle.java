@@ -2,7 +2,6 @@ package model.Eagle;
 
 import model.Enums.PieceType;
 import model.Piece;
-import model.Tile;
 
 public abstract class Eagle extends Piece {
 

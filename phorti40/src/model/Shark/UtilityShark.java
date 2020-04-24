@@ -1,6 +1,5 @@
 package model.Shark;
 
-import javafx.scene.image.ImageView;
 import model.Board;
 import model.Tile;
 import resources.Sprites;

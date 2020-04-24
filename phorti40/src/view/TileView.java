@@ -6,7 +6,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 import model.Tile;
-import resources.Sprites;
 
 import static resources.Constants.TILE_SIZE;
 

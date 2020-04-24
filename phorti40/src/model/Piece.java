@@ -1,7 +1,6 @@
 package model;
 
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import model.Enums.PieceType;
 
 import java.util.HashSet;
@@ -18,6 +17,8 @@ public abstract class Piece {
         this.pieceType = pieceType;
     }
 
+    // Get valid moves of a piece based on its baseMovement value
+    // Will get used more in assignment 2
     public Set<Tile> getValidMoves(Tile currentCoord, int movement, Board board) {
 
         Set<Tile> validMoves = new HashSet<>();
@@ -30,7 +31,6 @@ public abstract class Piece {
             Set<Tile> recursiveValidMoves = new HashSet<>();
 
             for (Tile validMove : validMoves) {
-                // TODO: Corner tiles being added here are duplicate fsr
                 recursiveValidMoves.addAll(getValidMoves(validMove, movement - 1, board));
             }
             validMoves.addAll(recursiveValidMoves);
@@ -39,6 +39,7 @@ public abstract class Piece {
         return validMoves;
     }
 
+    // Remove piece from current tile and set piece to a new tile.
     public void move(Tile tile) {
         this.tile.removePiece();
         tile.setPiece(this);
