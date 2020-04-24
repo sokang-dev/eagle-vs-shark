@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="0f7e7427-18ac-45a1-ba45-002457839eb6" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1ay1wR3ehmaWI9namTF6KmjxVfm" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="App" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="GameEngine" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="App.GameEngine" />
+      <module name="phorti40" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.GameEngine" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0f7e7427-18ac-45a1-ba45-002457839eb6" name="Default Changelist" comment="" />
+      <created>1587693257578</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1587693257578</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="595" y="329" key="#com.intellij.ide.util.PackageChooserDialog" timestamp="1587693470263">
+      <screen x="0" y="23" width="2048" height="1205" />
+    </state>
+    <state x="595" y="329" key="#com.intellij.ide.util.PackageChooserDialog/0.23.2048.1205@0.23.2048.1205" timestamp="1587693470263" />
+    <state x="627" y="443" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1587693472078">
+      <screen x="0" y="23" width="2048" height="1205" />
+    </state>
+    <state x="627" y="443" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.23.2048.1205@0.23.2048.1205" timestamp="1587693472078" />
+    <state width="2006" height="271" key="GridCell.Tab.0.bottom" timestamp="1587702346605">
+      <screen x="0" y="23" width="2048" height="1205" />
+    </state>
+    <state width="2006" height="271" key="GridCell.Tab.0.bottom/0.23.2048.1205@0.23.2048.1205" timestamp="1587702346605" />
+    <state width="2006" height="271" key="GridCell.Tab.0.center" timestamp="1587702346605">
+      <screen x="0" y="23" width="2048" height="1205" />
+    </state>
+    <state width="2006" height="271" key="GridCell.Tab.0.center/0.23.2048.1205@0.23.2048.1205" timestamp="1587702346605" />
+    <state width="2006" height="271" key="GridCell.Tab.0.left" timestamp="1587702346604">
+      <screen x="0" y="23" width="2048" height="1205" />
+    </state>
+    <state width="2006" height="271" key="GridCell.Tab.0.left/0.23.2048.1205@0.23.2048.1205" timestamp="1587702346604" />
+    <state width="2006" height="271" key="GridCell.Tab.0.right" timestamp="1587702346605">
+      <screen x="0" y="23" width="2048" height="1205" />
+    </state>
+    <state width="2006" height="271" key="GridCell.Tab.0.right/0.23.2048.1205@0.23.2048.1205" timestamp="1587702346605" />
+  </component>
+</project>
