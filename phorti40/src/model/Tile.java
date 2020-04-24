@@ -8,6 +8,7 @@ public class Tile {
 
     private int x, y;
     private Piece piece;
+    // Not yet implemented terrian system
     private Terrain terrain;
 
     // For instantiating empty tiles
@@ -18,30 +19,6 @@ public class Tile {
 
     public Tile(Piece piece) {
         this.piece = piece;
-    }
-
-    public int getX() {
-        return this.x;
-    }
-
-    public void setX(int x) { this.x = x; }
-
-    public int getY() {
-        return this.y;
-    }
-
-    public void setY(int y) { this.y = y; }
-
-    public Piece getPiece() {
-        return piece;
-    }
-
-    public void setPiece(Piece piece) {
-        this.piece = piece;
-    }
-
-    public void removePiece() {
-        this.piece = null;
     }
 
     public static boolean isOutOfBounds(int x, int y) {
@@ -67,5 +44,22 @@ public class Tile {
 
         Tile tile = (Tile) obj;
         return this.x == tile.getX() && this.y == tile.getY();
+    }
+
+    public int getX() {
+        return this.x;
+    }
+    public int getY() {
+        return this.y;
+    }
+    public Piece getPiece() {
+        return piece;
+    }
+    public void setPiece(Piece piece) {
+        this.piece = piece;
+        this.piece.setTile(this);
+    }
+    public void removePiece() {
+        this.piece = null;
     }
 }

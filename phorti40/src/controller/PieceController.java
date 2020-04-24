@@ -5,21 +5,19 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 import model.*;
-import model.Enums.PieceType;
+import resources.Constants;
 import view.TileView;
 
 import java.util.Set;
 
 public class PieceController {
-    GridPane visualBoard;
-    GameController gameController;
-    Board board;
-
-    boolean pieceClicked = false;
-    Piece selectedPiece;
-    Set<Tile> validMoves;
+    private GridPane visualBoard;
+    private GameController gameController;
+    private Board board;
+    private boolean pieceClicked = false;
+    private Piece selectedPiece;
+    private Set<Tile> validMoves;
 
     public PieceController(GridPane visualBoard, GameController gameController) {
         this.visualBoard = visualBoard;
@@ -32,11 +30,11 @@ public class PieceController {
                 for (Node node : visualBoard.getChildren()) {
                     // Get the Tile at specific RowIndex and ColumnIndex of mouse click
                     if (node.getBoundsInParent().contains(event.getX(), event.getY())) {
-                        TileView tile = (TileView) node;
+                        TileView tileView = (TileView) node;
                         if (!pieceClicked) {
-                            selectTile(tile);
+                            selectTile(tileView.getTile());
                         } else {
-                            selectMovementTile(tile.getTile());
+                            selectMovementTile(tileView.getTile());
                         }
                     }
                 }
@@ -44,63 +42,57 @@ public class PieceController {
         });
     }
 
-    private void selectTile(TileView tile) {
-        Piece tilePiece = board.getPiece(tile.getTile().getX(), tile.getTile().getY());
-        PieceType currentPlayerPieceType = gameController.getCurrentPlayer().getPieceType();
+    private void selectTile(Tile tile) {
+        Piece piece = board.getPiece(tile.getX(), tile.getY());
+        Player currentPlayer = gameController.getCurrentPlayer();
 
         // If tile is empty
-        if (tilePiece == null) {
-            System.out.println("Non-piece selected");
+        if (piece == null) {
+            System.out.println("Non piece selected");
         }
         // If tile contains a piece not belonging to player
-        else if ((currentPlayerPieceType == PieceType.Shark && tilePiece instanceof Eagle)
-        || currentPlayerPieceType == PieceType.Eagle && tilePiece instanceof Shark) {
-            System.out.println("Wrong piece");
+        else if (!currentPlayer.isPlayerPiece(piece)) {
+            System.out.println("Wrong piece dumbass.");
         }
         else {
-            calculateValidMoves(tile);
-            gameController.getBoardView().updateMovementTiles(this.validMoves, Color.ORANGE);
+            storePieceAndValidMoves(piece);
             this.pieceClicked = true;
+            // Highlight validMoves tiles
+            gameController.getBoardView().highlightTiles(this.validMoves, Constants.VALID_MOVE_TILE_COLOR);
         }
     }
 
     private void selectMovementTile(Tile destinationTile) {
-        // If the selected destinationTile is another piece
-        if (board.getPiece(destinationTile.getX(), destinationTile.getY()) instanceof Piece) {
-            gameController.getBoardView().updateMovementTiles(this.validMoves, Color.AZURE);
+        /* If the selected destinationTile is another piece
+         * Unselect piece
+         * Unhighlight validMoves tiles */
+        if (board.getPiece(destinationTile.getX(), destinationTile.getY()) != null) {
+            gameController.getBoardView().highlightTiles(this.validMoves, Constants.EMPTY_TILE_COLOR);
             this.pieceClicked = false;
-
-            board.printBoard();
+            board.printBoard(); // console printing board for debugging
         }
-
-        // TODO: if destinationTile is NOT in ValidMoves -> updateMovementTiles(Color.AZURE); AND this.tileSelected = false;
 
         // If destinationTile is in validMoves
-        else {
-            for (Tile t : validMoves) {
-                if (destinationTile.getX() == t.getX() && destinationTile.getY() == t.getY()) {
-                    int originX = selectedPiece.getTile().getX();
-                    int originY = selectedPiece.getTile().getY();
+        if (validMoves.contains(destinationTile)) {
+            // Move the piece in the Model
+            selectedPiece.move(board.getTile(destinationTile.getX(), destinationTile.getY()));
 
-                    // Move the piece in the Model
-                    selectedPiece.move(board.getTile(t.getX(), t.getY()));
-                    // Update the View
-                    gameController.getBoardView().refreshBoard(board, originX, originY, t.getX(), t.getY(), validMoves);
-                    selectedPiece = null;
-                    this.pieceClicked = false;
-                    Platform.runLater(() -> gameController.getGameInfoPanel().setActionsRemaining(gameController.getGameInfoPanel().getActionsRemaining()-1));
-                    board.printBoard();
-                }
-            }
+            // Unhighlight validMoves tiles
+            gameController.getBoardView().highlightTiles(this.validMoves, Constants.EMPTY_TILE_COLOR);
+            gameController.getBoardView().refreshBoard();
+
+            selectedPiece = null;
+            this.pieceClicked = false;
+            Platform.runLater(() -> gameController.getGameInfoPanel().setActionsRemaining(gameController.getGameInfoPanel().getActionsRemaining()-1));
+            board.printBoard(); // console printing board for debugging
         }
+        else
+            System.out.println("Can't move there :|");
     }
 
-    private void calculateValidMoves(TileView selectedTile) {
-        int x = selectedTile.getTile().getX();
-        int y = selectedTile.getTile().getY();
-
+    private void storePieceAndValidMoves(Piece selectedPiece) {
         // Store the selectedPiece and it's valid moves
-        this.selectedPiece = board.getPiece(x, y);
-        this.validMoves = selectedPiece.getValidMoves(selectedTile.getTile(), selectedPiece.getBaseMovement(), board);
+        this.selectedPiece = selectedPiece;
+        this.validMoves = selectedPiece.getValidMoves(selectedPiece.getTile(), selectedPiece.getBaseMovement(), board);
     }
 }

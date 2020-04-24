@@ -1,77 +1,72 @@
 package view;
 
 import javafx.scene.Node;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import java.util.Set;
 
 import model.*;
 import resources.Constants;
-import resources.Sprites;
-import java.util.Set;
 
-import static resources.Constants.TILE_SIZE;
+import static resources.Constants.*;
 
 public class BoardView extends GridPane {
 
-    private static Sprites Sprites = new Sprites();
+    private Board gameBoard;
+    private TileView[][] boardView;
 
-    public BoardView() {
+    public BoardView(Board gameBoard) {
         super();
+        this.gameBoard = gameBoard;
         this.setPrefSize(Constants.BOARD_WIDTH * TILE_SIZE, Constants.BOARD_HEIGHT * TILE_SIZE);
+        initialiseBoardView();
     }
 
-    public void refreshBoard(Board gameBoard, int originX, int originY, int destinationX, int destinationY, Set<Tile> validMoves) {
-        for (Node node : this.getChildren()) {
-            TileView selectedTileView;
+    private void initialiseBoardView() {
+        boardView = new TileView[BOARD_WIDTH][BOARD_HEIGHT];
 
-            // Remove sprite at the original coordinate
-            if (GridPane.getRowIndex(node) == originX && GridPane.getColumnIndex(node) == originY) {
-                selectedTileView = (TileView) node;
-                selectedTileView.removeSprite();
-            }
+        for (Tile[] tileArr : gameBoard.getBoard()) {
+            for (Tile tile : tileArr) {
+                int x = tile.getX();
+                int y = tile.getY();
 
-            if (GridPane.getRowIndex(node) == destinationX && GridPane.getColumnIndex(node) == destinationY) {
-                selectedTileView = (TileView) node;
-                int x = selectedTileView.getTile().getX();
-                int y = selectedTileView.getTile().getY();
-
-                if (gameBoard.getPiece(x, y) instanceof DummyShark)
-                    selectedTileView.setSprite(gameBoard.getPiece(x, y), new ImageView(Sprites.Shark));
-                if (gameBoard.getPiece(x, y) instanceof DummyEagle)
-                    selectedTileView.setSprite(gameBoard.getPiece(x, y), new ImageView(Sprites.Eagle));
-
-                if (gameBoard.getPiece(x,y) instanceof AttackEagle)
-                    selectedTileView.setSprite(gameBoard.getPiece(x, y), new ImageView(Sprites.AttackEagle));
-                if (gameBoard.getPiece(x,y) instanceof AttackShark)
-                    selectedTileView.setSprite(gameBoard.getPiece(x, y), new ImageView(Sprites.AttackShark));
-
-                if (gameBoard.getPiece(x,y) instanceof UtilityEagle)
-                    selectedTileView.setSprite(gameBoard.getPiece(x, y), new ImageView(Sprites.UtilityEagle));
-                if (gameBoard.getPiece(x,y) instanceof UtilityShark)
-                    selectedTileView.setSprite(gameBoard.getPiece(x, y), new ImageView(Sprites.UtilityShark));
+                TileView tileView = new TileView(tile);
+                tileView.setSprite();
+                boardView[x][y] = tileView;
+                GridPane.setRowIndex(tileView, x);
+                GridPane.setColumnIndex(tileView, y);
+                this.getChildren().addAll(tileView);
             }
         }
-        updateMovementTiles(validMoves, Color.AZURE);
     }
 
-    public void updateMovementTiles(Set<Tile> tiles, Color color) {
-        // Looks at the validMoves of the selectedPiece and highlights them
-        if (tiles.size() > 0) {
-            for (Tile t : tiles) {
-                TileView selectedTile;
+    public void refreshBoard() {
+        for (Tile[] tileArr : gameBoard.getBoard()) {
+            for (Tile tile : tileArr) {
+                int x = tile.getX();
+                int y = tile.getY();
 
-                int validX = t.getX();
-                int validY = t.getY();
+                boardView[x][y].setSprite();
+            }
+        }
+    }
 
-                for (Node node : this.getChildren()) {
-                    if (GridPane.getRowIndex(node) == validX && GridPane.getColumnIndex(node) == validY) {
-                        selectedTile = (TileView) node;
-                        selectedTile.highlightMovement(color);
-                    }
+    public void highlightTiles(Set<Tile> tiles, Color color) {
+        for (Tile t : tiles) {
+            TileView selectedTile;
+
+            int validX = t.getX();
+            int validY = t.getY();
+
+            for (Node node : this.getChildren()) {
+                if (GridPane.getRowIndex(node) == validX && GridPane.getColumnIndex(node) == validY) {
+                    selectedTile = (TileView) node;
+                    selectedTile.setTileBackgroundColor(color);
                 }
             }
         }
     }
+
+
 
 }

@@ -17,4 +17,7 @@ public class Player {
     public PieceType getPieceType(){
         return pieceType;
     }
+    public boolean isPlayerPiece(Piece piece) {
+        return this.pieceType == piece.pieceType;
+    }
 }

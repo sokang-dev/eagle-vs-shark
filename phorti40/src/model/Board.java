@@ -1,65 +1,62 @@
 package model;
 
-import java.util.HashSet;
-import java.util.Set;
+import model.Eagle.AttackEagle;
+import model.Eagle.DummyEagle;
+import model.Eagle.UtilityEagle;
+import model.Shark.AttackShark;
+import model.Shark.DummyShark;
+import model.Shark.UtilityShark;
 
 import static resources.Constants.BOARD_HEIGHT;
 import static resources.Constants.BOARD_WIDTH;
 
 public class Board {
-    private Tile[][] boardMatrix;
+    private Tile[][] board;
 
     // Initialises board with initial piece positions
     public Board() {
-        boardMatrix = new Tile[BOARD_WIDTH][BOARD_HEIGHT];
+        board = new Tile[BOARD_WIDTH][BOARD_HEIGHT];
 
         // Instaniate empty tiles
         for (int i = 0; i < BOARD_WIDTH; i++) {
             for (int j = 0; j < BOARD_HEIGHT; j++) {
-                boardMatrix[i][j] = new Tile(i, j);
+                board[i][j] = new Tile(i, j);
             }
         }
 
-        DummyShark dummyShark1 = new DummyShark(boardMatrix[5][4]);
-        DummyEagle dummyEagle1 = new DummyEagle(boardMatrix[5][5]);
-        AttackEagle attackEagle = new AttackEagle(boardMatrix[3][3]);
-        AttackShark attackShark = new AttackShark(boardMatrix[3][2]);
-        UtilityEagle utilityEagle = new UtilityEagle(boardMatrix[2][2]);
-        UtilityShark utilityShark = new UtilityShark(boardMatrix[8][5]);
+        board[0][0].setPiece(new DummyShark());
+        board[0][1].setPiece(new UtilityShark());
+        board[0][2].setPiece(new AttackShark());
+
+        board[9][9].setPiece(new DummyEagle());
+        board[9][8].setPiece(new UtilityEagle());
+        board[9][7].setPiece(new AttackEagle());
+
+        printBoard();
     }
 
-    public Tile getTile(int x, int y) {
-        return this.boardMatrix[x][y];
-    }
-
-    public Piece getPiece(int i, int j) {
-        return this.boardMatrix[i][j].getPiece();
-    }
-
-    public int getWidth() {
-        return BOARD_WIDTH;
-    }
-
-    public int getHeight() {
-        return BOARD_HEIGHT;
-    }
-
-    // Utility
+    // Used for debugging only
     public void printBoard() {
         for (int i = 0; i < BOARD_WIDTH; i++) {
             for (int j = 0; j < BOARD_HEIGHT; j++) {
-                if (this.getPiece(i, j) instanceof DummyEagle) {
-                    System.out.print(" E ");
-                } else if (this.getPiece(i, j) instanceof DummyShark) {
-                    System.out.print(" S ");
-                } else if (this.getPiece(i, j) instanceof AttackEagle) {
-                    System.out.print(" A ");
-                } else {
-                    System.out.print(" O ");
-                }
+                Piece piece = this.getPiece(i, j);
+                if (piece != null)
+                    System.out.print(piece.toString());
+                else
+                    System.out.print(" 0 ");
             }
-            System.out.println("");
+            System.out.println();
         }
-        System.out.println("");
+        System.out.println();
+    }
+
+    public Tile[][] getBoard() {
+        return this.board;
+    }
+    public Tile getTile(int x, int y) {
+        return this.board[x][y];
+    }
+    public Piece getPiece(int i, int j) {
+        return this.board[i][j].getPiece();
     }
 }

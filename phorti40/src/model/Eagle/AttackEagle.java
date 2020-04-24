@@ -1,12 +1,17 @@
-package model;
+package model.Eagle;
+
+import model.Board;
+import model.Tile;
+import resources.Sprites;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class AttackEagle extends Eagle {
 
-    public AttackEagle(Tile tile) {
-        super(tile);
+    public AttackEagle() {
+        super();
+        super.setSprite(Sprites.AttackEagle);
     }
 
     // AttackEagle can move across unlimited tiles in one direction
@@ -36,5 +41,11 @@ public class AttackEagle extends Eagle {
         }
 
         return validMoves;
+    }
+
+    // Used for debugging only - returns ANSI_RED A
+    @Override
+    public String toString() {
+        return "\u001B[31m A \u001B[0m";
     }
 }

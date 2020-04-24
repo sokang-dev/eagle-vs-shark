@@ -1,26 +1,14 @@
 package resources;
 
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
-public class Sprites {
+public final class Sprites {
 
-    public static Image AttackShark;
-    public static Image Shark;
-    public static Image UtilityShark;
+    public static Image AttackShark = new Image(Sprites.class.getResourceAsStream("shark_attack.png"));
+    public static Image Shark = new Image(Sprites.class.getResourceAsStream("shark.png"));
+    public static Image UtilityShark = new Image(Sprites.class.getResourceAsStream("shark_utility.png"));
 
-    public static Image AttackEagle;
-    public static Image Eagle;
-    public static Image UtilityEagle;
-
-    // Loads sprites into Image classes for use
-    public Sprites()
-    {
-        this.Shark = new Image(getClass().getResource("shark.png").toExternalForm());
-        this.AttackShark = new Image(getClass().getResource("shark_attack.png").toExternalForm());
-        this.UtilityShark = new Image(getClass().getResource("shark_utility.png").toExternalForm());
-        this.Eagle = new Image(getClass().getResource("eagle.png").toExternalForm());
-        this.AttackEagle = new Image(getClass().getResource("eagle_attack.png").toExternalForm());
-        this.UtilityEagle = new Image(getClass().getResource("eagle_utility.png").toExternalForm());
-    }
+    public static Image AttackEagle = new Image(Sprites.class.getResourceAsStream("eagle_attack.png"));
+    public static Image Eagle = new Image(Sprites.class.getResourceAsStream("eagle.png"));
+    public static Image UtilityEagle = new Image(Sprites.class.getResourceAsStream("eagle_utility.png"));
 }
