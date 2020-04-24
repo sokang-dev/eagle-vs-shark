@@ -51,20 +51,17 @@ public class BoardView extends GridPane {
         }
     }
 
-    public void highlightPieceValidMoves(Set<Tile> tiles, Color color) {
-        // Looks at the validMoves of the selectedPiece and highlights them
-        if (tiles.size() > 0) {
-            for (Tile t : tiles) {
-                TileView selectedTile;
+    public void highlightTiles(Set<Tile> tiles, Color color) {
+        for (Tile t : tiles) {
+            TileView selectedTile;
 
-                int validX = t.getX();
-                int validY = t.getY();
+            int validX = t.getX();
+            int validY = t.getY();
 
-                for (Node node : this.getChildren()) {
-                    if (GridPane.getRowIndex(node) == validX && GridPane.getColumnIndex(node) == validY) {
-                        selectedTile = (TileView) node;
-                        selectedTile.setTileBackgroundColor(color);
-                    }
+            for (Node node : this.getChildren()) {
+                if (GridPane.getRowIndex(node) == validX && GridPane.getColumnIndex(node) == validY) {
+                    selectedTile = (TileView) node;
+                    selectedTile.setTileBackgroundColor(color);
                 }
             }
         }

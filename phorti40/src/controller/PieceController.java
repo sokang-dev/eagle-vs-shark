@@ -61,8 +61,9 @@ public class PieceController {
         }
         else {
             storePieceAndValidMoves(piece);
-            gameController.getBoardView().highlightPieceValidMoves(this.validMoves, Constants.VALID_MOVE_TILE_COLOR);
             this.pieceClicked = true;
+            // Highlight validMoves tiles
+            gameController.getBoardView().highlightTiles(this.validMoves, Constants.VALID_MOVE_TILE_COLOR);
         }
     }
 
@@ -71,7 +72,7 @@ public class PieceController {
          * Unselect piece
          * Unhighlight validMoves tiles */
         if (board.getPiece(destinationTile.getX(), destinationTile.getY()) != null) {
-            gameController.getBoardView().highlightPieceValidMoves(this.validMoves, Constants.EMPTY_TILE_COLOR);
+            gameController.getBoardView().highlightTiles(this.validMoves, Constants.EMPTY_TILE_COLOR);
             this.pieceClicked = false;
             board.printBoard(); // console printing board for debugging
         }
@@ -81,8 +82,8 @@ public class PieceController {
             // Move the piece in the Model
             selectedPiece.move(board.getTile(destinationTile.getX(), destinationTile.getY()));
 
-            // Update the View
-            gameController.getBoardView().highlightPieceValidMoves(this.validMoves, Constants.EMPTY_TILE_COLOR);
+            // Unhighlight validMoves tiles
+            gameController.getBoardView().highlightTiles(this.validMoves, Constants.EMPTY_TILE_COLOR);
             gameController.getBoardView().refreshBoard();
 
             selectedPiece = null;
