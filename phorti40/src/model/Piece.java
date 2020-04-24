@@ -2,6 +2,7 @@ package model;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import model.Enums.PieceType;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,10 +12,12 @@ public abstract class Piece {
     private Tile tile;
     protected int baseMovement;
     protected Image sprite;
+    protected PieceType pieceType;
 
-    protected Piece(Tile tile) {
+    protected Piece(Tile tile, PieceType pieceType) {
         this.tile = tile;
         this.tile.setPiece(this);
+        this.pieceType = pieceType;
     }
 
     public Set<Tile> getValidMoves(Tile currentCoord, int movement, Board board) {
@@ -65,6 +68,9 @@ public abstract class Piece {
         }
     }
 
+    public PieceType getPieceType() {
+        return this.pieceType;
+    }
     public Image getSprite() {
         return this.sprite;
     }

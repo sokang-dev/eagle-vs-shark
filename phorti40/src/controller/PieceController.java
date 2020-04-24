@@ -48,15 +48,14 @@ public class PieceController {
 
     private void selectTile(Tile tile) {
         Piece piece = board.getPiece(tile.getX(), tile.getY());
-        PieceType currentPlayerPieceType = gameController.getCurrentPlayer().getPieceType();
+        Player currentPlayer = gameController.getCurrentPlayer();
 
         // If tile is empty
         if (piece == null) {
             System.out.println("Non piece selected");
         }
         // If tile contains a piece not belonging to player
-        else if ((currentPlayerPieceType == PieceType.Shark && piece instanceof Eagle)
-        || currentPlayerPieceType == PieceType.Eagle && piece instanceof Shark) {
+        else if (!currentPlayer.isPlayerPiece(piece)) {
             System.out.println("Wrong piece dumbass.");
         }
         else {

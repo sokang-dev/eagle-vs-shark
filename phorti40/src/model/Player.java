@@ -22,4 +22,8 @@ public class Player {
     public long getTimeRemaining() { return timeRemaining; }
 
     public void decrementTimeRemaining(long time) { this.timeRemaining = this.timeRemaining - time; }
+
+    public boolean isPlayerPiece(Piece piece) {
+        return this.pieceType == piece.pieceType;
+    }
 }
