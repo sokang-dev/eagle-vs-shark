@@ -40,6 +40,10 @@ hs_err_pid*
 
 workspace.xml
 
+# IntelliJ
+**/.idea/
+**/*.iml
+
 # User-specific stuff
 **/.idea/**/workspace.xml
 **/.idea/**/tasks.xml
