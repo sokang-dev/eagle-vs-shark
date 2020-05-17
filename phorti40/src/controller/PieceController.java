@@ -21,7 +21,6 @@ public class PieceController {
     private Set<Tile> validMoves;
     private Set<Tile> validAttacks;
 
-
     public PieceController(GridPane visualBoard, GameController gameController) {
         this.visualBoard = visualBoard;
         this.gameController = gameController;
@@ -56,8 +55,7 @@ public class PieceController {
         // If tile contains a piece not belonging to player
         else if (!currentPlayer.isPlayerPiece(piece)) {
             System.out.println("Wrong piece dumbass.");
-        }
-        else {
+        } else {
             // Store valid move and valid attacks
             storePieceAndValidMoves(piece);
             this.pieceClicked = true;
@@ -82,31 +80,30 @@ public class PieceController {
             board.printBoard(); // console printing board for debugging
         }
 
-        // If destinationTile is in validMoves
-        if (validMoves.contains(destinationTile)) {
-            // TODO: Calculate attack here
-            if (destinationTile.getPiece() != null) {
-                System.out.println("Attack would take place here (Reduce action");
-            }
-            else {
-                // Move the piece in the Model
-                selectedPiece.move(board.getTile(destinationTile.getX(), destinationTile.getY()));
-
-                // Unhighlight validMoves tiles
-                gameController.getBoardView().highlightTiles(this.validMoves, Constants.EMPTY_TILE_COLOR);
-                gameController.getBoardView().highlightTiles(this.validAttacks, Constants.EMPTY_TILE_COLOR);
-
-                gameController.getBoardView().refreshBoard();
-
-                selectedPiece = null;
-                this.pieceClicked = false;
-                Platform.runLater(() -> gameController.getGameInfoPanel().setActionsRemaining(gameController.getGameInfoPanel().getActionsRemaining()-1));
-            }
+        // If valid move OR attack
+        if (validAttacks.contains(destinationTile)) {
+            destinationTile.getPiece().takeDamage();
+            postActionBoardReset();
+        }
+        else if (validMoves.contains(destinationTile)) {
+            selectedPiece.move(board.getTile(destinationTile.getX(), destinationTile.getY()));
+            postActionBoardReset();
 
             board.printBoard(); // console printing board for debugging
-        }
-        else
+        } else {
             System.out.println("Can't move there :|");
+        }
+    }
+
+    private void postActionBoardReset() {
+        gameController.getBoardView().highlightTiles(this.validMoves, Constants.EMPTY_TILE_COLOR);
+        gameController.getBoardView().highlightTiles(this.validAttacks, Constants.EMPTY_TILE_COLOR);
+
+        gameController.getBoardView().refreshBoard();
+
+        selectedPiece = null;
+        this.pieceClicked = false;
+        Platform.runLater(() -> gameController.getGameInfoPanel().setActionsRemaining(gameController.getGameInfoPanel().getActionsRemaining() - 1));
     }
 
     private void storePieceAndValidMoves(Piece selectedPiece) {

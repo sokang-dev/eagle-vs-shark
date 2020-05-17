@@ -11,5 +11,6 @@ public abstract class Eagle extends Piece {
     public Eagle() {
         super(PieceType.Eagle);
         super.setBaseMovement(baseMovement);
+        super.setHealth(health);
     }
 }

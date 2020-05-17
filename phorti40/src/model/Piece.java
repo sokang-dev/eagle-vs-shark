@@ -9,6 +9,7 @@ import java.util.Set;
 public abstract class Piece {
 
     private Tile tile;
+    private int health;
     protected int baseMovement;
     protected Image sprite;
     protected PieceType pieceType;
@@ -40,10 +41,12 @@ public abstract class Piece {
     }
 
     public Set<Tile> getValidAttacks(Tile currentCoord, Board board) {
+
         Set<Tile> validAttacks = new HashSet<>();
 
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
+
                 if (Math.abs(i) == Math.abs(j))
                     continue;
 
@@ -68,6 +71,18 @@ public abstract class Piece {
     public void move(Tile tile) {
         this.tile.removePiece();
         tile.setPiece(this);
+    }
+
+    public void attack(Piece piece) {
+        piece.takeDamage();
+    }
+
+    public void takeDamage() {
+        this.health -= 1;
+
+        if (this.health < 1) {
+            this.tile.removePiece();
+        }
     }
 
     private void addAdjacentTiles(Tile currentCoord, Set<Tile> validMoves, Board board) {
@@ -103,6 +118,10 @@ public abstract class Piece {
         return this.tile;
     }
 
+    public int getHealth() {
+        return this.health;
+    }
+
     public void setTile(Tile tile) {
         this.tile = tile;
     }
@@ -117,5 +136,9 @@ public abstract class Piece {
 
     protected void setBaseMovement(int baseMovement) {
         this.baseMovement = baseMovement;
+    }
+
+    protected void setHealth(int health) {
+        this.health = health;
     }
 }

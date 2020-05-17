@@ -11,5 +11,6 @@ public abstract class Shark extends Piece {
     public Shark() {
         super(PieceType.Shark);
         super.setBaseMovement(baseMovement);
+        super.setHealth(health);
     }
 }
