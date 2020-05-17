@@ -24,7 +24,6 @@ public class MainMenuController {
         StartGame(gameController);
     }
 
-    // Initialise the game controller and game thread, then change the scene
     public void handleResumeGame(Event event) {
         SaveState state = SaveStateManager.LoadState();
         if (state.getGameBoard() == null)
