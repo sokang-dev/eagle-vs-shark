@@ -26,8 +26,7 @@ public class MainMenuController {
 
     public void handleResumeGame(Event event) {
         SaveState state = SaveStateManager.LoadState();
-        if (state.getGameBoard() == null)
-        {
+        if (state.getGameBoard() == null) {
             //Create and show an alert
             Alert a1 = new Alert(Alert.AlertType.ERROR, "Error loading save file.");
             a1.show();
