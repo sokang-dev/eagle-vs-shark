@@ -38,7 +38,12 @@ public class MainMenuView extends VBox {
             mainMenuController.handleNewGameButton(Integer.parseInt(turnTimerInput.getText()), event);
         });
 
-        HBox newGameBox = new HBox(turnTimerInput, newGameButton);
+        //todo: grey this out if there is no save file
+        Button resumeGameButton = new Button("Resume Game");
+        resumeGameButton.setOnAction(event -> {
+            mainMenuController.handleResumeGame(event);
+        });
+        HBox newGameBox = new HBox(turnTimerInput, newGameButton, resumeGameButton);
         newGameBox.setSpacing(5);
 
         this.getChildren().addAll(heading, newGameBox);

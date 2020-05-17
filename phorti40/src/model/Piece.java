@@ -1,16 +1,22 @@
 package model;
 
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import model.Enums.PieceType;
 
+import javax.imageio.ImageIO;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-public abstract class Piece {
+public abstract class Piece implements Serializable {
 
     private Tile tile;
     protected int baseMovement;
-    protected Image sprite;
+    protected transient Image sprite;
     protected PieceType pieceType;
 
     protected Piece(PieceType pieceType) {
@@ -87,4 +93,5 @@ public abstract class Piece {
     protected void setBaseMovement(int baseMovement) {
         this.baseMovement = baseMovement;
     }
+    
 }

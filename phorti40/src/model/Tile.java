@@ -2,9 +2,10 @@ package model;
 
 import resources.Constants;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Tile {
+public class Tile implements Serializable {
 
     private int x, y;
     private Piece piece;

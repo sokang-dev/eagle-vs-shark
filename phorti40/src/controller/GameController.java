@@ -1,4 +1,5 @@
 package controller;
+import App.SaveStateManager;
 import javafx.application.Platform;
 import javafx.event.Event;
 import java.util.Timer;
@@ -29,20 +30,29 @@ public class GameController {
     private long timeLimit;
 
     public GameController(int timerInput) {
+        InitialiseGameController(new Board(), null, timerInput);
+    }
+
+    public GameController(SaveState loadState){
+        InitialiseGameController(loadState.getGameBoard(), loadState.getCurrentPlayer(), loadState.getTimeLimit());
+    }
+
+    private void InitialiseGameController(Board gameBoard, Player currentPlayer, int timerInput){
         timeLimit = TimeUnit.SECONDS.toMillis(timerInput);
 
         //initialise the players
         playerOne = new Player("Player 1 (Shark)", PieceType.Shark);
         playerTwo = new Player("Player 2 (Eagle)", PieceType.Eagle);
         //set current turn
-        currentPlayer = playerOne;
+        this.currentPlayer = (currentPlayer == null) ? playerOne : currentPlayer;
 
-        this.gameBoard = new Board();
+        this.gameBoard = gameBoard;
         this.boardView = new BoardView(gameBoard);
-        this.gameInfoPanel = new GameInfoPanel(currentPlayer.getPlayerName(), timeLimit);
+        this.gameInfoPanel = new GameInfoPanel(this.currentPlayer.getPlayerName(), timeLimit);
         this.gameInfoPanelView = new GameInfoPanelView(gameInfoPanel, this);
         new PieceController(boardView, this);
     }
+
 
     public int GameStart() {
         initialiseTimer();
@@ -101,7 +111,9 @@ public class GameController {
     public void handleEndTurnButton(Event event) {
         Platform.runLater(() -> gameInfoPanelView.getGameInfoPanel().setActionsRemaining(0));
     }
-
+    public void handleSaveButton(Event event) {
+        SaveStateManager.SaveState(gameBoard, currentPlayer, (int) timeLimit);
+    }
     public Board getGameBoard() {
         return this.gameBoard;
     }

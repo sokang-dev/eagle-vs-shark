@@ -1,5 +1,6 @@
 package view;
 
+import App.SaveStateManager;
 import controller.*;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -37,7 +38,10 @@ public class GameInfoPanelView extends VBox {
 
         Button endTurnButton = new Button("End Turn");
         endTurnButton.setOnAction(gameController::handleEndTurnButton);
-        this.getChildren().addAll(playerTurn, timeRemaining, actionsRemaining, endTurnButton);
+
+        Button saveButton = new Button("Save");
+        saveButton.setOnAction(gameController::handleSaveButton);
+        this.getChildren().addAll(playerTurn, timeRemaining, actionsRemaining, endTurnButton, saveButton);
     }
 
     public GameInfoPanel getGameInfoPanel(){

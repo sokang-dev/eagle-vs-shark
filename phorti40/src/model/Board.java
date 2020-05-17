@@ -7,10 +7,12 @@ import model.Shark.AttackShark;
 import model.Shark.DummyShark;
 import model.Shark.UtilityShark;
 
+import java.io.Serializable;
+
 import static resources.Constants.BOARD_HEIGHT;
 import static resources.Constants.BOARD_WIDTH;
 
-public class Board {
+public class Board implements Serializable {
     private Tile[][] board;
 
     // Initialises board with initial piece positions

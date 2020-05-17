@@ -2,7 +2,9 @@ package model;
 
 import model.Enums.PieceType;
 
-public class Player {
+import java.io.Serializable;
+
+public class Player implements Serializable {
     private String playerName;
     private PieceType pieceType;
 

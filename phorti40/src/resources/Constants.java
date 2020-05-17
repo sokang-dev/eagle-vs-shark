@@ -9,4 +9,6 @@ public final class Constants {
 
     public static final Color EMPTY_TILE_COLOR = Color.AZURE;
     public static final Color VALID_MOVE_TILE_COLOR = Color.ORANGE;
+
+    public static final String SAVE_PATH = "./phorti40/save.txt";
 }
