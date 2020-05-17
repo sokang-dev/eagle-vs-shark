@@ -5,6 +5,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import model.*;
 import resources.Constants;
 import view.TileView;
@@ -18,6 +19,8 @@ public class PieceController {
     private boolean pieceClicked = false;
     private Piece selectedPiece;
     private Set<Tile> validMoves;
+    private Set<Tile> validAttacks;
+
 
     public PieceController(GridPane visualBoard, GameController gameController) {
         this.visualBoard = visualBoard;
@@ -55,10 +58,15 @@ public class PieceController {
             System.out.println("Wrong piece dumbass.");
         }
         else {
+            // Store valid move and valid attacks
             storePieceAndValidMoves(piece);
             this.pieceClicked = true;
+
             // Highlight validMoves tiles
             gameController.getBoardView().highlightTiles(this.validMoves, Constants.VALID_MOVE_TILE_COLOR);
+
+            // Highlight valid attacks
+            gameController.getBoardView().highlightTiles(this.validAttacks, Color.RED);
         }
     }
 
@@ -68,22 +76,33 @@ public class PieceController {
          * Unhighlight validMoves tiles */
         if (board.getPiece(destinationTile.getX(), destinationTile.getY()) != null) {
             gameController.getBoardView().highlightTiles(this.validMoves, Constants.EMPTY_TILE_COLOR);
+            gameController.getBoardView().highlightTiles(this.validAttacks, Constants.EMPTY_TILE_COLOR);
+
             this.pieceClicked = false;
             board.printBoard(); // console printing board for debugging
         }
 
         // If destinationTile is in validMoves
         if (validMoves.contains(destinationTile)) {
-            // Move the piece in the Model
-            selectedPiece.move(board.getTile(destinationTile.getX(), destinationTile.getY()));
+            // TODO: Calculate attack here
+            if (destinationTile.getPiece() != null) {
+                System.out.println("Attack would take place here (Reduce action");
+            }
+            else {
+                // Move the piece in the Model
+                selectedPiece.move(board.getTile(destinationTile.getX(), destinationTile.getY()));
 
-            // Unhighlight validMoves tiles
-            gameController.getBoardView().highlightTiles(this.validMoves, Constants.EMPTY_TILE_COLOR);
-            gameController.getBoardView().refreshBoard();
+                // Unhighlight validMoves tiles
+                gameController.getBoardView().highlightTiles(this.validMoves, Constants.EMPTY_TILE_COLOR);
+                gameController.getBoardView().highlightTiles(this.validAttacks, Constants.EMPTY_TILE_COLOR);
 
-            selectedPiece = null;
-            this.pieceClicked = false;
-            Platform.runLater(() -> gameController.getGameInfoPanel().setActionsRemaining(gameController.getGameInfoPanel().getActionsRemaining()-1));
+                gameController.getBoardView().refreshBoard();
+
+                selectedPiece = null;
+                this.pieceClicked = false;
+                Platform.runLater(() -> gameController.getGameInfoPanel().setActionsRemaining(gameController.getGameInfoPanel().getActionsRemaining()-1));
+            }
+
             board.printBoard(); // console printing board for debugging
         }
         else
@@ -94,5 +113,6 @@ public class PieceController {
         // Store the selectedPiece and it's valid moves
         this.selectedPiece = selectedPiece;
         this.validMoves = selectedPiece.getValidMoves(selectedPiece.getTile(), selectedPiece.getBaseMovement(), board);
+        this.validAttacks = selectedPiece.getValidAttacks(selectedPiece.getTile(), board);
     }
 }

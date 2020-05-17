@@ -39,6 +39,31 @@ public abstract class Piece {
         return validMoves;
     }
 
+    public Set<Tile> getValidAttacks(Tile currentCoord, Board board) {
+        Set<Tile> validAttacks = new HashSet<>();
+
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                if (Math.abs(i) == Math.abs(j))
+                    continue;
+
+                int x = currentCoord.getX() + i;
+                int y = currentCoord.getY() + j;
+
+                if (Tile.isOutOfBounds(x, y))
+                    continue;
+
+                // Add pieces from the opposing team
+                if (board.getTile(x, y).getPiece() != null) {
+                    if (board.getPiece(x, y).getPieceType() != this.getPieceType()) {
+                        validAttacks.add(new Tile(x, y));
+                    }
+                }
+            }
+        }
+        return validAttacks;
+    }
+
     // Remove piece from current tile and set piece to a new tile.
     public void move(Tile tile) {
         this.tile.removePiece();
@@ -69,21 +94,27 @@ public abstract class Piece {
     public PieceType getPieceType() {
         return this.pieceType;
     }
+
     public Image getSprite() {
         return this.sprite;
     }
+
     public Tile getTile() {
         return this.tile;
     }
+
     public void setTile(Tile tile) {
         this.tile = tile;
     }
+
     public void setSprite(Image sprite) {
         this.sprite = sprite;
     }
+
     public int getBaseMovement() {
         return this.baseMovement;
     }
+
     protected void setBaseMovement(int baseMovement) {
         this.baseMovement = baseMovement;
     }

@@ -1,9 +1,7 @@
 package model;
 
-import model.Eagle.AttackEagle;
 import model.Eagle.DummyEagle;
 import model.Eagle.UtilityEagle;
-import model.Shark.AttackShark;
 import model.Shark.DummyShark;
 import model.Shark.UtilityShark;
 
@@ -24,13 +22,14 @@ public class Board {
             }
         }
 
-        board[0][0].setPiece(new DummyShark());
-        board[0][1].setPiece(new UtilityShark());
-        board[0][2].setPiece(new AttackShark());
+        // board[0][0].setPiece(new DummyShark());
+        // board[0][1].setPiece(new UtilityShark());
+        board[0][2].setPiece(new DummyShark());
+        board[1][2].setPiece(new UtilityShark());
 
-        board[9][9].setPiece(new DummyEagle());
-        board[9][8].setPiece(new UtilityEagle());
-        board[9][7].setPiece(new AttackEagle());
+        // board[9][9].setPiece(new DummyEagle());
+        board[1][3].setPiece(new UtilityEagle());
+        board[0][3].setPiece(new DummyEagle());
 
         printBoard();
     }
