@@ -11,14 +11,15 @@ import java.io.Serializable;
 
 public class SaveState implements Serializable {
     private Board gameBoard;
-//    private int currentTurn;
     private Player currentPlayer;
     private int timeLimit;
+    private int actionsRemaining;
 
-    public SaveState(Board gameBoard, Player currentPlayer, int timeLimit){
+    public SaveState(Board gameBoard, Player currentPlayer, int timeLimit, int actionsRemaining){
         this.gameBoard = gameBoard;
         this.currentPlayer = currentPlayer;
         this.timeLimit = timeLimit;
+        this.actionsRemaining = actionsRemaining;
     }
 
     public Board getGameBoard() {
@@ -31,5 +32,9 @@ public class SaveState implements Serializable {
 
     public Player getCurrentPlayer() {
         return currentPlayer;
+    }
+
+    public int getActionsRemaining() {
+        return actionsRemaining;
     }
 }

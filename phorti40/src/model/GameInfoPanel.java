@@ -8,9 +8,9 @@ public class GameInfoPanel {
     private IntegerProperty actionsRemaining = new SimpleIntegerProperty();
     private LongProperty timeRemaining = new SimpleLongProperty();
 
-    public GameInfoPanel(String currentPlayerName, long timeRemaining) {
+    public GameInfoPanel(String currentPlayerName, long timeRemaining, int actionsRemaining) {
         currentPlayer.setValue(currentPlayerName);
-        actionsRemaining.setValue(3);
+        this.actionsRemaining.setValue(actionsRemaining);
         this.timeRemaining.setValue(timeRemaining);
     }
 

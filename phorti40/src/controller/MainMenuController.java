@@ -3,6 +3,8 @@ package controller;
 import App.SaveStateManager;
 import javafx.event.Event;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.SaveState;
@@ -26,8 +28,17 @@ public class MainMenuController {
     // Initialise the game controller and game thread, then change the scene
     public void handleResumeGame(Event event) {
         SaveState state = SaveStateManager.LoadState();
-        GameController gameController = new GameController(state);
-        StartGame(gameController);
+        if (state.getGameBoard() == null)
+        {
+            //Create and show an alert
+            Alert a1 = new Alert(Alert.AlertType.ERROR,
+                    "Error loading save file.");
+            a1.show();
+        }
+        else {
+            GameController gameController = new GameController(state);
+            StartGame(gameController);
+        }
     }
 
     private void StartGame(GameController gameController)

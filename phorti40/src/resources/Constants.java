@@ -11,4 +11,5 @@ public final class Constants {
     public static final Color VALID_MOVE_TILE_COLOR = Color.ORANGE;
 
     public static final String SAVE_PATH = "./phorti40/save.txt";
+    public static final int DEFAULT_ACTIONS_REMAINING = 3;
 }

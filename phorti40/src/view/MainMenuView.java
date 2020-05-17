@@ -38,7 +38,6 @@ public class MainMenuView extends VBox {
             mainMenuController.handleNewGameButton(Integer.parseInt(turnTimerInput.getText()), event);
         });
 
-        //todo: grey this out if there is no save file
         Button resumeGameButton = new Button("Resume Game");
         resumeGameButton.setOnAction(event -> {
             mainMenuController.handleResumeGame(event);

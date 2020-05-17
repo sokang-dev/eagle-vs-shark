@@ -13,9 +13,7 @@ import static resources.Constants.SAVE_PATH;
 
 public class SaveStateManager {
 
-    public static boolean SaveState(Board gameBoard, Player currentPlayer, int timeLimit){
-        SaveState state = new SaveState(gameBoard, currentPlayer, timeLimit);
-
+    public static boolean SaveState(SaveState state){
         System.out.println("Saving...");
         //serialise it
         FileOutputStream fos = null;
@@ -26,15 +24,16 @@ public class SaveStateManager {
             out.writeObject(state);
             out.close();
             System.out.println("Saved.");
+            return true;
         } catch (IOException ex) {
             System.out.println("Error: " + ex.getMessage());
         }
-        return true;
+        return false;
     };
 
     public static SaveState LoadState (){
 
-        SaveState loadState = new SaveState(null, null, 0);
+        SaveState loadState = new SaveState(null, null, 0, 0);
         System.out.println("Loading...");
         try
         {
@@ -46,6 +45,10 @@ public class SaveStateManager {
             objectInputStream.close();
             fileInputStream.close();
             System.out.println("Loaded.");
+        }
+        catch(FileNotFoundException ex)
+        {
+            System.out.println("Save file not found.");
         }
 
         catch(IOException ex)
@@ -60,4 +63,8 @@ public class SaveStateManager {
 
         return loadState;
     };
+
+    public static SaveState CreateSaveState(Board gameBoard, Player currentPlayer, int timeLimit, int actionsRemaining){
+        return new SaveState(gameBoard, currentPlayer, timeLimit, actionsRemaining);
+    }
 }
