@@ -1,21 +1,15 @@
 package App;
 
-import javafx.embed.swing.SwingFXUtils;
-import javafx.scene.image.Image;
-import model.Board;
-import model.Player;
 import model.SaveState;
-
-import javax.imageio.ImageIO;
 import java.io.*;
 
 import static resources.Constants.SAVE_PATH;
 
 public class SaveStateManager {
 
+    //serialise and save our game state to .txt
     public static boolean SaveState(SaveState state){
         System.out.println("Saving...");
-        //serialise it
         FileOutputStream fos = null;
         ObjectOutputStream out = null;
         try {
@@ -31,40 +25,27 @@ public class SaveStateManager {
         return false;
     };
 
+    //Deserialise from the .txt and return the loaded SaveState
     public static SaveState LoadState (){
-
         SaveState loadState = new SaveState(null, null, 0, 0);
         System.out.println("Loading...");
-        try
-        {
+        try {
             FileInputStream fileInputStream = new FileInputStream(SAVE_PATH);
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-
             loadState = (SaveState)objectInputStream.readObject();
-
             objectInputStream.close();
             fileInputStream.close();
             System.out.println("Loaded.");
         }
-        catch(FileNotFoundException ex)
-        {
-            System.out.println("Save file not found.");
+        catch(FileNotFoundException ex) {
+            System.out.println("Save file not found: " + ex.getLocalizedMessage());
         }
-
-        catch(IOException ex)
-        {
-            System.out.println("IOException is caught");
+        catch(IOException ex) {
+            System.out.println("IOException occurred: " + ex.getLocalizedMessage());
         }
-
-        catch(ClassNotFoundException ex)
-        {
-            System.out.println("ClassNotFoundException is caught");
+        catch(ClassNotFoundException ex) {
+            System.out.println("ClassNotFoundException occurred: " + ex.getLocalizedMessage());
         }
-
         return loadState;
     };
-
-    public static SaveState CreateSaveState(Board gameBoard, Player currentPlayer, int timeLimit, int actionsRemaining){
-        return new SaveState(gameBoard, currentPlayer, timeLimit, actionsRemaining);
-    }
 }

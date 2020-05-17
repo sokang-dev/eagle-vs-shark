@@ -59,7 +59,6 @@ public class GameController {
         new PieceController(boardView, this);
     }
 
-
     public int GameStart() {
         initialiseTimer();
 
@@ -117,9 +116,20 @@ public class GameController {
     public void handleEndTurnButton(Event event) {
         Platform.runLater(() -> gameInfoPanelView.getGameInfoPanel().setActionsRemaining(0));
     }
+
+    public Board getGameBoard() {
+        return this.gameBoard;
+    }
+    public BoardView getBoardView() {
+        return this.boardView;
+    }
+    public GameInfoPanel getGameInfoPanel() { return this.gameInfoPanel; }
+    public GameInfoPanelView getGameInfoPanelView() { return this.gameInfoPanelView; }
+    public Player getCurrentPlayer() { return currentPlayer; }
+
     public void handleSaveButton(Event event) {
-        SaveState currentState = SaveStateManager.CreateSaveState(gameBoard, currentPlayer, initialTimeLimit, gameInfoPanel.getActionsRemaining());
-        if (SaveStateManager.SaveState(currentState)){
+        gameInfoPanelView.getSaveStatusLabel().setVisible(true);
+        if (SaveStateManager.SaveState(createSaveState())){
             Platform.runLater(() -> gameInfoPanelView.setSaveStatusLabel("Save success."));
         }
         else {
@@ -135,13 +145,7 @@ public class GameController {
         visiblePause.play();
     }
 
-    public Board getGameBoard() {
-        return this.gameBoard;
+    private SaveState createSaveState(){
+        return new SaveState(gameBoard, currentPlayer, initialTimeLimit, gameInfoPanel.getActionsRemaining());
     }
-    public BoardView getBoardView() {
-        return this.boardView;
-    }
-    public GameInfoPanel getGameInfoPanel() { return this.gameInfoPanel; }
-    public GameInfoPanelView getGameInfoPanelView() { return this.gameInfoPanelView; }
-    public Player getCurrentPlayer() { return currentPlayer; }
 }

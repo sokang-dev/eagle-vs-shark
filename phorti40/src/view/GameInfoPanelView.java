@@ -1,13 +1,10 @@
 package view;
 
-import App.SaveStateManager;
 import controller.*;
 import javafx.geometry.Insets;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import model.GameInfoPanel;
 import resources.Utilities;
 
@@ -42,7 +39,7 @@ public class GameInfoPanelView extends VBox {
         Button endTurnButton = new Button("End Turn");
         endTurnButton.setOnAction(gameController::handleEndTurnButton);
 
-        saveStatusLabel = new Label("");
+        saveStatusLabel = new Label();
         Button saveButton = new Button("Save");
         saveButton.setOnAction(gameController::handleSaveButton);
         this.getChildren().addAll(playerTurn, timeRemaining, actionsRemaining, endTurnButton, saveStatusLabel, saveButton);
@@ -68,7 +65,8 @@ public class GameInfoPanelView extends VBox {
         saveStatusLabel.setText(message);
     }
 
-    public Label getSaveStatusLabel(){ return saveStatusLabel; }
-
+    public Label getSaveStatusLabel(){
+        return saveStatusLabel;
+    }
 }
 
