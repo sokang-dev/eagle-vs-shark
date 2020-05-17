@@ -28,6 +28,7 @@ public class GameController {
     private Boolean gameIsOver = false;
 
     private long timeLimit;
+    private int initialTimeLimit;
 
     public GameController(int timerInput) {
         InitialiseGameController(new Board(), null, timerInput);
@@ -38,6 +39,7 @@ public class GameController {
     }
 
     private void InitialiseGameController(Board gameBoard, Player currentPlayer, int timerInput){
+        initialTimeLimit = timerInput;
         timeLimit = TimeUnit.SECONDS.toMillis(timerInput);
 
         //initialise the players
@@ -112,7 +114,7 @@ public class GameController {
         Platform.runLater(() -> gameInfoPanelView.getGameInfoPanel().setActionsRemaining(0));
     }
     public void handleSaveButton(Event event) {
-        SaveStateManager.SaveState(gameBoard, currentPlayer, (int) timeLimit);
+        SaveStateManager.SaveState(gameBoard, currentPlayer, initialTimeLimit);
     }
     public Board getGameBoard() {
         return this.gameBoard;

@@ -93,5 +93,21 @@ public abstract class Piece implements Serializable {
     protected void setBaseMovement(int baseMovement) {
         this.baseMovement = baseMovement;
     }
-    
+
+    // Custom serialisation to account for the Sprite
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        //write the default values to be serialised
+        out.defaultWriteObject();
+        //then if the sprite isn't null store as BufferedImage
+        out.writeBoolean(sprite != null);
+        if (sprite != null) {
+            ImageIO.write(SwingFXUtils.fromFXImage(sprite, null), "png", out);
+        }
+    }
+
+    // Custom deserialisation to account for the Sprite
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        sprite = in.readBoolean() ? new Image(in) : null;
+    }
 }
