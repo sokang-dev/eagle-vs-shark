@@ -58,7 +58,7 @@ public class TileView extends StackPane {
 
     public void setHP() {
         if (tile.getPiece() != null)
-            this.hpText.setText("HP: " + String.valueOf(this.tile.getPiece().getHealth()));
+            this.hpText.setText(" HP: " + String.valueOf(this.tile.getPiece().getHealth()));
         else
             this.hpText.setText("");
     }

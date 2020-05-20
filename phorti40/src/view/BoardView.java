@@ -33,7 +33,6 @@ public class BoardView extends GridPane {
                 TileView tileView = new TileView(tile);
                 tileView.setSprite();
                 tileView.setHP();
-                // TODO: Set HP here
 
                 boardView[x][y] = tileView;
 
@@ -52,8 +51,6 @@ public class BoardView extends GridPane {
 
                 boardView[x][y].setSprite();
                 boardView[x][y].setHP();
-
-                // TODO: Set HP here
             }
         }
     }
