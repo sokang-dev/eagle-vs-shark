@@ -18,8 +18,8 @@ public class AttackShark extends Shark {
     public Set<Tile> getValidMoves(Tile currentCoord, int movement, Board board) {
         Set<Tile> validMoves = new HashSet<>();
 
-        for (int i = 0; i < Constants.BOARD_WIDTH; i++) {
-            for (int j = 0; j < Constants.BOARD_HEIGHT; j++) {
+        for (int i = 0; i < board.getSize(); i++) {
+            for (int j = 0; j < board.getSize(); j++) {
 
                 // Add only unoccupied Tiles
                 if (board.getTile(i, j).getPiece() == null)

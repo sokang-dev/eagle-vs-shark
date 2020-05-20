@@ -29,7 +29,7 @@ public class AttackEagle extends Eagle {
                 int x = currentCoord.getX() + i;
                 int y = currentCoord.getY() + j;
 
-                while (!Tile.isOutOfBounds(x, y)) {
+                while (board.getTile(x, y) != null) {
                     // Add only unoccupied Tiles
                     if (board.getTile(x, y).getPiece() == null)
                         validMoves.add(new Tile(x, y));

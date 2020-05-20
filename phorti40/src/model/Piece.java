@@ -55,12 +55,8 @@ public abstract class Piece {
                 int x = currentCoord.getX() + i;
                 int y = currentCoord.getY() + j;
 
-                // Don't add out of bounds Tiles
-                if (Tile.isOutOfBounds(x, y))
-                    continue;
-
-                // Add only unoccupied Tiles
-                if (board.getTile(x, y).getPiece() == null)
+                // Add only unoccupied Tiles that are in bounds
+                if (board.getTile(x, y) != null && board.getTile(x, y).getPiece() == null)
                     validMoves.add(new Tile(x, y));
             }
         }

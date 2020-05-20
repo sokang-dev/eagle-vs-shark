@@ -7,19 +7,16 @@ import model.Shark.AttackShark;
 import model.Shark.DummyShark;
 import model.Shark.UtilityShark;
 
-import static resources.Constants.BOARD_HEIGHT;
-import static resources.Constants.BOARD_WIDTH;
-
 public class Board {
     private Tile[][] board;
 
     // Initialises board with initial piece positions
-    public Board() {
-        board = new Tile[BOARD_WIDTH][BOARD_HEIGHT];
+    public Board(int boardSize) {
+        board = new Tile[boardSize][boardSize];
 
         // Instaniate empty tiles
-        for (int i = 0; i < BOARD_WIDTH; i++) {
-            for (int j = 0; j < BOARD_HEIGHT; j++) {
+        for (int i = 0; i < boardSize; i++) {
+            for (int j = 0; j < boardSize; j++) {
                 board[i][j] = new Tile(i, j);
             }
         }
@@ -37,8 +34,8 @@ public class Board {
 
     // Used for debugging only
     public void printBoard() {
-        for (int i = 0; i < BOARD_WIDTH; i++) {
-            for (int j = 0; j < BOARD_HEIGHT; j++) {
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board.length; j++) {
                 Piece piece = this.getPiece(i, j);
                 if (piece != null)
                     System.out.print(piece.toString());
@@ -54,9 +51,16 @@ public class Board {
         return this.board;
     }
     public Tile getTile(int x, int y) {
-        return this.board[x][y];
+        if (x >= 0 && x < getSize() && y >= 0 && y < getSize())
+            return this.board[x][y];
+
+        // Return nothing if co-ords are out of bounds
+        return null;
     }
     public Piece getPiece(int i, int j) {
         return this.board[i][j].getPiece();
+    }
+    public int getSize()  {
+        return this.board.length;
     }
 }

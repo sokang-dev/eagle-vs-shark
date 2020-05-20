@@ -21,10 +21,6 @@ public class Tile {
         this.piece = piece;
     }
 
-    public static boolean isOutOfBounds(int x, int y) {
-        return (x < 0 || x > Constants.BOARD_WIDTH - 1 || y < 0 || y > Constants.BOARD_HEIGHT - 1);
-    }
-
     @Override
     public String toString() {
         return "Tile{" +

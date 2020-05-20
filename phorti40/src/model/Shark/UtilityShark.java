@@ -28,10 +28,8 @@ public class UtilityShark extends Shark {
                 int x = currentCoord.getX() + i;
                 int y = currentCoord.getY() + j;
 
-                if (Tile.isOutOfBounds(x, y))
-                    continue;
-
-                if (board.getTile(x, y).getPiece() == null)
+                // Add only unoccupied Tiles that are in bounds
+                if (board.getTile(x, y) != null && board.getTile(x, y).getPiece() == null)
                     validMoves.add(new Tile(x, y));
             }
         }
