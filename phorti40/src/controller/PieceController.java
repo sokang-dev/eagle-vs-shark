@@ -64,7 +64,7 @@ public class PieceController {
             gameController.getBoardView().highlightTiles(this.validMoves, Constants.VALID_MOVE_TILE_COLOR);
 
             // Highlight valid attacks
-            gameController.getBoardView().highlightTiles(this.validAttacks, Color.RED);
+            gameController.getBoardView().highlightTiles(this.validAttacks, Constants.VALID_ATTACK_TILE_COLOR);
         }
     }
 

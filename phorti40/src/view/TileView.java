@@ -10,6 +10,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import model.Tile;
+import resources.Constants;
 
 import static resources.Constants.TILE_SIZE;
 
@@ -35,7 +36,7 @@ public class TileView extends StackPane {
 
         // shows hp
         hpText.setFont(Font.font("Verdana", FontWeight.BOLD, 13));
-        hpText.setFill(Color.DARKBLUE);
+        hpText.setFill(Constants.HP_TEXT_COLOR);
         StackPane.setAlignment(hpText, Pos.TOP_LEFT);
         this.getChildren().add(hpText);
     }
