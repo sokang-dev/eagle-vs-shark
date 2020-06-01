@@ -14,30 +14,6 @@ public class UtilityEagle extends Eagle {
         super.setSprite(Sprites.UtilityEagle);
     }
 
-    @Override
-    public Set<Tile> getValidMoves(Tile currentCoord, int movement, Board board) {
-        Set<Tile> validMoves = new HashSet<>();
-
-        for (int i = -1; i <= 1; i++) {
-            for (int j = -1; j <= 1; j++) {
-
-                if (Math.abs(i) != Math.abs(j))
-                    continue;
-
-                int x = currentCoord.getX() + i;
-                int y = currentCoord.getY() + j;
-
-                if (Tile.isOutOfBounds(x, y))
-                    continue;
-
-                if (board.getTile(x, y).getPiece() == null)
-                    validMoves.add(new Tile(x, y));
-            }
-        }
-
-        return validMoves;
-    }
-
     // Used for debugging only - returns ANSI_RED U
     @Override
     public String toString() {
