@@ -4,9 +4,10 @@ import model.Eagle.Eagle;
 import model.Eagle.NormAttackEagleDecorator;
 import model.Eagle.NormDummyEagleDecorator;
 import model.Eagle.NormUtilityEagleDecorator;
-import model.Shark.AttackShark;
-import model.Shark.DummyShark;
-import model.Shark.UtilityShark;
+import model.Shark.NormAttackSharkDecorator;
+import model.Shark.NormDummySharkDecorator;
+import model.Shark.NormUtilitySharkDecorator;
+import model.Shark.Shark;
 import model.interfaces.Piece;
 
 import static resources.Constants.BOARD_HEIGHT;
@@ -26,13 +27,13 @@ public class Board {
             }
         }
 
-        // board[0][0].setPiece(new DummyShark());
-        // board[0][1].setPiece(new UtilityShark());
-        board[0][2].setPiece(new DummyShark());
-        board[1][2].setPiece(new UtilityShark());
-        board[4][4].setPiece(new AttackShark());
-        board[4][5].setPiece(new DummyShark());
-        board[4][6].setPiece(new DummyShark());
+        // board[0][0].setPiece(new NormDummySharkDecorator());
+        // board[0][1].setPiece(new NormUtilitySharkDecorator());
+        board[0][2].setPiece(new NormDummySharkDecorator(new Shark()));
+        board[1][2].setPiece(new NormUtilitySharkDecorator(new Shark()));
+        board[4][4].setPiece(new NormAttackSharkDecorator(new Shark()));
+        board[4][5].setPiece(new NormDummySharkDecorator(new Shark()));
+        board[4][6].setPiece(new NormDummySharkDecorator(new Shark()));
 
         // board[9][9].setPiece(new NormDummyEagleDecorator());
         board[1][3].setPiece(new NormUtilityEagleDecorator(new Eagle()));

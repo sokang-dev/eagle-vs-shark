@@ -3,7 +3,7 @@ package model.Shark;
 import model.AbstractPiece;
 import model.Enums.PieceType;
 
-public abstract class Shark extends AbstractPiece {
+public class Shark extends AbstractPiece {
 
     protected int baseMovement = 1;
     protected int health = 2;

@@ -1,11 +1,12 @@
 package model.Shark;
 
+import model.interfaces.Piece;
 import resources.Sprites;
 
-public class AttackShark extends Shark {
+public class NormAttackSharkDecorator extends SharkDecorator {
 
-    public AttackShark() {
-        super();
+    public NormAttackSharkDecorator(Piece decoratedShark) {
+        super(decoratedShark);
         super.setSprite(Sprites.AttackShark);
     }
 
