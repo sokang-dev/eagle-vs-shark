@@ -21,13 +21,20 @@ public class Board {
             }
         }
 
-        board[0][0].setPiece(new DummyShark());
-        board[0][1].setPiece(new UtilityShark());
-        board[0][2].setPiece(new AttackShark());
+        // board[0][0].setPiece(new DummyShark());
+        // board[0][1].setPiece(new UtilityShark());
+        board[0][2].setPiece(new DummyShark());
+        board[1][2].setPiece(new UtilityShark());
+        board[4][4].setPiece(new AttackShark());
+        board[4][5].setPiece(new DummyShark());
+        board[4][6].setPiece(new DummyShark());
 
-        board[9][9].setPiece(new DummyEagle());
-        board[9][8].setPiece(new UtilityEagle());
-        board[9][7].setPiece(new AttackEagle());
+        // board[9][9].setPiece(new DummyEagle());
+        board[1][3].setPiece(new UtilityEagle());
+        board[0][3].setPiece(new DummyEagle());
+        board[5][4].setPiece(new AttackEagle());
+        board[5][5].setPiece(new DummyEagle());
+        board[5][6].setPiece(new DummyEagle());
 
         printBoard();
     }
