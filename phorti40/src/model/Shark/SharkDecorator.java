@@ -42,12 +42,17 @@ public abstract class SharkDecorator implements Piece {
     }
 
     @Override
-    public void takeDamage() {
-        decoratedShark.takeDamage();
+    public boolean hasSpecial() {
+        return decoratedShark.hasSpecial();
     }
 
     @Override
     public void special() { decoratedShark.special();}
+
+    @Override
+    public void takeDamage() {
+        decoratedShark.takeDamage();
+    }
 
     @Override
     public void die() { decoratedShark.die(); }

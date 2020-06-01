@@ -81,6 +81,10 @@ public abstract class AbstractPiece implements Piece {
         piece.takeDamage();
     }
 
+    public boolean hasSpecial() {
+        return false;
+    }
+
     public void special() {
         System.out.println("This piece has no special.");
     }

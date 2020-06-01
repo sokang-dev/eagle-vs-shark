@@ -20,6 +20,8 @@ public interface Piece {
 
     void attack(Piece piece);
 
+    boolean hasSpecial();
+
     void special();
 
     void takeDamage();

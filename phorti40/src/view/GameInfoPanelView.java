@@ -1,12 +1,11 @@
 package view;
 
 import controller.*;
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.BooleanBinding;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import model.GameInfoPanel;
 import resources.Utilities;
 
@@ -18,6 +17,7 @@ public class GameInfoPanelView extends VBox {
     private Label playerTurn;
     private Label timeRemaining;
     private Label actionsRemaining;
+    private Label errorMessage;
 
     public GameInfoPanelView(GameInfoPanel gameInfoPanel, GameController gameController) {
         super();
@@ -28,6 +28,7 @@ public class GameInfoPanelView extends VBox {
         gameInfoPanel.getActionsRemainingProperty().addListener(new ActionsRemainingListener(this));
         gameInfoPanel.getCurrentPlayerProperty().addListener(new CurrentPlayerListener(this, gameInfoPanel));
         gameInfoPanel.getTimeRemainingProperty().addListener(new TimeRemainingListener(this));
+        gameInfoPanel.getErrorMessageProperty().addListener(new ErrorMessageListener(this, gameInfoPanel));
     }
 
     private void drawGameInfoPanel(){
@@ -41,9 +42,12 @@ public class GameInfoPanelView extends VBox {
         Button specialButton = new Button("Special");
         specialButton.setOnAction(gameController.getPieceController()::handleSpecialButton);
 
+        errorMessage = new Label();
+        errorMessage.setTextFill(Color.RED);
+
         Button endTurnButton = new Button("End Turn");
         endTurnButton.setOnAction(gameController::handleEndTurnButton);
-        this.getChildren().addAll(playerTurn, timeRemaining, actionsRemaining, specialButton, endTurnButton);
+        this.getChildren().addAll(playerTurn, timeRemaining, actionsRemaining, specialButton, errorMessage, endTurnButton);
     }
 
     public GameInfoPanel getGameInfoPanel(){
@@ -61,5 +65,7 @@ public class GameInfoPanelView extends VBox {
     public Label getTimeRemaining() {
         return timeRemaining;
     }
+
+    public Label getErrorMessage() { return errorMessage; }
 }
 

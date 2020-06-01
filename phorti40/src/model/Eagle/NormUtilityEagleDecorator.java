@@ -21,6 +21,11 @@ public class NormUtilityEagleDecorator extends EagleDecorator {
     }
 
     @Override
+    public boolean hasSpecial() {
+        return true;
+    }
+
+    @Override
     public void special() {
         System.out.println("Bushhh");
     }

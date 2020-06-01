@@ -43,6 +43,11 @@ public abstract class EagleDecorator implements Piece {
     }
 
     @Override
+    public boolean hasSpecial() {
+        return decoratedEagle.hasSpecial();
+    }
+
+    @Override
     public void special() {
         decoratedEagle.special();
     }
