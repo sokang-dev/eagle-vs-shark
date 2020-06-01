@@ -61,6 +61,7 @@ public class GameController {
             Thread.yield();
         }
         // After turn ends reset Actions and swap Players
+        pieceController.postActionBoardReset();
         gameInfoPanel.setActionsRemaining(3);
         setNewCurrentPlayer(currentPlayer);
         gameInfoPanel.setTimeRemaining(timeLimit);

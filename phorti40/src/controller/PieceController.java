@@ -109,7 +109,7 @@ public class PieceController {
         postActionBoardReset();
     }
 
-    private void postActionBoardReset() {
+    public void postActionBoardReset() {
         gameController.getBoardView().highlightTiles(this.validMoves, Constants.EMPTY_TILE_COLOR);
         gameController.getBoardView().highlightTiles(this.validAttacks, Constants.EMPTY_TILE_COLOR);
 
