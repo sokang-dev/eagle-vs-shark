@@ -5,8 +5,8 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 import model.*;
+import model.interfaces.Piece;
 import resources.Constants;
 import view.TileView;
 

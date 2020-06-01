@@ -1,9 +1,9 @@
 package model.Eagle;
 
+import model.AbstractPiece;
 import model.Enums.PieceType;
-import model.Piece;
 
-public abstract class Eagle extends Piece {
+public abstract class Eagle extends AbstractPiece {
 
     protected int baseMovement = 2;
     protected int health = 1;

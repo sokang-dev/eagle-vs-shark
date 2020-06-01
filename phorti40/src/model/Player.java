@@ -1,6 +1,7 @@
 package model;
 
 import model.Enums.PieceType;
+import model.interfaces.Piece;
 
 public class Player {
     private String playerName;
@@ -18,6 +19,6 @@ public class Player {
         return pieceType;
     }
     public boolean isPlayerPiece(Piece piece) {
-        return this.pieceType == piece.pieceType;
+        return this.pieceType == piece.getPieceType();
     }
 }

@@ -2,11 +2,12 @@ package model;
 
 import javafx.scene.image.Image;
 import model.Enums.PieceType;
+import model.interfaces.Piece;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public abstract class Piece {
+public abstract class AbstractPiece implements Piece {
 
     private Tile tile;
     private int health;
@@ -14,7 +15,7 @@ public abstract class Piece {
     protected Image sprite;
     protected PieceType pieceType;
 
-    protected Piece(PieceType pieceType) {
+    protected AbstractPiece(PieceType pieceType) {
         this.pieceType = pieceType;
     }
 
@@ -85,7 +86,7 @@ public abstract class Piece {
         }
     }
 
-    private void addAdjacentTiles(Tile currentCoord, Set<Tile> validMoves, Board board) {
+    public void addAdjacentTiles(Tile currentCoord, Set<Tile> validMoves, Board board) {
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 // Don't get diagonal Tiles
@@ -134,11 +135,11 @@ public abstract class Piece {
         return this.baseMovement;
     }
 
-    protected void setBaseMovement(int baseMovement) {
+    public void setBaseMovement(int baseMovement) {
         this.baseMovement = baseMovement;
     }
 
-    protected void setHealth(int health) {
+    public void setHealth(int health) {
         this.health = health;
     }
 }

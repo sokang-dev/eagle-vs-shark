@@ -6,6 +6,7 @@ import model.Eagle.UtilityEagle;
 import model.Shark.AttackShark;
 import model.Shark.DummyShark;
 import model.Shark.UtilityShark;
+import model.interfaces.Piece;
 
 import static resources.Constants.BOARD_HEIGHT;
 import static resources.Constants.BOARD_WIDTH;
