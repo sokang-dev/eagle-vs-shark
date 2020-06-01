@@ -77,7 +77,6 @@ public class PieceController {
             gameController.getBoardView().highlightTiles(this.validAttacks, Constants.EMPTY_TILE_COLOR);
 
             this.pieceClicked = false;
-            // board.printBoard(); // console printing board for debugging
         }
 
         // If valid move OR attack
@@ -88,8 +87,6 @@ public class PieceController {
         else if (validMoves.contains(destinationTile)) {
             selectedPiece.move(board.getTile(destinationTile.getX(), destinationTile.getY()));
             postActionBoardReset();
-
-            // board.printBoard(); // console printing board for debugging
         } else {
             System.out.println("Can't move there :|");
         }

@@ -27,38 +27,18 @@ public class Board {
             }
         }
 
-        // board[0][0].setPiece(new NormDummySharkDecorator());
-        // board[0][1].setPiece(new NormUtilitySharkDecorator());
         board[0][2].setPiece(new NormDummySharkDecorator(new Shark()));
         board[1][2].setPiece(new NormUtilitySharkDecorator(new Shark()));
         board[4][4].setPiece(new NormAttackSharkDecorator(new Shark()));
         board[4][5].setPiece(new NormDummySharkDecorator(new Shark()));
         board[4][6].setPiece(new NormDummySharkDecorator(new Shark()));
 
-        // board[9][9].setPiece(new NormDummyEagleDecorator());
         board[1][3].setPiece(new NormUtilityEagleDecorator(new Eagle()));
         board[0][3].setPiece(new NormDummyEagleDecorator(new Eagle()));
         board[5][4].setPiece(new NormAttackEagleDecorator(new Eagle()));
         board[5][5].setPiece(new NormDummyEagleDecorator(new Eagle()));
         board[5][6].setPiece(new NormDummyEagleDecorator(new Eagle()));
-
-//        printBoard();
     }
-
-    // Used for debugging only
-//    public void printBoard() {
-//        for (int i = 0; i < BOARD_WIDTH; i++) {
-//            for (int j = 0; j < BOARD_HEIGHT; j++) {
-//                Piece piece = this.getPiece(i, j);
-//                if (piece != null)
-//                    System.out.print(piece.toString());
-//                else
-//                    System.out.print(" 0 ");
-//            }
-//            System.out.println();
-//        }
-//        System.out.println();
-//    }
 
     public Tile[][] getBoard() {
         return this.board;
