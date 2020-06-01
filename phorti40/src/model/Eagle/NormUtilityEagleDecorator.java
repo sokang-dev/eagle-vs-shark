@@ -1,16 +1,12 @@
 package model.Eagle;
 
-import model.Board;
-import model.Tile;
+import model.interfaces.Piece;
 import resources.Sprites;
 
-import java.util.HashSet;
-import java.util.Set;
+public class NormUtilityEagleDecorator extends EagleDecorator {
 
-public class UtilityEagle extends Eagle {
-
-    public UtilityEagle() {
-        super();
+    public NormUtilityEagleDecorator(Piece decoratedEagle) {
+        super(decoratedEagle);
         super.setSprite(Sprites.UtilityEagle);
     }
 

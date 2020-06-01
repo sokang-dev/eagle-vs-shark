@@ -20,8 +20,6 @@ public interface Piece {
 
     void takeDamage();
 
-    void addAdjacentTiles(Tile currentCoord, Set<Tile> validMoves, Board board);
-
     PieceType getPieceType();
 
     Image getSprite();

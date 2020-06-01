@@ -86,27 +86,6 @@ public abstract class AbstractPiece implements Piece {
         }
     }
 
-    public void addAdjacentTiles(Tile currentCoord, Set<Tile> validMoves, Board board) {
-        for (int i = -1; i <= 1; i++) {
-            for (int j = -1; j <= 1; j++) {
-                // Don't get diagonal Tiles
-                if (Math.abs(i) == Math.abs(j))
-                    continue;
-
-                int x = currentCoord.getX() + i;
-                int y = currentCoord.getY() + j;
-
-                // Don't add out of bounds Tiles
-                if (Tile.isOutOfBounds(x, y))
-                    continue;
-
-                // Add only unoccupied Tiles
-                if (board.getTile(x, y).getPiece() == null)
-                    validMoves.add(new Tile(x, y));
-            }
-        }
-    }
-
     public PieceType getPieceType() {
         return this.pieceType;
     }
@@ -141,5 +120,26 @@ public abstract class AbstractPiece implements Piece {
 
     public void setHealth(int health) {
         this.health = health;
+    }
+
+    private void addAdjacentTiles(Tile currentCoord, Set<Tile> validMoves, Board board) {
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                // Don't get diagonal Tiles
+                if (Math.abs(i) == Math.abs(j))
+                    continue;
+
+                int x = currentCoord.getX() + i;
+                int y = currentCoord.getY() + j;
+
+                // Don't add out of bounds Tiles
+                if (Tile.isOutOfBounds(x, y))
+                    continue;
+
+                // Add only unoccupied Tiles
+                if (board.getTile(x, y).getPiece() == null)
+                    validMoves.add(new Tile(x, y));
+            }
+        }
     }
 }

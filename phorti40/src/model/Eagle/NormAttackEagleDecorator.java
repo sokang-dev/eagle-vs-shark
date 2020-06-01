@@ -2,19 +2,20 @@ package model.Eagle;
 
 import model.Board;
 import model.Tile;
+import model.interfaces.Piece;
 import resources.Sprites;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class AttackEagle extends Eagle {
+public class NormAttackEagleDecorator extends EagleDecorator {
 
-    public AttackEagle() {
-        super();
+    public NormAttackEagleDecorator(Piece decoratedEagle) {
+        super(decoratedEagle);
         super.setSprite(Sprites.AttackEagle);
     }
 
-    // AttackEagle can move across unlimited tiles in one direction
+    // NormAttackEagleDecorator can move across unlimited tiles in one direction
     @Override
     public Set<Tile> getValidMoves(Tile currentCoord, int movement, Board board) {
         Set<Tile> validMoves = new HashSet<>();

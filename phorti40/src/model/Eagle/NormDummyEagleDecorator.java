@@ -1,11 +1,12 @@
 package model.Eagle;
 
+import model.interfaces.Piece;
 import resources.Sprites;
 
-public class DummyEagle extends Eagle {
+public class NormDummyEagleDecorator extends EagleDecorator {
 
-    public DummyEagle() {
-        super();
+    public NormDummyEagleDecorator(Piece decoratedEagle) {
+        super(decoratedEagle);
         super.setSprite(Sprites.Eagle);
     }
 

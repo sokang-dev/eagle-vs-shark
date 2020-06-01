@@ -1,8 +1,9 @@
 package model;
 
-import model.Eagle.AttackEagle;
-import model.Eagle.DummyEagle;
-import model.Eagle.UtilityEagle;
+import model.Eagle.Eagle;
+import model.Eagle.NormAttackEagleDecorator;
+import model.Eagle.NormDummyEagleDecorator;
+import model.Eagle.NormUtilityEagleDecorator;
 import model.Shark.AttackShark;
 import model.Shark.DummyShark;
 import model.Shark.UtilityShark;
@@ -33,30 +34,30 @@ public class Board {
         board[4][5].setPiece(new DummyShark());
         board[4][6].setPiece(new DummyShark());
 
-        // board[9][9].setPiece(new DummyEagle());
-        board[1][3].setPiece(new UtilityEagle());
-        board[0][3].setPiece(new DummyEagle());
-        board[5][4].setPiece(new AttackEagle());
-        board[5][5].setPiece(new DummyEagle());
-        board[5][6].setPiece(new DummyEagle());
+        // board[9][9].setPiece(new NormDummyEagleDecorator());
+        board[1][3].setPiece(new NormUtilityEagleDecorator(new Eagle()));
+        board[0][3].setPiece(new NormDummyEagleDecorator(new Eagle()));
+        board[5][4].setPiece(new NormAttackEagleDecorator(new Eagle()));
+        board[5][5].setPiece(new NormDummyEagleDecorator(new Eagle()));
+        board[5][6].setPiece(new NormDummyEagleDecorator(new Eagle()));
 
-        printBoard();
+//        printBoard();
     }
 
     // Used for debugging only
-    public void printBoard() {
-        for (int i = 0; i < BOARD_WIDTH; i++) {
-            for (int j = 0; j < BOARD_HEIGHT; j++) {
-                Piece piece = this.getPiece(i, j);
-                if (piece != null)
-                    System.out.print(piece.toString());
-                else
-                    System.out.print(" 0 ");
-            }
-            System.out.println();
-        }
-        System.out.println();
-    }
+//    public void printBoard() {
+//        for (int i = 0; i < BOARD_WIDTH; i++) {
+//            for (int j = 0; j < BOARD_HEIGHT; j++) {
+//                Piece piece = this.getPiece(i, j);
+//                if (piece != null)
+//                    System.out.print(piece.toString());
+//                else
+//                    System.out.print(" 0 ");
+//            }
+//            System.out.println();
+//        }
+//        System.out.println();
+//    }
 
     public Tile[][] getBoard() {
         return this.board;
