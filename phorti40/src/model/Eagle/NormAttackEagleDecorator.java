@@ -15,7 +15,7 @@ public class NormAttackEagleDecorator extends EagleDecorator {
         super.setSprite(Sprites.AttackEagle);
     }
 
-    // NormAttackEagleDecorator can move across unlimited tiles in one direction
+    // NormAttackEagle can move across unlimited tiles in one direction
     @Override
     public Set<Tile> getValidMoves(Tile currentCoord, int movement, Board board) {
         Set<Tile> validMoves = new HashSet<>();
@@ -44,9 +44,20 @@ public class NormAttackEagleDecorator extends EagleDecorator {
         return validMoves;
     }
 
-    // Used for debugging only - returns ANSI_RED A
+    // NormAttackEagle's attack is tied to its movement, it will kill anything in its path.
     @Override
-    public String toString() {
-        return "\u001B[31m A \u001B[0m";
+    public Set<Tile> getValidAttacks(Tile currentCoord, Board board) {
+        return new HashSet<>();
+    }
+
+    @Override
+    public void move(Tile tile) {
+        int oldX = super.getTile().getX();
+        int oldY = super.getTile().getY();
+
+        int newX = tile.getX();
+        int newY = tile.getY();
+
+        super.move(tile);
     }
 }

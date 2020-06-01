@@ -28,7 +28,8 @@ public abstract class EagleDecorator implements Piece {
 
     @Override
     public void move(Tile tile) {
-        decoratedEagle.move(tile);
+        getTile().removePiece();
+        tile.setPiece(this);
     }
 
     @Override

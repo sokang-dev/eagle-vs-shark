@@ -8,7 +8,7 @@ import model.interfaces.Piece;
 
 import java.util.Set;
 
-public class SharkDecorator implements Piece {
+public abstract class SharkDecorator implements Piece {
     protected Piece decoratedShark;
 
     public SharkDecorator(Piece decoratedShark) {
@@ -27,7 +27,8 @@ public class SharkDecorator implements Piece {
 
     @Override
     public void move(Tile tile) {
-        decoratedShark.move(tile);
+        getTile().removePiece();
+        tile.setPiece(this);
     }
 
     @Override
