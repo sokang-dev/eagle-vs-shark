@@ -69,7 +69,7 @@ public abstract class AbstractPiece implements Piece {
     }
 
     // Remove piece from current tile and set piece to a new tile.
-    public void move(Tile tile) {
+    public void move(Board board, Tile tile) {
         this.tile.removePiece();
         tile.setPiece(this);
     }
@@ -82,8 +82,12 @@ public abstract class AbstractPiece implements Piece {
         this.health -= 1;
 
         if (this.health < 1) {
-            this.tile.removePiece();
+            die();
         }
+    }
+
+    public void die() {
+        this.tile.removePiece();
     }
 
     public PieceType getPieceType() {

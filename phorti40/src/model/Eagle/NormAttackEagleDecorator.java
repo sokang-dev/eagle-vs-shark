@@ -1,6 +1,7 @@
 package model.Eagle;
 
 import model.Board;
+import model.Enums.PieceType;
 import model.Tile;
 import model.interfaces.Piece;
 import resources.Sprites;
@@ -50,14 +51,28 @@ public class NormAttackEagleDecorator extends EagleDecorator {
         return new HashSet<>();
     }
 
+    // NormAttackEagle's move kill every shark in its path
     @Override
-    public void move(Tile tile) {
+    public void move(Board board, Tile tile) {
         int oldX = super.getTile().getX();
         int oldY = super.getTile().getY();
-
         int newX = tile.getX();
         int newY = tile.getY();
 
-        super.move(tile);
+        int diffX = newX - oldX;
+        int diffY = newY - oldY;
+        int diff = diffX != 0 ? Math.abs(diffX) : Math.abs(diffY);
+
+        for (int i = 1; i < diff; i++) {
+            int x = diffX > 0 ? oldX + i : (diffX < 0 ? oldX - i : oldX);
+            int y = diffY > 0 ? oldY + i : (diffY < 0 ? oldY - i : oldY);
+
+            Piece piece = board.getTile(x, y).getPiece();
+            if (piece != null && piece.getPieceType() == PieceType.Shark) {
+                piece.die();
+            }
+        }
+
+        super.move(board, tile);
     }
 }

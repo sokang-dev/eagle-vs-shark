@@ -26,7 +26,7 @@ public abstract class SharkDecorator implements Piece {
     }
 
     @Override
-    public void move(Tile tile) {
+    public void move(Board board, Tile tile) {
         getTile().removePiece();
         tile.setPiece(this);
     }
@@ -40,6 +40,9 @@ public abstract class SharkDecorator implements Piece {
     public void takeDamage() {
         decoratedShark.takeDamage();
     }
+
+    @Override
+    public void die() { decoratedShark.die(); }
 
     @Override
     public PieceType getPieceType() {

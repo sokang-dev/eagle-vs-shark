@@ -85,7 +85,7 @@ public class PieceController {
             postActionBoardReset();
         }
         else if (validMoves.contains(destinationTile)) {
-            selectedPiece.move(board.getTile(destinationTile.getX(), destinationTile.getY()));
+            selectedPiece.move(board, board.getTile(destinationTile.getX(), destinationTile.getY()));
             postActionBoardReset();
         } else {
             System.out.println("Can't move there :|");
