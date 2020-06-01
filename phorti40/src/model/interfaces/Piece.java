@@ -13,10 +13,14 @@ public interface Piece {
 
     Set<Tile> getValidAttacks(Tile currentCoord, Board board);
 
+    Set<Tile> getValidSpecials(Tile currentCoord, Board board);
+
     // Remove piece from current tile and set piece to a new tile.
     void move(Board board, Tile tile);
 
     void attack(Piece piece);
+
+    void special();
 
     void takeDamage();
 

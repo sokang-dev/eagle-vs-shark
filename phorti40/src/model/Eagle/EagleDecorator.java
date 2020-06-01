@@ -27,6 +27,11 @@ public abstract class EagleDecorator implements Piece {
     }
 
     @Override
+    public Set<Tile> getValidSpecials(Tile currentCoord, Board board) {
+        return decoratedEagle.getValidSpecials(currentCoord, board);
+    }
+
+    @Override
     public void move(Board board, Tile tile) {
         getTile().removePiece();
         tile.setPiece(this);
@@ -35,6 +40,11 @@ public abstract class EagleDecorator implements Piece {
     @Override
     public void attack(Piece piece) {
         decoratedEagle.attack(piece);
+    }
+
+    @Override
+    public void special() {
+        decoratedEagle.special();
     }
 
     @Override

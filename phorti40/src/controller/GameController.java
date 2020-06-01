@@ -16,16 +16,16 @@ public class GameController {
     private Board gameBoard;
     // Visual board
     private BoardView boardView;
-
     private GameInfoPanel gameInfoPanel;
     private GameInfoPanelView gameInfoPanelView;
+
+    private PieceController pieceController;
 
     private Player playerOne;
     private Player playerTwo;
     private Player currentPlayer;
 
     private Boolean gameIsOver = false;
-
     private long timeLimit;
 
     public GameController(int timerInput) {
@@ -40,8 +40,8 @@ public class GameController {
         this.gameBoard = new Board();
         this.boardView = new BoardView(gameBoard);
         this.gameInfoPanel = new GameInfoPanel(currentPlayer.getPlayerName(), timeLimit);
+        pieceController = new PieceController(boardView, this);
         this.gameInfoPanelView = new GameInfoPanelView(gameInfoPanel, this);
-        new PieceController(boardView, this);
     }
 
     public int GameStart() {
@@ -111,4 +111,8 @@ public class GameController {
     public GameInfoPanel getGameInfoPanel() { return this.gameInfoPanel; }
     public GameInfoPanelView getGameInfoPanelView() { return this.gameInfoPanelView; }
     public Player getCurrentPlayer() { return currentPlayer; }
+
+    public PieceController getPieceController() {
+        return this.pieceController;
+    }
 }

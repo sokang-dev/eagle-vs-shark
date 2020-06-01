@@ -26,6 +26,11 @@ public abstract class SharkDecorator implements Piece {
     }
 
     @Override
+    public Set<Tile> getValidSpecials(Tile currentCoord, Board board) {
+        return decoratedShark.getValidSpecials(currentCoord, board);
+    }
+
+    @Override
     public void move(Board board, Tile tile) {
         getTile().removePiece();
         tile.setPiece(this);
@@ -40,6 +45,9 @@ public abstract class SharkDecorator implements Piece {
     public void takeDamage() {
         decoratedShark.takeDamage();
     }
+
+    @Override
+    public void special() { decoratedShark.special();}
 
     @Override
     public void die() { decoratedShark.die(); }

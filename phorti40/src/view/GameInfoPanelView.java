@@ -1,6 +1,8 @@
 package view;
 
 import controller.*;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,6 +14,7 @@ public class GameInfoPanelView extends VBox {
 
     private GameInfoPanel gameInfoPanel;
     private GameController gameController;
+
     private Label playerTurn;
     private Label timeRemaining;
     private Label actionsRemaining;
@@ -35,9 +38,12 @@ public class GameInfoPanelView extends VBox {
         timeRemaining = new Label("Timer: "+ Utilities.formatMilliseconds(gameInfoPanel.getTimeRemaining()));
         actionsRemaining = new Label("Actions Left: " + gameInfoPanel.getActionsRemaining());
 
+        Button specialButton = new Button("Special");
+        specialButton.setOnAction(gameController.getPieceController()::handleSpecialButton);
+
         Button endTurnButton = new Button("End Turn");
         endTurnButton.setOnAction(gameController::handleEndTurnButton);
-        this.getChildren().addAll(playerTurn, timeRemaining, actionsRemaining, endTurnButton);
+        this.getChildren().addAll(playerTurn, timeRemaining, actionsRemaining, specialButton, endTurnButton);
     }
 
     public GameInfoPanel getGameInfoPanel(){

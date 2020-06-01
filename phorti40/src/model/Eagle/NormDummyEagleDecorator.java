@@ -9,10 +9,4 @@ public class NormDummyEagleDecorator extends EagleDecorator {
         super(decoratedEagle);
         super.setSprite(Sprites.Eagle);
     }
-
-    // Used for debugging only - returns ANSI_RED D
-    @Override
-    public String toString() {
-        return "\u001B[31m D \u001B[0m";
-    }
 }

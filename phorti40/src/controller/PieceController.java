@@ -1,6 +1,7 @@
 package controller;
 
 import javafx.application.Platform;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
@@ -20,6 +21,8 @@ public class PieceController {
     private Piece selectedPiece;
     private Set<Tile> validMoves;
     private Set<Tile> validAttacks;
+    private boolean specialClicked = false;
+    private Set<Tile> validSpecials;
 
     public PieceController(GridPane visualBoard, GameController gameController) {
         this.visualBoard = visualBoard;
@@ -44,6 +47,22 @@ public class PieceController {
         });
     }
 
+    public void handleSpecialButton(Event event) {
+        if (selectedPiece == null) {
+            System.out.println("No piece selected!");
+            return;
+        }
+
+        // Toggle special
+        specialClicked = !specialClicked;
+
+        if (specialClicked)
+            gameController.getBoardView().highlightTiles(this.validSpecials, Constants.VALID_SPECIAL_TILE_COLOR);
+        else
+            selectTile(selectedPiece.getTile());
+//        selectedPiece.special();
+    }
+
     private void selectTile(Tile tile) {
         Piece piece = board.getPiece(tile.getX(), tile.getY());
         Player currentPlayer = gameController.getCurrentPlayer();
@@ -58,7 +77,6 @@ public class PieceController {
         } else {
             // Store valid move and valid attacks
             storePieceAndValidMoves(piece);
-            this.pieceClicked = true;
 
             // Highlight validMoves tiles
             gameController.getBoardView().highlightTiles(this.validMoves, Constants.VALID_MOVE_TILE_COLOR);
@@ -75,21 +93,20 @@ public class PieceController {
         if (board.getPiece(destinationTile.getX(), destinationTile.getY()) != null) {
             gameController.getBoardView().highlightTiles(this.validMoves, Constants.EMPTY_TILE_COLOR);
             gameController.getBoardView().highlightTiles(this.validAttacks, Constants.EMPTY_TILE_COLOR);
-
-            this.pieceClicked = false;
         }
 
         // If valid move OR attack
-        if (validAttacks.contains(destinationTile)) {
+        if (validSpecials.contains(destinationTile)) {
+            selectedPiece.special();
+        } else if (validAttacks.contains(destinationTile)) {
             destinationTile.getPiece().takeDamage();
-            postActionBoardReset();
-        }
-        else if (validMoves.contains(destinationTile)) {
+        } else if (validMoves.contains(destinationTile)) {
             selectedPiece.move(board, board.getTile(destinationTile.getX(), destinationTile.getY()));
-            postActionBoardReset();
-        } else {
+        }  else {
             System.out.println("Can't move there :|");
         }
+
+        postActionBoardReset();
     }
 
     private void postActionBoardReset() {
@@ -100,13 +117,20 @@ public class PieceController {
 
         selectedPiece = null;
         this.pieceClicked = false;
+        this.specialClicked = false;
         Platform.runLater(() -> gameController.getGameInfoPanel().setActionsRemaining(gameController.getGameInfoPanel().getActionsRemaining() - 1));
     }
 
     private void storePieceAndValidMoves(Piece selectedPiece) {
         // Store the selectedPiece and it's valid moves
+        this.pieceClicked = true;
         this.selectedPiece = selectedPiece;
         this.validMoves = selectedPiece.getValidMoves(selectedPiece.getTile(), selectedPiece.getBaseMovement(), board);
         this.validAttacks = selectedPiece.getValidAttacks(selectedPiece.getTile(), board);
+        this.validSpecials = selectedPiece.getValidSpecials(selectedPiece.getTile(), board);
+    }
+
+    public Piece getSelectedPiece() {
+        return this.selectedPiece;
     }
 }

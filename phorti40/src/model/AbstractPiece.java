@@ -20,7 +20,6 @@ public abstract class AbstractPiece implements Piece {
     }
 
     // Get valid moves of a piece based on its baseMovement value
-    // Will get used more in assignment 2
     public Set<Tile> getValidMoves(Tile currentCoord, int movement, Board board) {
 
         Set<Tile> validMoves = new HashSet<>();
@@ -68,6 +67,10 @@ public abstract class AbstractPiece implements Piece {
         return validAttacks;
     }
 
+    public Set<Tile> getValidSpecials(Tile currentCoord, Board board) {
+        return new HashSet<>();
+    }
+
     // Remove piece from current tile and set piece to a new tile.
     public void move(Board board, Tile tile) {
         this.tile.removePiece();
@@ -76,6 +79,10 @@ public abstract class AbstractPiece implements Piece {
 
     public void attack(Piece piece) {
         piece.takeDamage();
+    }
+
+    public void special() {
+        System.out.println("This piece has no special.");
     }
 
     public void takeDamage() {
