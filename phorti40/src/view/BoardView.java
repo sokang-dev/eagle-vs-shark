@@ -32,7 +32,10 @@ public class BoardView extends GridPane {
 
                 TileView tileView = new TileView(tile);
                 tileView.setSprite();
+                tileView.setHP();
+
                 boardView[x][y] = tileView;
+
                 GridPane.setRowIndex(tileView, x);
                 GridPane.setColumnIndex(tileView, y);
                 this.getChildren().addAll(tileView);
@@ -47,6 +50,7 @@ public class BoardView extends GridPane {
                 int y = tile.getY();
 
                 boardView[x][y].setSprite();
+                boardView[x][y].setHP();
             }
         }
     }
