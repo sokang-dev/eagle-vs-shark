@@ -33,7 +33,7 @@ public class GameController {
 
         //initialise the players
         playerOne = new Player("Player 1 (Shark)", PieceType.Shark);
-        playerTwo = new Player("Player 2 (EagleDecorator)", PieceType.Eagle);
+        playerTwo = new Player("Player 2 (Eagle)", PieceType.Eagle);
         //set current turn
         currentPlayer = playerOne;
 
