@@ -2,16 +2,20 @@ package model;
 
 import model.Eagle.AttackEagle;
 import model.Eagle.DummyEagle;
+import model.Eagle.Eagle;
 import model.Eagle.UtilityEagle;
 import model.Shark.AttackShark;
 import model.Shark.DummyShark;
+import model.Shark.Shark;
 import model.Shark.UtilityShark;
+import java.lang.Math;
+import java.util.ArrayList;
 
 public class Board {
     private Tile[][] board;
 
     // Initialises board with initial piece positions
-    public Board(int boardSize) {
+    public Board(int boardSize, int pieceCount) {
         board = new Tile[boardSize][boardSize];
 
         // Instaniate empty tiles
@@ -21,20 +25,74 @@ public class Board {
             }
         }
 
-        // board[0][0].setPiece(new DummyShark());
-        // board[0][1].setPiece(new UtilityShark());
-        board[0][2].setPiece(new DummyShark());
-        board[1][2].setPiece(new UtilityShark());
-        board[4][4].setPiece(new AttackShark());
-        board[4][5].setPiece(new DummyShark());
-        board[4][6].setPiece(new DummyShark());
+        int mainPieceCount = (int) Math.floor((double) pieceCount / 3);
 
-        // board[9][9].setPiece(new DummyEagle());
-        board[1][3].setPiece(new UtilityEagle());
-        board[0][3].setPiece(new DummyEagle());
-        board[5][4].setPiece(new AttackEagle());
-        board[5][5].setPiece(new DummyEagle());
-        board[5][6].setPiece(new DummyEagle());
+        while(mainPieceCount > 0)
+        {
+            // Set Sharks
+            Shark[] sharks = new Shark[] {new DummyShark(), new UtilityShark(), new AttackShark()};
+            int sharkAmount = 0;
+
+            while(sharkAmount < sharks.length)
+            {
+                int x = (int) (Math.random() * boardSize / 2);
+                int y = (int) (Math.random() * boardSize);
+
+                if(board[x][y].getPiece() != null)
+                    continue;
+
+                board[x][y].setPiece(sharks[sharkAmount]);
+                sharkAmount++;
+            }
+
+
+            // Set Eagles
+            Eagle[] eagles = new Eagle[] {new DummyEagle(), new UtilityEagle(), new AttackEagle()};
+            int eagleAmount = 0;
+
+            while(eagleAmount < eagles.length)
+            {
+                int x = (int) (Math.random() * boardSize / 2) + boardSize / 2;
+                int y = (int) (Math.random() * boardSize);
+
+                if(board[x][y].getPiece() != null)
+                    continue;
+
+                board[x][y].setPiece(eagles[eagleAmount]);
+                eagleAmount++;
+            }
+
+            mainPieceCount--;
+        }
+
+        int extraSharkPieceCount = pieceCount % 3;
+        while (extraSharkPieceCount > 0)
+        {
+            // Extra Sharks
+            int x = (int) (Math.random() * boardSize / 2);
+            int y = (int) (Math.random() * boardSize);
+
+            if(board[x][y].getPiece() != null)
+                continue;
+
+            board[x][y].setPiece(new DummyShark());
+            extraSharkPieceCount--;
+        }
+
+        int extraEaglePieceCount = pieceCount % 3;
+        while (extraEaglePieceCount > 0)
+        {
+            // Extra eagles
+            int x = (int) (Math.random() * boardSize / 2) + boardSize / 2;
+            int y = (int) (Math.random() * boardSize);
+
+            if(board[x][y].getPiece() != null)
+                continue;
+
+            board[x][y].setPiece(new DummyEagle());
+            extraEaglePieceCount--;
+        }
+
 
         printBoard();
     }

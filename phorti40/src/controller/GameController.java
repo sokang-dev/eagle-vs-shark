@@ -37,7 +37,7 @@ public class GameController {
         //set current turn
         currentPlayer = playerOne;
 
-        this.gameBoard = new Board(boardSizeInput);
+        this.gameBoard = new Board(boardSizeInput, pieceCountInput);
         this.boardView = new BoardView(gameBoard);
         this.gameInfoPanel = new GameInfoPanel(currentPlayer.getPlayerName(), timeLimit);
         this.gameInfoPanelView = new GameInfoPanelView(gameInfoPanel, this);
