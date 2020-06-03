@@ -5,7 +5,7 @@ import resources.Constants;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class Tile implements Serializable {
+public class Tile implements Serializable, Prototype {
 
     private int x, y;
     private Piece piece;
@@ -20,6 +20,13 @@ public class Tile implements Serializable {
 
     public Tile(Piece piece) {
         this.piece = piece;
+    }
+
+    public Tile(Tile tile){
+        this.x = tile.x;
+        this.y = tile.y;
+        this.piece = tile.piece;
+        this.terrain = tile.terrain;
     }
 
     public static boolean isOutOfBounds(int x, int y) {
@@ -62,5 +69,10 @@ public class Tile implements Serializable {
     }
     public void removePiece() {
         this.piece = null;
+    }
+
+    @Override
+    public Prototype clone() {
+        return new Tile(this);
     }
 }

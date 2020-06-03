@@ -12,9 +12,13 @@ import java.io.Serializable;
 import static resources.Constants.BOARD_HEIGHT;
 import static resources.Constants.BOARD_WIDTH;
 
-public class Board extends ProtoBoard implements Serializable {
+public class Board implements Serializable, Prototype {
     private Tile[][] board;
 
+    public Board(Board board){
+        Tile[][] clone = board.getBoard().clone();
+        this.board = clone;
+    }
     // Initialises board with initial piece positions
     public Board() {
         board = new Tile[BOARD_WIDTH][BOARD_HEIGHT];
@@ -67,5 +71,10 @@ public class Board extends ProtoBoard implements Serializable {
     }
     public Piece getPiece(int i, int j) {
         return this.board[i][j].getPiece();
+    }
+
+    @Override
+    public Prototype clone() {
+        return new Board(this);
     }
 }
