@@ -1,9 +1,9 @@
 package App;
 
-import controller.GameController;
 import model.GameMemento;
 import model.SaveState;
 import java.io.*;
+import java.util.LinkedList;
 import java.util.Stack;
 
 import static resources.Constants.SAVE_PATH;
@@ -74,7 +74,9 @@ public class SaveStateManager {
     public static void PrintStack()
     {
         for (GameMemento i : gameHistory) {
-            System.out.println(i.getStateId());
+            System.out.println("Turn: " + i.getStateId() + " - " + "Tile: " + i.getState().getGameBoard().getBoard()
+                    + "Board: " + i.getState().getGameBoard());
+
             i.getState().getGameBoard().printBoard();
         }
     }

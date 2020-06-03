@@ -164,7 +164,7 @@ public class GameController {
 
     public GameMemento createGameMemento(){
         turn++;
-        SaveState saveState = new SaveState(gameBoard, currentPlayer, initialTimeLimit, gameInfoPanel.getActionsRemaining());
+        SaveState saveState = new SaveState((Board) gameBoard.clone(), currentPlayer, initialTimeLimit, gameInfoPanel.getActionsRemaining());
         System.out.println("Saved this board. Turn: " + turn);
         saveState.getGameBoard().printBoard();
         return new GameMemento(saveState, turn);
