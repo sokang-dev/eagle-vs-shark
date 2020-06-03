@@ -1,14 +1,20 @@
 package App;
 
+import controller.GameController;
+import model.GameMemento;
 import model.SaveState;
 import java.io.*;
+import java.util.Stack;
 
 import static resources.Constants.SAVE_PATH;
 
+//Caretaker class for Memento Pattern
 public class SaveStateManager {
+    public static Stack<GameMemento> gameHistory = new Stack<GameMemento>();
 
     //serialise and save our game state to .txt
-    public static boolean SaveState(SaveState state){
+    public static boolean SaveState(GameMemento memento){
+        SaveState state = memento.getState();
         System.out.println("Saving...");
         FileOutputStream fos = null;
         ObjectOutputStream out = null;
@@ -25,7 +31,7 @@ public class SaveStateManager {
         return false;
     };
 
-    //Deserialise from the .txt and return the loaded SaveState
+    //Deserialise from the .txt and return the loaded SaveState todo: should this create a Momemento?
     public static SaveState LoadState (){
         SaveState loadState = new SaveState(null, null, 0, 0);
         System.out.println("Loading...");
@@ -48,4 +54,28 @@ public class SaveStateManager {
         }
         return loadState;
     };
+
+    public static void SaveGameMemento(GameMemento memento){
+        gameHistory.push(memento);
+        System.out.println("Pushed this board: ");
+        gameHistory.peek().getState().getGameBoard().printBoard();
+
+        System.out.println("STACK: ");
+        PrintStack();
+
+    }
+
+    public static GameMemento Undo(int numberOfUndo){
+        System.out.println("Prev: ");
+        gameHistory.peek().getState().getGameBoard().printBoard();
+        return gameHistory.pop();
+    }
+
+    public static void PrintStack()
+    {
+        for (GameMemento i : gameHistory) {
+            System.out.println(i.getStateId());
+            i.getState().getGameBoard().printBoard();
+        }
+    }
 }

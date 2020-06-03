@@ -42,7 +42,10 @@ public class GameInfoPanelView extends VBox {
         saveStatusLabel = new Label();
         Button saveButton = new Button("Save");
         saveButton.setOnAction(gameController::handleSaveButton);
-        this.getChildren().addAll(playerTurn, timeRemaining, actionsRemaining, endTurnButton, saveStatusLabel, saveButton);
+
+        Button undoButton = new Button("Undo");
+        undoButton.setOnAction(gameController::handleUndo);
+        this.getChildren().addAll(playerTurn, timeRemaining, actionsRemaining, endTurnButton, saveStatusLabel, saveButton, undoButton);
     }
 
     public GameInfoPanel getGameInfoPanel(){

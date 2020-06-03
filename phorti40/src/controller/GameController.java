@@ -33,6 +33,7 @@ public class GameController {
 
     private long timeLimit;
     private int initialTimeLimit;
+    int turn =0;
 
     public GameController(int timerInput) {
         InitialiseGameController(new Board(), null, timerInput, DEFAULT_ACTIONS_REMAINING);
@@ -65,6 +66,7 @@ public class GameController {
         // Overarching game loop
         while(!gameIsOver)
         {
+            saveGameMemento(createGameMemento());
             Turn();
         }
         return 0;
@@ -129,7 +131,7 @@ public class GameController {
 
     public void handleSaveButton(Event event) {
         gameInfoPanelView.getSaveStatusLabel().setVisible(true);
-        if (SaveStateManager.SaveState(createSaveState())){
+        if (SaveStateManager.SaveState(createGameMemento())){
             Platform.runLater(() -> gameInfoPanelView.setSaveStatusLabel("Save success."));
         }
         else {
@@ -145,7 +147,31 @@ public class GameController {
         visiblePause.play();
     }
 
-    private SaveState createSaveState(){
-        return new SaveState(gameBoard, currentPlayer, initialTimeLimit, gameInfoPanel.getActionsRemaining());
+    public void handleUndo(Event event) {
+       // restoreGame(SaveStateManager.Undo(1));
+        SaveStateManager.PrintStack();
+    }
+
+    private void restoreGame(GameMemento memento){
+        System.out.println("New: ");
+        this.gameBoard=memento.getState().getGameBoard();
+        gameBoard.printBoard();
+        this.currentPlayer = memento.getState().getCurrentPlayer();
+        this.getGameInfoPanel().setActionsRemaining(3);
+//        this.getGameInfoPanel().setActionsRemaining(gameMemento.getState().getActionsRemaining());
+
+    }
+
+    public GameMemento createGameMemento(){
+        turn++;
+        SaveState saveState = new SaveState(gameBoard, currentPlayer, initialTimeLimit, gameInfoPanel.getActionsRemaining());
+        System.out.println("Saved this board. Turn: " + turn);
+        saveState.getGameBoard().printBoard();
+        return new GameMemento(saveState, turn);
+    }
+
+    public void saveGameMemento(GameMemento memento)
+    {
+        SaveStateManager.SaveGameMemento(memento);
     }
 }
