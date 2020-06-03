@@ -12,7 +12,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-public abstract class Piece implements Serializable, Prototype {
+public abstract class Piece implements Serializable {
 
     private Tile tile;
     private int health;
@@ -24,13 +24,6 @@ public abstract class Piece implements Serializable, Prototype {
         this.pieceType = pieceType;
     }
 
-    Piece(Piece piece){
-        this.tile = (Tile) piece.getTile().clone();
-        this.health = piece.getHealth();
-        this.baseMovement = piece.getBaseMovement();
-        this.sprite = piece.getSprite();
-        this.pieceType = piece.getPieceType();
-    }
     // Get valid moves of a piece based on its baseMovement value
     // Will get used more in assignment 2
     public Set<Tile> getValidMoves(Tile currentCoord, int movement, Board board) {
