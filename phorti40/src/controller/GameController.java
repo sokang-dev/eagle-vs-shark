@@ -109,12 +109,12 @@ public class GameController {
         Set<Piece> pieces = gameBoard.getAllPieces();
 
         for (Piece piece : pieces) {
+            // Only lower status duration when the opposite piece turn ends
             if (piece.getPieceType() == pieceType) continue;
 
             Status status = piece.getStatus(statusType);
 
             if (status != null) {
-//                status.setDuration(status.getDuration() - 1);
                 piece.setStatus(StatusType.Stun, status.getDuration() - 1);
             }
         }

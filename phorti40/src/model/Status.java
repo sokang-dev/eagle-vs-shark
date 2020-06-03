@@ -22,10 +22,6 @@ public class Status {
         return this.duration;
     }
 
-    public void setDuration(int duration) {
-        this.duration = duration;
-    }
-
     @Override
     public int hashCode() {
         return Objects.hash(this.type);
