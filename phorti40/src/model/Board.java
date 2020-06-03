@@ -1,15 +1,15 @@
 package model;
 
-import model.Eagle.AttackEagle;
-import model.Eagle.DummyEagle;
 import model.Eagle.Eagle;
-import model.Eagle.UtilityEagle;
-import model.Shark.AttackShark;
-import model.Shark.DummyShark;
+import model.Eagle.NormAttackEagleDecorator;
+import model.Eagle.NormDummyEagleDecorator;
+import model.Eagle.NormUtilityEagleDecorator;
+import model.Shark.NormAttackSharkDecorator;
+import model.Shark.NormDummySharkDecorator;
+import model.Shark.NormUtilitySharkDecorator;
 import model.Shark.Shark;
-import model.Shark.UtilityShark;
-import java.lang.Math;
-import java.util.ArrayList;
+import model.interfaces.Piece;
+
 
 public class Board {
     private Tile[][] board;
@@ -30,7 +30,11 @@ public class Board {
         while(mainPieceCount > 0)
         {
             // Set Sharks
-            Shark[] sharks = new Shark[] {new DummyShark(), new UtilityShark(), new AttackShark()};
+            Piece[] sharks = new Piece[] {
+                    new NormDummySharkDecorator(new Shark()),
+                    new NormUtilitySharkDecorator(new Shark()),
+                    new NormAttackSharkDecorator(new Shark())
+            };
             int sharkAmount = 0;
 
             while(sharkAmount < sharks.length)
@@ -45,9 +49,15 @@ public class Board {
                 sharkAmount++;
             }
 
-
+            board[1][3].setPiece(new NormUtilityEagleDecorator(new Eagle()));
+            board[0][3].setPiece(new NormDummyEagleDecorator(new Eagle()));
+            board[5][4].setPiece(new NormAttackEagleDecorator(new Eagle()));
             // Set Eagles
-            Eagle[] eagles = new Eagle[] {new DummyEagle(), new UtilityEagle(), new AttackEagle()};
+            Piece[] eagles = new Piece[] {
+                    new NormUtilityEagleDecorator(new Eagle()),
+                    new NormDummyEagleDecorator(new Eagle()),
+                    new NormAttackEagleDecorator(new Eagle())
+            };
             int eagleAmount = 0;
 
             while(eagleAmount < eagles.length)
@@ -75,7 +85,7 @@ public class Board {
             if(board[x][y].getPiece() != null)
                 continue;
 
-            board[x][y].setPiece(new DummyShark());
+            board[x][y].setPiece(new NormDummySharkDecorator(new Shark()));
             extraSharkPieceCount--;
         }
 
@@ -89,7 +99,7 @@ public class Board {
             if(board[x][y].getPiece() != null)
                 continue;
 
-            board[x][y].setPiece(new DummyEagle());
+            board[x][y].setPiece(new NormDummySharkDecorator(new Shark()));
             extraEaglePieceCount--;
         }
 
