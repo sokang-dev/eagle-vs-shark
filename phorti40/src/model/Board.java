@@ -16,15 +16,16 @@ public class Board implements Serializable, Prototype {
     private Tile[][] board;
 
     public Board(Board board){
-        Tile[][] clone = board.getBoard();
-        Tile[][] clone1 = new Tile[10][10];
-
-        for(int i=0; i<clone.length; i++) {
-            for (int j = 0; j < clone[i].length; j++) {
-                clone1[i][j] = (Tile)clone[i][j].clone();
+        Tile[][] clone = new Tile[10][10];
+        for(int i=0; i<board.getBoard().length; i++) {
+            for (int j = 0; j < board.getBoard()[i].length; j++) {
+                clone[i][j] = (Tile)board.getBoard()[i][j].clone();
+               // if (clone[i][j].getPiece() != null){
+             //       clone[i][j].getPiece().setTile(clone[i][j]);
+             //   }
             }
         }
-        this.board = clone1;
+        this.board = clone;
     }
     // Initialises board with initial piece positions
     public Board() {

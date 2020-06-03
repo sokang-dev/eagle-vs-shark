@@ -149,17 +149,16 @@ public class GameController {
     }
 
     public void handleUndo(Event event) {
-        Platform.runLater(() ->restoreGame(SaveStateManager.Undo(2)));
+       restoreGame(SaveStateManager.Undo(2));
     }
 
     private void restoreGame(GameMemento memento){
         this.gameBoard=memento.getState().getGameBoard();
         this.currentPlayer = memento.getState().getCurrentPlayer();
         this.getGameInfoPanel().setActionsRemaining(memento.getState().getActionsRemaining());
-        this.boardView = new BoardView(gameBoard);
         this.pieceController.setBoard(gameBoard);
+        this.boardView = new BoardView(gameBoard);
         Platform.runLater(() -> boardView.refreshBoard());
-
     }
 
     public GameMemento createGameMemento(){

@@ -73,6 +73,9 @@ public class Tile implements Serializable, Prototype {
 
     @Override
     public Prototype clone() {
+        if (this.getPiece()!= null) {
+            this.getPiece().setTile(this);
+        }
         return new Tile(this);
     }
 }

@@ -71,6 +71,7 @@ public class BoardView extends GridPane {
         }
     }
 
-
-
+    public void setBoard(Board board){
+        this.gameBoard=board;
+    }
 }
