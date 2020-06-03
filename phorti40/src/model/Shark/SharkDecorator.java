@@ -3,6 +3,8 @@ package model.Shark;
 import javafx.scene.image.Image;
 import model.Board;
 import model.Enums.PieceType;
+import model.Enums.StatusType;
+import model.Status;
 import model.Tile;
 import model.interfaces.Piece;
 
@@ -56,6 +58,16 @@ public abstract class SharkDecorator implements Piece {
 
     @Override
     public void die() { decoratedShark.die(); }
+
+    @Override
+    public void setStatus(StatusType type, int duration) {
+        decoratedShark.setStatus(type, duration);
+    }
+
+    @Override
+    public Status getStatus(StatusType type) {
+        return decoratedShark.getStatus(type);
+    }
 
     @Override
     public PieceType getPieceType() {

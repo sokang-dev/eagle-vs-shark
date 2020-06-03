@@ -1,12 +1,16 @@
 package controller;
 import javafx.application.Platform;
 import javafx.event.Event;
+
+import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 import model.*;
 import model.Enums.PieceType;
+import model.Enums.StatusType;
+import model.interfaces.Piece;
 import view.BoardView;
 import view.GameInfoPanelView;
 
@@ -62,6 +66,8 @@ public class GameController {
         }
         // After turn ends reset Actions and swap Players
         pieceController.pieceReset();
+        // Lower stun duration
+        lowerStatusDuration(currentPlayer.getPieceType(), StatusType.Stun);
         gameInfoPanel.setActionsRemaining(3);
         setNewCurrentPlayer(currentPlayer);
         gameInfoPanel.setTimeRemaining(timeLimit);
@@ -96,6 +102,21 @@ public class GameController {
         {
             this.currentPlayer = playerOne;
             gameInfoPanel.setCurrentPlayer(playerOne);
+        }
+    }
+
+    private void lowerStatusDuration(PieceType pieceType, StatusType statusType) {
+        Set<Piece> pieces = gameBoard.getAllPieces();
+
+        for (Piece piece : pieces) {
+            if (piece.getPieceType() == pieceType) continue;
+
+            Status status = piece.getStatus(statusType);
+
+            if (status != null) {
+//                status.setDuration(status.getDuration() - 1);
+                piece.setStatus(StatusType.Stun, status.getDuration() - 1);
+            }
         }
     }
 

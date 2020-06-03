@@ -2,6 +2,7 @@ package model;
 
 import javafx.scene.image.Image;
 import model.Enums.PieceType;
+import model.Enums.StatusType;
 import model.interfaces.Piece;
 
 import java.util.HashSet;
@@ -12,11 +13,13 @@ public abstract class AbstractPiece implements Piece {
     private Tile tile;
     private int health;
     protected int baseMovement;
+    protected Set<Status> statuses;
     protected Image sprite;
     protected PieceType pieceType;
 
     protected AbstractPiece(PieceType pieceType) {
         this.pieceType = pieceType;
+        statuses = new HashSet<>();
     }
 
     // Get valid moves of a piece based on its baseMovement value
@@ -99,6 +102,31 @@ public abstract class AbstractPiece implements Piece {
 
     public void die() {
         this.tile.removePiece();
+    }
+
+    public void setStatus(StatusType type, int duration) {
+        Status status = new Status(type, duration);
+
+        // Remove status when duration runs out
+        if (duration < 0) {
+            statuses.remove(status);
+            return;
+        }
+
+        // Replace status if the same status type is already present
+        if (!statuses.add(status)) {
+            statuses.remove(status);
+            statuses.add(status);
+        }
+    }
+
+    public Status getStatus(StatusType type) {
+        for (Status status : statuses) {
+            if (type == status.getType())
+                return status;
+        }
+
+        return null;
     }
 
     public PieceType getPieceType() {

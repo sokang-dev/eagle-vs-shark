@@ -10,6 +10,9 @@ import model.Shark.NormUtilitySharkDecorator;
 import model.Shark.Shark;
 import model.interfaces.Piece;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import static resources.Constants.BOARD_HEIGHT;
 import static resources.Constants.BOARD_WIDTH;
 
@@ -48,5 +51,17 @@ public class Board {
     }
     public Piece getPiece(int i, int j) {
         return this.board[i][j].getPiece();
+    }
+
+    public Set<Piece> getAllPieces() {
+        Set<Piece> pieces = new HashSet<>();
+
+        for (int i = 0; i < BOARD_WIDTH; i++) {
+            for (int j = 0; j < BOARD_HEIGHT; j++) {
+                if (getPiece(i, j) != null) pieces.add(getPiece(i, j));
+            }
+        }
+
+        return pieces;
     }
 }
