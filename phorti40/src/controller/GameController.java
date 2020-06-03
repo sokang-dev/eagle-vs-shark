@@ -30,6 +30,7 @@ public class GameController {
     private Player currentPlayer;
 
     private Boolean gameIsOver = false;
+    private PieceController pieceController;
 
     private long timeLimit;
     private int initialTimeLimit;
@@ -57,7 +58,7 @@ public class GameController {
         this.boardView = new BoardView(gameBoard);
         this.gameInfoPanel = new GameInfoPanel(this.currentPlayer.getPlayerName(), timeLimit, actionsRemaining);
         this.gameInfoPanelView = new GameInfoPanelView(gameInfoPanel, this);
-        new PieceController(boardView, this);
+        this.pieceController = new PieceController(boardView, this);
     }
 
     public int GameStart() {
@@ -156,7 +157,8 @@ public class GameController {
         this.currentPlayer = memento.getState().getCurrentPlayer();
         this.getGameInfoPanel().setActionsRemaining(memento.getState().getActionsRemaining());
         this.boardView = new BoardView(gameBoard);
-        boardView.refreshBoard();
+        this.pieceController.setBoard(gameBoard);
+        Platform.runLater(() -> boardView.refreshBoard());
 
     }
 

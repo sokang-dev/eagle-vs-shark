@@ -44,12 +44,17 @@ public class PieceController {
         });
     }
 
+    public void setBoard(Board board){
+        this.board = board;
+    }
+
     private void selectTile(Tile tile) {
         Piece piece = board.getPiece(tile.getX(), tile.getY());
         Player currentPlayer = gameController.getCurrentPlayer();
 
         // If tile is empty
         if (piece == null) {
+             board.printBoard(); // console printing board for debugging
             System.out.println("Non piece selected");
         }
         // If tile contains a piece not belonging to player
