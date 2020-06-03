@@ -57,16 +57,16 @@ public class SaveStateManager {
 
     public static void SaveGameMemento(GameMemento memento){
         gameHistory.push(memento);
-        System.out.println("Pushed this board: ");
-        gameHistory.peek().getState().getGameBoard().printBoard();
-
         System.out.println("STACK: ");
         PrintStack();
-
     }
 
     public static GameMemento Undo(int numberOfUndo){
         System.out.println("Prev: ");
+
+        for (int i = 0; i < numberOfUndo ; i++) {
+            gameHistory.pop();
+        }
         gameHistory.peek().getState().getGameBoard().printBoard();
         return gameHistory.pop();
     }

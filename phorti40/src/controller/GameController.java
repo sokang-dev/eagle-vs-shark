@@ -148,25 +148,21 @@ public class GameController {
     }
 
     public void handleUndo(Event event) {
-       // restoreGame(SaveStateManager.Undo(1));
-        SaveStateManager.PrintStack();
+        Platform.runLater(() ->restoreGame(SaveStateManager.Undo(2)));
     }
 
     private void restoreGame(GameMemento memento){
-        System.out.println("New: ");
         this.gameBoard=memento.getState().getGameBoard();
-        gameBoard.printBoard();
         this.currentPlayer = memento.getState().getCurrentPlayer();
-        this.getGameInfoPanel().setActionsRemaining(3);
-//        this.getGameInfoPanel().setActionsRemaining(gameMemento.getState().getActionsRemaining());
+        this.getGameInfoPanel().setActionsRemaining(memento.getState().getActionsRemaining());
+        this.boardView = new BoardView(gameBoard);
+        boardView.refreshBoard();
 
     }
 
     public GameMemento createGameMemento(){
         turn++;
         SaveState saveState = new SaveState((Board) gameBoard.clone(), currentPlayer, initialTimeLimit, gameInfoPanel.getActionsRemaining());
-        System.out.println("Saved this board. Turn: " + turn);
-        saveState.getGameBoard().printBoard();
         return new GameMemento(saveState, turn);
     }
 

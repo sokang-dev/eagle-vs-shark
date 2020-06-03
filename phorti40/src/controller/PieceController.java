@@ -89,7 +89,7 @@ public class PieceController {
             selectedPiece.move(board.getTile(destinationTile.getX(), destinationTile.getY()));
             postActionBoardReset();
 
-        //    board.printBoard(); // console printing board for debugging
+            board.printBoard(); // console printing board for debugging
         } else {
             System.out.println("Can't move there :|");
         }

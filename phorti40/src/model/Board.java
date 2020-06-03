@@ -16,7 +16,7 @@ public class Board implements Serializable, Prototype {
     private Tile[][] board;
 
     public Board(Board board){
-        Tile[][] clone = board.getBoard().clone();
+        Tile[][] clone = board.getBoard();
         Tile[][] clone1 = new Tile[10][10];
 
         for(int i=0; i<clone.length; i++) {
