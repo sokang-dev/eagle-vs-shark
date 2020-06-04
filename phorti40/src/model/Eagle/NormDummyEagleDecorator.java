@@ -1,5 +1,6 @@
 package model.Eagle;
 
+import model.Tile;
 import model.interfaces.Piece;
 import resources.Sprites;
 

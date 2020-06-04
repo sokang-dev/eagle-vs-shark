@@ -42,8 +42,7 @@ public class AltDummyEagleDecorator extends EagleDecorator {
         System.out.println("Create terrain");
 
         // create new tile
-        destinationTile.setTerrain(new Terrain(destinationTile));
-
+        destinationTile.setTerrain(new Terrain());
     }
 
     @Override

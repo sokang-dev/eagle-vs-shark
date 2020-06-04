@@ -7,11 +7,9 @@ import java.io.Serializable;
 
 public class Terrain implements Serializable {
 
-    Tile tile;
     Image sprite;
 
-    public Terrain(Tile tile) {
-        this.tile = tile;
+    public Terrain() {
         this.sprite = Sprites.Terrain;
     }
 

@@ -78,7 +78,7 @@ public class PieceController {
             gameInfoPanel.setErrorMessage("No piece selected!");
             return;
         }
-
+        this.validSpecials.removeAll(validSpecials);
         selectedPiece = selectedPiece.transform();
         postActionBoardReset();
     }
