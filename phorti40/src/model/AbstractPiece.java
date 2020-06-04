@@ -182,7 +182,7 @@ public abstract class AbstractPiece implements Piece, Serializable {
                 int y = currentCoord.getY() + j;
 
                 // Don't add out of bounds Tiles
-                if (Tile.isOutOfBounds(x, y))
+                if (board.getTile(x, y) == null)
                     continue;
 
                 // Add only unoccupied Tiles

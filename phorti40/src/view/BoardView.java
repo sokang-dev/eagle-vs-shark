@@ -18,12 +18,12 @@ public class BoardView extends GridPane {
     public BoardView(Board gameBoard) {
         super();
         this.gameBoard = gameBoard;
-        this.setPrefSize(Constants.BOARD_WIDTH * TILE_SIZE, Constants.BOARD_HEIGHT * TILE_SIZE);
+        this.setPrefSize(gameBoard.getSize() * TILE_SIZE, gameBoard.getSize() * TILE_SIZE);
         initialiseBoardView();
     }
 
     private void initialiseBoardView() {
-        boardView = new TileView[BOARD_WIDTH][BOARD_HEIGHT];
+        boardView = new TileView[gameBoard.getSize()][gameBoard.getSize() ];
 
         for (Tile[] tileArr : gameBoard.getBoard()) {
             for (Tile tile : tileArr) {

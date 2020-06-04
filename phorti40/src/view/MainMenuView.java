@@ -22,29 +22,46 @@ public class MainMenuView extends VBox {
 
     private void drawMainMenu(){
         this.setPadding(new Insets(20, 20, 20, 20));
-        this.setPrefWidth(500);
+        this.setPrefWidth(577);
         this.setSpacing(20);
 
         Label heading = new Label("Sharks vs. Eagles");
         heading.setFont(Font.font(25));
 
         TextField turnTimerInput = new TextField();
-        turnTimerInput.setPromptText("Turn Timer Length");
+        turnTimerInput.setPromptText("Turn Timer Length (seconds)");
         turnTimerInput.setFocusTraversable(false); // So the input doesn't immediately get focus
 
-        Button newGameButton = new Button("New Game");
-        newGameButton.setAlignment(Pos.CENTER);
-        newGameButton.setOnAction(event -> {
-            mainMenuController.handleNewGameButton(Integer.parseInt(turnTimerInput.getText()), event);
-        });
+        // The length and width of the game board
+        TextField boardSizeInput = new TextField();
+        boardSizeInput.setPromptText("Board Width/Height");
+        boardSizeInput.setFocusTraversable(false);
 
+        // Number of pieces per side
+        TextField pieceCountInput = new TextField();
+        pieceCountInput.setPromptText("Pieces per side");
+        pieceCountInput.setFocusTraversable(false);
+
+
+        Button newGameButton = new Button("New Game");
+        newGameButton.setAlignment(Pos.CENTER_RIGHT);
+        newGameButton.setOnAction(event -> {
+            mainMenuController.handleNewGameButton(
+                    Integer.parseInt(turnTimerInput.getText()),
+                    Integer.parseInt(boardSizeInput.getText()),
+                    Integer.parseInt(pieceCountInput.getText()), event
+            );
+        });
         Button resumeGameButton = new Button("Resume Game");
         resumeGameButton.setOnAction(event -> {
             mainMenuController.handleResumeGame(event);
         });
-        HBox newGameBox = new HBox(turnTimerInput, newGameButton, resumeGameButton);
+        HBox newGameBox = new HBox(turnTimerInput, boardSizeInput, pieceCountInput, newGameButton);
+        HBox resumeGameBox = new HBox(resumeGameButton);
+
+        resumeGameBox.setAlignment(Pos.CENTER_RIGHT);
         newGameBox.setSpacing(5);
 
-        this.getChildren().addAll(heading, newGameBox);
+        this.getChildren().addAll(heading, newGameBox, resumeGameBox);
     }
 }
