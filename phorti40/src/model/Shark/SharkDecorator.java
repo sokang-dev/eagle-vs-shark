@@ -50,7 +50,7 @@ public abstract class SharkDecorator implements Piece, Serializable {
     }
 
     @Override
-    public void special() { decoratedShark.special();}
+    public void special(Set<Tile> validSpecials) { decoratedShark.special(validSpecials); }
 
     @Override
     public void takeDamage() {

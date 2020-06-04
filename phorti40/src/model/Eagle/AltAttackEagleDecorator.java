@@ -15,14 +15,17 @@ public class AltAttackEagleDecorator extends EagleDecorator {
         super.setSprite(Sprites.AttackEagle);
     }
 
+    // AltAttackEagle's special range is the same as its attack
     @Override
-    public Set<Tile> getValidMoves(Tile currentCoord, int movement, Board board) {
-        return super.getValidMoves(currentCoord, movement, board);
+    public Set<Tile> getValidSpecials(Tile currentCoord, Board board) {
+        return super.getValidAttacks(currentCoord, board);
     }
 
     @Override
-    public Set<Tile> getValidAttacks(Tile currentCoord, Board board) {
-        return super.getValidAttacks(currentCoord, board);
+    public void special(Set<Tile> validSpecials) {
+        for (Tile tile : validSpecials) {
+            tile.getPiece().die();
+        }
     }
 
     @Override

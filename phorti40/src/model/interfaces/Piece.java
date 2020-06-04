@@ -24,7 +24,7 @@ public interface Piece {
 
     boolean hasSpecial();
 
-    void special();
+    void special(Set<Tile> validSpecials);
 
     void takeDamage();
 

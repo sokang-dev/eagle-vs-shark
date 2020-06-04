@@ -26,7 +26,7 @@ public class NormUtilityEagleDecorator extends EagleDecorator {
     }
 
     @Override
-    public void special() {
+    public void special(Set<Tile> validSpecials) {
         System.out.println("Bushhh");
     }
 

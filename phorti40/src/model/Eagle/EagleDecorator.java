@@ -51,8 +51,8 @@ public abstract class EagleDecorator implements Piece, Serializable {
     }
 
     @Override
-    public void special() {
-        decoratedEagle.special();
+    public void special(Set<Tile> validSpecials) {
+        decoratedEagle.special(validSpecials);
     }
 
     @Override
