@@ -7,28 +7,22 @@ import resources.Sprites;
 
 import java.util.Set;
 
-public class NormUtilityEagleDecorator extends EagleDecorator {
+public class AltUtilityEagleDecorator extends EagleDecorator {
 
-    public NormUtilityEagleDecorator(Piece decoratedEagle) {
+    public AltUtilityEagleDecorator(Piece decoratedEagle) {
         super(decoratedEagle);
+        // TODO: Change sprite to Alt Utility Eagle
         super.setSprite(Sprites.UtilityEagle);
     }
 
-    // NormUtilityEagle special has the same range and target as its attack
     @Override
     public Set<Tile> getValidSpecials(Tile currentCoord, Board board) {
-        return super.getValidAttacks(currentCoord, board);
-    }
-
-
-    @Override
-    public void special(Set<Tile> validSpecials) {
-
+        return super.getValidSpecials(currentCoord, board);
     }
 
     @Override
     public Piece transform() {
-        Piece newForm = new AltUtilityEagleDecorator(this.decoratedEagle);
+        Piece newForm = new NormUtilityEagleDecorator(this.decoratedEagle);
         super.getTile().setPiece(newForm);
 
         return newForm;

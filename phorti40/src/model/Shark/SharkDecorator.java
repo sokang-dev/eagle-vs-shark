@@ -45,11 +45,6 @@ public abstract class SharkDecorator implements Piece, Serializable {
     }
 
     @Override
-    public boolean hasSpecial() {
-        return decoratedShark.hasSpecial();
-    }
-
-    @Override
     public void special(Set<Tile> validSpecials) { decoratedShark.special(validSpecials); }
 
     @Override

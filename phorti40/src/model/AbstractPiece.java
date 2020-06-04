@@ -90,10 +90,6 @@ public abstract class AbstractPiece implements Piece, Serializable {
         piece.takeDamage();
     }
 
-    public boolean hasSpecial() {
-        return false;
-    }
-
     public void special(Set<Tile> validSpecials) {
         System.out.println("This piece has no special.");
     }
