@@ -149,6 +149,7 @@ public class GameController {
         this.currentPlayer = memento.getState().getCurrentPlayer();
         this.getGameInfoPanel().setActionsRemaining(memento.getState().getActionsRemaining());
         this.pieceController.setBoard(gameBoard);
+        gameBoard.updatePiecesOnRestore();
         this.boardView = new BoardView(gameBoard);
         Platform.runLater(() -> boardView.refreshBoard());
     }

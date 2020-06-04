@@ -1,6 +1,7 @@
 package model;
 
 import model.interfaces.Piece;
+import model.interfaces.Prototype;
 import resources.Constants;
 import java.io.Serializable;
 import java.util.Objects;
@@ -73,9 +74,6 @@ public class Tile implements Serializable, Prototype {
 
     @Override
     public Prototype clone() {
-        if (this.getPiece()!= null) {
-            this.getPiece().setTile(this);
-        }
         return new Tile(this);
     }
 }

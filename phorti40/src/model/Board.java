@@ -9,6 +9,7 @@ import model.Shark.NormDummySharkDecorator;
 import model.Shark.NormUtilitySharkDecorator;
 import model.Shark.Shark;
 import model.interfaces.Piece;
+import model.interfaces.Prototype;
 
 import java.io.Serializable;
 
@@ -64,6 +65,18 @@ public class Board implements Serializable, Prototype {
         return this.board[i][j].getPiece();
     }
 
+    public void updatePiecesOnRestore(){
+        Tile[][] tiles = board;
+        for(int i=0; i<tiles.length; i++) {
+            for (int j = 0; j < tiles[i].length; j++) {
+                Tile current = tiles[i][j];
+                if (current.getPiece()==null)
+                    continue;
+                current.getPiece().setTile(current);
+
+            }
+        }
+    }
     // Used for debugging only
     public void printBoard() {
         for (int i = 0; i < BOARD_WIDTH; i++) {
