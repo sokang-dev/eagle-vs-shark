@@ -33,7 +33,7 @@ public class AltUtilityEagleDecorator extends EagleDecorator {
             int newX = t.getX() + diffX;
             int newY = t.getY() + diffY;
 
-            if (Tile.isOutOfBounds(newX, newY))
+            if (board.getTile(newX, newY) == null)
                 continue;
 
             // If tile is not occupied, move the piece to the new tile
