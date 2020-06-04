@@ -8,9 +8,10 @@ import model.Status;
 import model.Tile;
 import model.interfaces.Piece;
 
+import java.io.Serializable;
 import java.util.Set;
 
-public abstract class EagleDecorator implements Piece {
+public abstract class EagleDecorator implements Piece, Serializable {
 
     protected Piece decoratedEagle;
 

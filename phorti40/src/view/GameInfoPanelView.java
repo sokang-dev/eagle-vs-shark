@@ -17,6 +17,7 @@ public class GameInfoPanelView extends VBox {
     private Label playerTurn;
     private Label timeRemaining;
     private Label actionsRemaining;
+    private Label saveStatusLabel;
     private Label errorMessage;
 
     public GameInfoPanelView(GameInfoPanel gameInfoPanel, GameController gameController) {
@@ -47,7 +48,11 @@ public class GameInfoPanelView extends VBox {
 
         Button endTurnButton = new Button("End Turn");
         endTurnButton.setOnAction(gameController::handleEndTurnButton);
-        this.getChildren().addAll(playerTurn, timeRemaining, actionsRemaining, specialButton, errorMessage, endTurnButton);
+
+        saveStatusLabel = new Label();
+        Button saveButton = new Button("Save");
+        saveButton.setOnAction(gameController::handleSaveButton);
+        this.getChildren().addAll(playerTurn, timeRemaining, actionsRemaining, specialButton, errorMessage, endTurnButton, saveStatusLabel, saveButton);
     }
 
     public GameInfoPanel getGameInfoPanel(){
@@ -64,6 +69,14 @@ public class GameInfoPanelView extends VBox {
 
     public Label getTimeRemaining() {
         return timeRemaining;
+    }
+
+    public void setSaveStatusLabel(String message) {
+        saveStatusLabel.setText(message);
+    }
+
+    public Label getSaveStatusLabel(){
+        return saveStatusLabel;
     }
 
     public Label getErrorMessage() { return errorMessage; }

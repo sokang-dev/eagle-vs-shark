@@ -9,9 +9,9 @@ public class GameInfoPanel {
     private LongProperty timeRemaining = new SimpleLongProperty();
     private StringProperty errorMessage = new SimpleStringProperty();
 
-    public GameInfoPanel(String currentPlayerName, long timeRemaining) {
+    public GameInfoPanel(String currentPlayerName, long timeRemaining, int actionsRemaining) {
         currentPlayer.setValue(currentPlayerName);
-        actionsRemaining.setValue(3);
+        this.actionsRemaining.setValue(actionsRemaining);
         this.timeRemaining.setValue(timeRemaining);
         errorMessage.setValue("");
     }
