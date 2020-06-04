@@ -44,8 +44,8 @@ public class BoardView extends GridPane {
     }
 
     public TileView[][] GenerateTileView(){
+        this.getChildren().removeAll(this.getChildren());
         TileView[][] tileViews = new TileView[BOARD_WIDTH][BOARD_HEIGHT];
-
         for (Tile[] tileArr : gameBoard.getBoard()) {
             for (Tile tile : tileArr) {
                 int x = tile.getX();
