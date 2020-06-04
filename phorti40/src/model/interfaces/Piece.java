@@ -24,13 +24,15 @@ public interface Piece {
 
     boolean hasSpecial();
 
-    void special();
+    void special(Set<Tile> validSpecials);
 
     void takeDamage();
 
     void die();
 
     void setStatus(StatusType type, int duration);
+
+    Piece transform();
 
     Status getStatus(StatusType type);
 

@@ -10,4 +10,9 @@ public class NormUtilitySharkDecorator extends SharkDecorator {
         super(decoratedShark);
         super.setSprite(Sprites.UtilityShark);
     }
+
+    @Override
+    public Piece transform() {
+        return null;
+    }
 }

@@ -58,8 +58,8 @@ public class PieceController {
             return;
         }
 
-        if (!selectedPiece.hasSpecial()) {
-            gameInfoPanel.setErrorMessage("This piece has no specials!");
+        if (validSpecials.isEmpty()) {
+            gameInfoPanel.setErrorMessage("No valid specials available!");
             return;
         }
 
@@ -70,7 +70,17 @@ public class PieceController {
             gameController.getBoardView().highlightTiles(this.validSpecials, Constants.VALID_SPECIAL_TILE_COLOR);
         else
             selectTile(selectedPiece.getTile());
-//        selectedPiece.special();
+    }
+
+    public void handleTransformButton(Event event) {
+        if (selectedPiece == null) {
+            System.out.println("No piece selected!");
+            gameInfoPanel.setErrorMessage("No piece selected!");
+            return;
+        }
+
+        selectedPiece = selectedPiece.transform();
+        postActionBoardReset();
     }
 
     private void selectTile(Tile tile) {
@@ -113,18 +123,20 @@ public class PieceController {
             gameController.getBoardView().highlightTiles(this.validAttacks, Constants.EMPTY_TILE_COLOR);
         }
 
-        // If valid move OR attack
+        // If valid move OR attack OR special
         if (validSpecials.contains(destinationTile) && specialClicked) {
-            selectedPiece.special();
+            selectedPiece.special(validSpecials);
+            postActionBoardReset();
         } else if (validAttacks.contains(destinationTile)) {
             destinationTile.getPiece().takeDamage();
+            postActionBoardReset();
         } else if (validMoves.contains(destinationTile)) {
             selectedPiece.move(board, board.getTile(destinationTile.getX(), destinationTile.getY()));
+            postActionBoardReset();
         }  else {
             System.out.println("Invalid selection!");
+            pieceReset();
         }
-
-        postActionBoardReset();
     }
 
     public void pieceReset() {
@@ -146,15 +158,11 @@ public class PieceController {
     }
 
     private void storePieceAndValidMoves(Piece selectedPiece) {
-        // Store the selectedPiece and it's valid moves
+        // Store the selectedPiece and its valid moves
         this.pieceClicked = true;
         this.selectedPiece = selectedPiece;
         this.validMoves = selectedPiece.getValidMoves(selectedPiece.getTile(), selectedPiece.getBaseMovement(), board);
         this.validAttacks = selectedPiece.getValidAttacks(selectedPiece.getTile(), board);
         this.validSpecials = selectedPiece.getValidSpecials(selectedPiece.getTile(), board);
-    }
-
-    public Piece getSelectedPiece() {
-        return this.selectedPiece;
     }
 }

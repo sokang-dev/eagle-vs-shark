@@ -68,7 +68,7 @@ public abstract class AbstractPiece implements Piece, Serializable {
                 // Add pieces from the opposing team
                 if (board.getTile(x, y).getPiece() != null) {
                     if (board.getPiece(x, y).getPieceType() != this.getPieceType()) {
-                        validAttacks.add(new Tile(x, y));
+                        validAttacks.add(board.getTile(x, y));
                     }
                 }
             }
@@ -94,7 +94,7 @@ public abstract class AbstractPiece implements Piece, Serializable {
         return false;
     }
 
-    public void special() {
+    public void special(Set<Tile> validSpecials) {
         System.out.println("This piece has no special.");
     }
 
@@ -125,6 +125,9 @@ public abstract class AbstractPiece implements Piece, Serializable {
             statuses.add(status);
         }
     }
+
+    @Override
+    public Piece transform() { return null; }
 
     public Status getStatus(StatusType type) {
         for (Status status : statuses) {

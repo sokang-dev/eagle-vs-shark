@@ -82,4 +82,12 @@ public class NormAttackEagleDecorator extends EagleDecorator {
 
         super.move(board, tile);
     }
+
+    @Override
+    public Piece transform() {
+        Piece newForm = new AltAttackEagleDecorator(this.decoratedEagle);
+        super.getTile().setPiece(newForm);
+
+        return newForm;
+    }
 }
