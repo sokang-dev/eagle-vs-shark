@@ -38,7 +38,11 @@ public class MainMenuView extends VBox {
             mainMenuController.handleNewGameButton(Integer.parseInt(turnTimerInput.getText()), event);
         });
 
-        HBox newGameBox = new HBox(turnTimerInput, newGameButton);
+        Button resumeGameButton = new Button("Resume Game");
+        resumeGameButton.setOnAction(event -> {
+            mainMenuController.handleResumeGame(event);
+        });
+        HBox newGameBox = new HBox(turnTimerInput, newGameButton, resumeGameButton);
         newGameBox.setSpacing(5);
 
         this.getChildren().addAll(heading, newGameBox);

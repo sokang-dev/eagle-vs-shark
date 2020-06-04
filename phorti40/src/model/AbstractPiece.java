@@ -1,18 +1,24 @@
 package model;
 
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import model.Enums.PieceType;
 import model.interfaces.Piece;
 
+import javax.imageio.ImageIO;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-public abstract class AbstractPiece implements Piece {
+public abstract class AbstractPiece implements Piece, Serializable {
 
     private Tile tile;
     private int health;
     protected int baseMovement;
-    protected Image sprite;
+    protected transient Image sprite;
     protected PieceType pieceType;
 
     protected AbstractPiece(PieceType pieceType) {
@@ -156,5 +162,22 @@ public abstract class AbstractPiece implements Piece {
                     validMoves.add(new Tile(x, y));
             }
         }
+    }
+
+    // Custom serialisation to account for the Sprite
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        //write the default values to be serialised
+        out.defaultWriteObject();
+        //then if the sprite isn't null store as BufferedImage
+        out.writeBoolean(sprite != null);
+        if (sprite != null) {
+            ImageIO.write(SwingFXUtils.fromFXImage(sprite, null), "png", out);
+        }
+    }
+
+    // Custom deserialisation to account for the Sprite
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        sprite = in.readBoolean() ? new Image(in) : null;
     }
 }
