@@ -150,8 +150,8 @@ public class GameController {
         this.getGameInfoPanel().setActionsRemaining(memento.getState().getActionsRemaining());
         this.pieceController.setBoard(gameBoard);
         gameBoard.updatePiecesOnRestore();
-        this.boardView = new BoardView(gameBoard);
-        Platform.runLater(() -> boardView.refreshBoard());
+        this.boardView.setBoard(gameBoard);
+        this.boardView.setBoardView(this.boardView.GenerateTileView());
     }
 
     public GameMemento createGameMemento(){

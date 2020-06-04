@@ -43,6 +43,27 @@ public class BoardView extends GridPane {
         }
     }
 
+    public TileView[][] GenerateTileView(){
+        TileView[][] tileViews = new TileView[BOARD_WIDTH][BOARD_HEIGHT];
+
+        for (Tile[] tileArr : gameBoard.getBoard()) {
+            for (Tile tile : tileArr) {
+                int x = tile.getX();
+                int y = tile.getY();
+
+                TileView tileView = new TileView(tile);
+                tileView.setSprite();
+                tileView.setHP();
+
+                tileViews[x][y] = tileView;
+
+                GridPane.setRowIndex(tileView, x);
+                GridPane.setColumnIndex(tileView, y);
+                this.getChildren().addAll(tileView);
+            }
+        }
+        return tileViews;
+    }
     public void refreshBoard() {
         for (Tile[] tileArr : gameBoard.getBoard()) {
             for (Tile tile : tileArr) {
@@ -73,5 +94,9 @@ public class BoardView extends GridPane {
 
     public void setBoard(Board board){
         this.gameBoard=board;
+    }
+
+    public void setBoardView(TileView[][] boardView){
+        this.boardView=boardView;
     }
 }
