@@ -3,7 +3,6 @@ package App;
 import model.GameMemento;
 import model.SaveState;
 import java.io.*;
-import java.util.LinkedList;
 import java.util.Stack;
 
 import static resources.Constants.SAVE_PATH;
@@ -31,7 +30,7 @@ public class SaveStateManager {
         return false;
     };
 
-    //Deserialise from the .txt and return the loaded SaveState todo: should this create a Momemento?
+    //Deserialise from the .txt and return the loaded SaveState
     public static SaveState LoadState (){
         SaveState loadState = new SaveState(null, null, 0, 0);
         System.out.println("Loading...");
@@ -62,22 +61,19 @@ public class SaveStateManager {
     }
 
     public static GameMemento Undo(int numberOfUndo){
-        System.out.println("Prev: ");
-
         for (int i = 0; i < numberOfUndo ; i++) {
             gameHistory.pop();
         }
-        gameHistory.peek().getState().getGameBoard().printBoard();
         return gameHistory.pop();
     }
 
     public static void PrintStack()
     {
         for (GameMemento i : gameHistory) {
-            System.out.println("Turn: " + i.getStateId() + " - " + "Tile: " + i.getState().getGameBoard().getBoard()
+            System.out.println("Tile: " + i.getState().getGameBoard().getBoard()
                     + "Board: " + i.getState().getGameBoard());
 
-            i.getState().getGameBoard().printBoard();
+            //i.getState().getGameBoard().printBoard();
         }
     }
 }

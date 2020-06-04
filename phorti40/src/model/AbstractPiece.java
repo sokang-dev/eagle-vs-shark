@@ -170,6 +170,10 @@ public abstract class AbstractPiece implements Piece, Serializable {
         this.baseMovement = baseMovement;
     }
 
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
     private void addAdjacentTiles(Tile currentCoord, Set<Tile> validMoves, Board board) {
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
@@ -206,8 +210,5 @@ public abstract class AbstractPiece implements Piece, Serializable {
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
         in.defaultReadObject();
         sprite = in.readBoolean() ? new Image(in) : null;
-    }
-    public void setHealth(int health) {
-        this.health = health;
     }
 }

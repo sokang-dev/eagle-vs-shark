@@ -23,9 +23,6 @@ public class Board implements Serializable, Prototype {
         for(int i=0; i<board.getBoard().length; i++) {
             for (int j = 0; j < board.getBoard()[i].length; j++) {
                 clone[i][j] = (Tile)board.getBoard()[i][j].clone();
-               // if (clone[i][j].getPiece() != null){
-             //       clone[i][j].getPiece().setTile(clone[i][j]);
-             //   }
             }
         }
         this.board = clone;
@@ -126,29 +123,18 @@ public class Board implements Serializable, Prototype {
     public Tile[][] getBoard() {
         return this.board;
     }
+
     public Tile getTile(int x, int y) {
         if (x >= 0 && x < getSize() && y >= 0 && y < getSize())
             return this.board[x][y];
-
         // Return nothing if co-ords are out of bounds
         return null;
     }
+
     public Piece getPiece(int i, int j) {
         return this.board[i][j].getPiece();
     }
 
-    public void updatePiecesOnRestore(){
-        Tile[][] tiles = board;
-        for(int i=0; i<tiles.length; i++) {
-            for (int j = 0; j < tiles[i].length; j++) {
-                Tile current = tiles[i][j];
-                if (current.getPiece()==null)
-                    continue;
-                current.getPiece().setTile(current);
-
-            }
-        }
-    }
     // Used for debugging only
     public void printBoard() {
         for (int i = 0; i < board.length; i++) {
@@ -164,10 +150,6 @@ public class Board implements Serializable, Prototype {
         System.out.println();
     }
 
-    @Override
-    public Prototype clone() {
-        return new Board(this);
-    }
     public int getSize() {
         return this.board.length;
     }
@@ -181,5 +163,23 @@ public class Board implements Serializable, Prototype {
         }
 
         return pieces;
+    }
+
+    public void updatePiecesOnRestore(){
+        Tile[][] tiles = board;
+        for(int i=0; i<tiles.length; i++) {
+            for (int j = 0; j < tiles[i].length; j++) {
+                Tile current = tiles[i][j];
+                if (current.getPiece()==null)
+                    continue;
+                current.getPiece().setTile(current);
+
+            }
+        }
+    }
+
+    @Override
+    public Prototype clone() {
+        return new Board(this);
     }
 }

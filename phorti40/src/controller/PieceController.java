@@ -51,10 +51,6 @@ public class PieceController {
         });
     }
 
-    public void setBoard(Board board){
-        this.board = board;
-    }
-
     public void handleSpecialButton(Event event) {
         if (selectedPiece == null) {
             System.out.println("No piece selected!");
@@ -93,7 +89,6 @@ public class PieceController {
 
         // If tile is empty
         if (piece == null) {
-             board.printBoard(); // console printing board for debugging
             System.out.println("Non piece selected");
             gameInfoPanel.setErrorMessage("Non piece selected!");
         }
@@ -127,7 +122,6 @@ public class PieceController {
             gameController.getBoardView().highlightTiles(this.validMoves, Constants.EMPTY_TILE_COLOR);
             gameController.getBoardView().highlightTiles(this.validAttacks, Constants.EMPTY_TILE_COLOR);
             this.pieceClicked = false;
-           // board.printBoard(); // console printing board for debugging
         }
 
         // If valid move OR attack OR special
@@ -171,5 +165,9 @@ public class PieceController {
         this.validMoves = selectedPiece.getValidMoves(selectedPiece.getTile(), selectedPiece.getBaseMovement(), board);
         this.validAttacks = selectedPiece.getValidAttacks(selectedPiece.getTile(), board);
         this.validSpecials = selectedPiece.getValidSpecials(selectedPiece.getTile(), board);
+    }
+
+    public void setBoard(Board board){
+        this.board = board;
     }
 }

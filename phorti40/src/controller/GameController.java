@@ -37,7 +37,6 @@ public class GameController {
     private Boolean gameIsOver = false;
     private long timeLimit;
     private int initialTimeLimit;
-    int turn =0;
 
     public GameController(int timerInput, int boardSizeInput, int pieceCountInput) {
         InitialiseGameController(new Board(boardSizeInput, pieceCountInput), null, timerInput, DEFAULT_ACTIONS_REMAINING);
@@ -70,7 +69,7 @@ public class GameController {
         // Overarching game loop
         while(!gameIsOver)
         {
-            saveGameMemento(createGameMemento());
+            autoSaveGameMemento(createGameMemento());
             Turn();
         }
         return 0;
@@ -158,9 +157,7 @@ public class GameController {
         );
         visiblePause.play();
     }
-    private SaveState createSaveState() {
-        return new SaveState(gameBoard, currentPlayer, initialTimeLimit, gameInfoPanel.getActionsRemaining());
-    }
+
     public void handleUndo(Event event) {
         restoreGame(SaveStateManager.Undo(2));
     }
@@ -175,13 +172,12 @@ public class GameController {
         this.boardView.setBoardView(this.boardView.GenerateTileView());
     }
 
-    public GameMemento createGameMemento(){
-        turn++;
+    private GameMemento createGameMemento(){
         SaveState saveState = new SaveState((Board) gameBoard.clone(), currentPlayer, initialTimeLimit, gameInfoPanel.getActionsRemaining());
-        return new GameMemento(saveState, turn);
+        return new GameMemento(saveState);
     }
 
-    public void saveGameMemento(GameMemento memento)
+    private void autoSaveGameMemento(GameMemento memento)
     {
         SaveStateManager.SaveGameMemento(memento);
     }
