@@ -115,9 +115,12 @@ public class Board implements Serializable {
     public void printBoard() {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board.length; j++) {
-                Piece piece = this.getPiece(i, j);
-                if (piece != null)
-                    System.out.print(piece.toString());
+
+                if(this.getTile(i,j).getTerrain() != null) {
+                    System.out.print(" T ");
+                }
+                else if (this.getPiece(i,j) != null)
+                    System.out.print(this.getPiece(i,j).toString());
                 else
                     System.out.print(" 0 ");
             }
@@ -179,7 +182,7 @@ public class Board implements Serializable {
                 int x = currentCoord.getX() + i;
                 int y = currentCoord.getY() + j;
 
-                if (Tile.isOutOfBounds(x, y))
+                if (this.getTile(x, y) == null)
                     continue;
 
                 if (getPiece(x, y) != null) {

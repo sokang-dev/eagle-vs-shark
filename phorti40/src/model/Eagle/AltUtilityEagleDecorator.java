@@ -11,7 +11,7 @@ public class AltUtilityEagleDecorator extends EagleDecorator {
 
     public AltUtilityEagleDecorator(Piece decoratedEagle) {
         super(decoratedEagle);
-        super.setSprite(Sprites.UtilityEagle);
+        super.setSprite(Sprites.AltUtilityEagle);
     }
 
     // AltUtilityEagle's special has the same range as attack
@@ -32,7 +32,7 @@ public class AltUtilityEagleDecorator extends EagleDecorator {
             int newX = t.getX() + diffX;
             int newY = t.getY() + diffY;
 
-            if (Tile.isOutOfBounds(newX, newY))
+            if (board.getTile(newX, newY) == null)
                 continue;
 
             // If tile is not occupied, move the piece to the new tile

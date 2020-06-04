@@ -7,7 +7,7 @@ public class NormAttackSharkDecorator extends SharkDecorator {
 
     public NormAttackSharkDecorator(Piece decoratedShark) {
         super(decoratedShark);
-        super.setSprite(Sprites.AttackShark);
+        super.setSprite(Sprites.Shark);
     }
 
     @Override

@@ -23,7 +23,8 @@ public class AltDummySharkDecorator extends SharkDecorator {
         return validSpecials;
     }
 
-        public void special(Tile destinationTile) {
+    @Override
+    public void special(Tile destinationTile, Board board) {
             super.setHealth(super.getHealth() + 1);
     }
 

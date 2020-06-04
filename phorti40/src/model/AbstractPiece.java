@@ -55,15 +55,30 @@ public abstract class AbstractPiece implements Piece, Serializable {
     public Set<Tile> getValidAttacks(Tile currentCoord, Board board) {
 
         Set<Tile> validAttacks = new HashSet<>();
-        Set<Piece> adjacentPieces = board.getAdjacentPieces(currentCoord);
 
-        // Only add opponent adjacent pieces
-        for (Piece piece : adjacentPieces) {
-            if (piece.getPieceType() != this.getPieceType()) {
-                validAttacks.add(piece.getTile());
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+
+                if (Math.abs(i) == Math.abs(j))
+                    continue;
+
+                int x = currentCoord.getX() + i;
+                int y = currentCoord.getY() + j;
+
+                if (board.getTile(x, y) == null)
+                    continue;
+
+                // Add pieces from the opposing team
+                if (board.getTile(x, y).getTerrain() != null) {
+                    validAttacks.add(board.getTile(x, y));
+                }
+                else if (board.getTile(x, y).getPiece() != null) {
+                    if (board.getPiece(x, y).getPieceType() != this.getPieceType()) {
+                        validAttacks.add(board.getTile(x, y));
+                    }
+                }
             }
         }
-
         return validAttacks;
     }
 
@@ -189,7 +204,7 @@ public abstract class AbstractPiece implements Piece, Serializable {
                     continue;
 
                 // Add only unoccupied Tiles
-                if (board.getTile(x, y).getPiece() == null && board.getTile(x, y).getTerrain() == null)
+                if (board.getTile(x, y).getPiece() == null && board.getTile(x,y).getTerrain() == null)
                     validMoves.add(new Tile(x, y));
             }
         }

@@ -15,7 +15,6 @@ public class NormUtilitySharkDecorator extends SharkDecorator {
         super.setSprite(Sprites.UtilityShark);
     }
 
-
     @Override
     public Set<Tile> calcValidSpecials(Tile currentCoord, Board board) {
         // Adjacent pieces of the same team including diagonals
@@ -42,12 +41,13 @@ public class NormUtilitySharkDecorator extends SharkDecorator {
         return validSpecials;
     }
 
-    public void special(Tile destinationTile) {
+    @Override
+    public void special(Tile destinationTile, Board board) {
         for (Tile t : super.getValidSpecials()) {
             t.getPiece().setHealth(t.getPiece().getHealth() + 1);
         }
     }
-
+    
     @Override
     public Piece transform() {
         Piece newForm = new AltUtilitySharkDecorator(this.decoratedShark);

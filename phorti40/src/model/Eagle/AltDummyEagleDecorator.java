@@ -1,7 +1,6 @@
 package model.Eagle;
 
 import model.Board;
-import model.Enums.StatusType;
 import model.Terrain;
 import model.Tile;
 import model.interfaces.Piece;
@@ -38,7 +37,8 @@ public class AltDummyEagleDecorator extends EagleDecorator {
         return validSpecials;
     }
 
-    public void special(Tile destinationTile) {
+    @Override
+    public void special(Tile destinationTile, Board board) {
         System.out.println("Create terrain");
 
         // create new tile
