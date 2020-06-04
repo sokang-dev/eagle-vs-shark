@@ -54,7 +54,7 @@ public class NormAttackEagleDecorator extends EagleDecorator {
 
     // NormAttackEagle's move kill every shark in its path
     @Override
-    public void move(Board board, Tile tile) {
+    public void move(Tile tile, Board board) {
         boolean kill = false;
 
         int oldX = super.getTile().getX();
@@ -80,7 +80,7 @@ public class NormAttackEagleDecorator extends EagleDecorator {
         // If movement ends up in kill, NormAttackEagle will be stunned for 2 turns
         if (kill) super.setStatus(StatusType.Stun, 2);
 
-        super.move(board, tile);
+        super.move(tile, board);
     }
 
     @Override
