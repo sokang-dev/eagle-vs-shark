@@ -14,9 +14,32 @@ public class AltUtilityEagleDecorator extends EagleDecorator {
         super.setSprite(Sprites.UtilityEagle);
     }
 
+    // AltUtilityEagle's special has the same range as attack
     @Override
     public Set<Tile> calcValidSpecials(Tile currentCoord, Board board) {
-        return super.calcValidSpecials(currentCoord, board);
+        return super.getValidAttacks(currentCoord, board);
+    }
+
+    @Override
+    public void special(Tile tile, Board board) {
+        int currentX = super.getTile().getX();
+        int currentY = super.getTile().getY();
+
+        for (Tile t : super.getValidSpecials()) {
+            int diffX = t.getX() - currentX;
+            int diffY = t.getY() - currentY;
+
+            int newX = t.getX() + diffX;
+            int newY = t.getY() + diffY;
+
+            if (Tile.isOutOfBounds(newX, newY))
+                continue;
+
+            // If tile is not occupied, move the piece to the new tile
+            Tile newTile = board.getTile(newX, newY);
+            if (newTile.getPiece() == null)
+                t.getPiece().move(newTile, board);
+        }
     }
 
     @Override

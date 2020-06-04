@@ -34,7 +34,7 @@ public abstract class SharkDecorator implements Piece, Serializable {
     }
 
     @Override
-    public void move(Board board, Tile tile) {
+    public void move(Tile tile, Board board) {
         getTile().removePiece();
         tile.setPiece(this);
     }
@@ -45,7 +45,7 @@ public abstract class SharkDecorator implements Piece, Serializable {
     }
 
     @Override
-    public void special(Tile tile) { decoratedShark.special(tile); }
+    public void special(Tile tile, Board board) { decoratedShark.special(tile, board); }
 
     @Override
     public void takeDamage() {

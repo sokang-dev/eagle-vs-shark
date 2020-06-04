@@ -18,11 +18,11 @@ public interface Piece {
     Set<Tile> calcValidSpecials(Tile currentCoord, Board board);
 
     // Remove piece from current tile and set piece to a new tile.
-    void move(Board board, Tile tile);
+    void move(Tile tile, Board board);
 
     void attack(Tile tile);
 
-    void special(Tile tile);
+    void special(Tile tile, Board board);
 
     void takeDamage();
 
