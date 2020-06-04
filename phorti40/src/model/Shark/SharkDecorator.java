@@ -61,6 +61,11 @@ public abstract class SharkDecorator implements Piece, Serializable {
     }
 
     @Override
+    public void removeStatus(StatusType status) {
+        decoratedShark.removeStatus(status);
+    }
+
+    @Override
     public Status getStatus(StatusType type) {
         return decoratedShark.getStatus(type);
     }

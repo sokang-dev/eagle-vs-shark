@@ -30,6 +30,8 @@ public interface Piece {
 
     void setStatus(StatusType type, int duration);
 
+    void removeStatus(StatusType type);
+
     Piece transform();
 
     Status getStatus(StatusType type);
