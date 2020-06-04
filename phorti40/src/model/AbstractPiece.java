@@ -22,10 +22,12 @@ public abstract class AbstractPiece implements Piece, Serializable {
     protected Set<Status> statuses;
     protected transient Image sprite;
     protected PieceType pieceType;
+    private Set<Tile> validSpecials;
 
     protected AbstractPiece(PieceType pieceType) {
         this.pieceType = pieceType;
         statuses = new HashSet<>();
+        validSpecials = new HashSet<>();
     }
 
     // Get valid moves of a piece based on its baseMovement value
@@ -76,8 +78,8 @@ public abstract class AbstractPiece implements Piece, Serializable {
         return validAttacks;
     }
 
-    public Set<Tile> getValidSpecials(Tile currentCoord, Board board) {
-        return new HashSet<>();
+    public Set<Tile> calcValidSpecials(Tile currentCoord, Board board) {
+        return this.validSpecials;
     }
 
     // Remove piece from current tile and set piece to a new tile.
@@ -90,11 +92,7 @@ public abstract class AbstractPiece implements Piece, Serializable {
         piece.takeDamage();
     }
 
-    public boolean hasSpecial() {
-        return false;
-    }
-
-    public void special(Set<Tile> validSpecials) {
+    public void special(Tile tile) {
         System.out.println("This piece has no special.");
     }
 
@@ -172,6 +170,16 @@ public abstract class AbstractPiece implements Piece, Serializable {
 
     public void setHealth(int health) {
         this.health = health;
+    }
+
+    @Override
+    public Set<Tile> getValidSpecials() {
+        return this.validSpecials;
+    }
+
+    @Override
+    public void setValidSpecials(Set<Tile> validSpecials) {
+        this.validSpecials = validSpecials;
     }
 
     private void addAdjacentTiles(Tile currentCoord, Set<Tile> validMoves, Board board) {

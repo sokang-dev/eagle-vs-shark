@@ -15,16 +15,14 @@ public interface Piece {
 
     Set<Tile> getValidAttacks(Tile currentCoord, Board board);
 
-    Set<Tile> getValidSpecials(Tile currentCoord, Board board);
+    Set<Tile> calcValidSpecials(Tile currentCoord, Board board);
 
     // Remove piece from current tile and set piece to a new tile.
     void move(Board board, Tile tile);
 
     void attack(Piece piece);
 
-    boolean hasSpecial();
-
-    void special(Set<Tile> validSpecials);
+    void special(Tile tile);
 
     void takeDamage();
 
@@ -53,4 +51,8 @@ public interface Piece {
     void setBaseMovement(int baseMovement);
 
     void setHealth(int health);
+
+    Set<Tile> getValidSpecials();
+
+    void setValidSpecials(Set<Tile> validSpecials);
 }
