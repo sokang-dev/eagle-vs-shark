@@ -126,6 +126,9 @@ public abstract class AbstractPiece implements Piece, Serializable {
         }
     }
 
+    @Override
+    public Piece transform() { return null; }
+
     public Status getStatus(StatusType type) {
         for (Status status : statuses) {
             if (type == status.getType())

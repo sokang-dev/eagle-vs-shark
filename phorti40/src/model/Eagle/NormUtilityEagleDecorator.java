@@ -29,4 +29,9 @@ public class NormUtilityEagleDecorator extends EagleDecorator {
     public void special() {
         System.out.println("Bushhh");
     }
+
+    @Override
+    public Piece transform() {
+        return null;
+    }
 }

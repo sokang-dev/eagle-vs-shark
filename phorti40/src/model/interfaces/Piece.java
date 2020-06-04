@@ -32,6 +32,8 @@ public interface Piece {
 
     void setStatus(StatusType type, int duration);
 
+    Piece transform();
+
     Status getStatus(StatusType type);
 
     PieceType getPieceType();

@@ -73,6 +73,17 @@ public class PieceController {
 //        selectedPiece.special();
     }
 
+    public void handleTransformButton(Event event) {
+        if (selectedPiece == null) {
+            System.out.println("No piece selected!");
+            gameInfoPanel.setErrorMessage("No piece selected!");
+            return;
+        }
+
+        selectedPiece = selectedPiece.transform();
+        postActionBoardReset();
+    }
+
     private void selectTile(Tile tile) {
         Piece piece = board.getPiece(tile.getX(), tile.getY());
         Player currentPlayer = gameController.getCurrentPlayer();

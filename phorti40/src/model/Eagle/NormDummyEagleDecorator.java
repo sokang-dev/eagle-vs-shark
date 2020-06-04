@@ -9,4 +9,9 @@ public class NormDummyEagleDecorator extends EagleDecorator {
         super(decoratedEagle);
         super.setSprite(Sprites.Eagle);
     }
+
+    @Override
+    public Piece transform() {
+        return null;
+    }
 }
