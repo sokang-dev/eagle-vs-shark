@@ -68,11 +68,11 @@ public abstract class AbstractPiece implements Piece, Serializable {
                 if (board.getTile(x, y) == null)
                     continue;
 
-                // Add pieces from the opposing team
+                // Add terrain
                 if (board.getTile(x, y).getTerrain() != null) {
                     validAttacks.add(board.getTile(x, y));
                 }
-                else if (board.getTile(x, y).getPiece() != null) {
+                else if (board.getTile(x, y).getPiece() != null && board.getTile(x, y).getPiece().getStatus(StatusType.Untargetable) == null) {
                     if (board.getPiece(x, y).getPieceType() != this.getPieceType()) {
                         validAttacks.add(board.getTile(x, y));
                     }

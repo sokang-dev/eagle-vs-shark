@@ -9,7 +9,7 @@ public class AltAttackSharkDecorator extends SharkDecorator{
 
     public AltAttackSharkDecorator(Piece decoratedShark) {
         super(decoratedShark);
-        super.setSprite(Sprites.AttackShark);
+        super.setSprite(Sprites.AltAttackShark);
     }
 
     // Attacks normally, but additionally gains movement on killing a piece

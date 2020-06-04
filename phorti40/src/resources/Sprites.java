@@ -4,6 +4,7 @@ import javafx.scene.image.Image;
 
 public final class Sprites {
     public static Image AttackShark = new Image(Sprites.class.getResourceAsStream("shark_attack.png"));
+    public static Image AttackSharkUnderwater = new Image(Sprites.class.getResourceAsStream("shark_attack_underwater.png"));
     public static Image Shark = new Image(Sprites.class.getResourceAsStream("shark.png"));
     public static Image UtilityShark = new Image(Sprites.class.getResourceAsStream("shark_utility.png"));
 
