@@ -69,6 +69,11 @@ public abstract class EagleDecorator implements Piece, Serializable {
     }
 
     @Override
+    public void removeStatus(StatusType status) {
+        decoratedEagle.removeStatus(status);
+    }
+
+    @Override
     public Status getStatus(StatusType type) {
         return decoratedEagle.getStatus(type);
     }

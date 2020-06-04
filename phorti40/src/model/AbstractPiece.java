@@ -67,7 +67,8 @@ public abstract class AbstractPiece implements Piece, Serializable {
 
                 // Add pieces from the opposing team
                 if (board.getTile(x, y).getPiece() != null) {
-                    if (board.getPiece(x, y).getPieceType() != this.getPieceType()) {
+                    if (board.getPiece(x, y).getPieceType() != this.getPieceType() &&
+                            board.getPiece(x, y).getStatus(StatusType.Untargetable) == null) {
                         validAttacks.add(board.getTile(x, y));
                     }
                 }
@@ -124,6 +125,10 @@ public abstract class AbstractPiece implements Piece, Serializable {
             statuses.remove(status);
             statuses.add(status);
         }
+    }
+
+    public void removeStatus(StatusType type) {
+        statuses.remove(new Status(type, 0));
     }
 
     @Override
