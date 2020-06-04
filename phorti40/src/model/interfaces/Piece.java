@@ -20,7 +20,7 @@ public interface Piece {
     // Remove piece from current tile and set piece to a new tile.
     void move(Board board, Tile tile);
 
-    void attack(Piece piece);
+    void attack(Tile tile);
 
     void special(Tile tile);
 

@@ -41,8 +41,8 @@ public abstract class EagleDecorator implements Piece, Serializable {
     }
 
     @Override
-    public void attack(Piece piece) {
-        decoratedEagle.attack(piece);
+    public void attack(Tile tile) {
+        decoratedEagle.attack(tile);
     }
 
     @Override

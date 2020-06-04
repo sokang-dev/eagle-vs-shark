@@ -68,7 +68,10 @@ public abstract class AbstractPiece implements Piece, Serializable {
                     continue;
 
                 // Add pieces from the opposing team
-                if (board.getTile(x, y).getPiece() != null) {
+                if (board.getTile(x, y).getTerrain() != null) {
+                    validAttacks.add(board.getTile(x, y));
+                }
+                else if (board.getTile(x, y).getPiece() != null) {
                     if (board.getPiece(x, y).getPieceType() != this.getPieceType()) {
                         validAttacks.add(board.getTile(x, y));
                     }
@@ -88,8 +91,11 @@ public abstract class AbstractPiece implements Piece, Serializable {
         tile.setPiece(this);
     }
 
-    public void attack(Piece piece) {
-        piece.takeDamage();
+    public void attack(Tile tile) {
+        if(tile.getTerrain() != null)
+            tile.removeTerrain();
+        else
+            tile.getPiece().takeDamage();
     }
 
     public void special(Tile tile) {
@@ -197,7 +203,7 @@ public abstract class AbstractPiece implements Piece, Serializable {
                     continue;
 
                 // Add only unoccupied Tiles
-                if (board.getTile(x, y).getPiece() == null)
+                if (board.getTile(x, y).getPiece() == null && board.getTile(x, y).getTerrain() == null)
                     validMoves.add(new Tile(x, y));
             }
         }

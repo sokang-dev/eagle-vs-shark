@@ -11,7 +11,6 @@ public class AltUtilityEagleDecorator extends EagleDecorator {
 
     public AltUtilityEagleDecorator(Piece decoratedEagle) {
         super(decoratedEagle);
-        // TODO: Change sprite to Alt Utility Eagle
         super.setSprite(Sprites.UtilityEagle);
     }
 
@@ -26,5 +25,10 @@ public class AltUtilityEagleDecorator extends EagleDecorator {
         super.getTile().setPiece(newForm);
 
         return newForm;
+    }
+
+    @Override
+    public String toString() {
+        return "\u001B[31m D \u001B[0m";
     }
 }

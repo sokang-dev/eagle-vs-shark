@@ -77,4 +77,23 @@ public class Board implements Serializable {
 
         return pieces;
     }
+
+    // Used for debugging only
+    public void printBoard() {
+        for (int i = 0; i < BOARD_WIDTH; i++) {
+            for (int j = 0; j < BOARD_HEIGHT; j++) {
+                Tile t = this.getTile(i,j);
+
+                Piece piece = this.getPiece(i, j);
+                if (piece != null)
+                    System.out.print(piece.toString());
+                else if (t.getTerrain() != null)
+                    System.out.print(" T ");
+                else
+                    System.out.print(" 0 ");
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
 }

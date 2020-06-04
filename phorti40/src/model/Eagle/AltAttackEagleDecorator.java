@@ -37,4 +37,9 @@ public class AltAttackEagleDecorator extends EagleDecorator {
 
         return newForm;
     }
+
+    @Override
+    public String toString() {
+        return "\u001B[31m D \u001B[0m";
+    }
 }

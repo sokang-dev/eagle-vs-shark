@@ -1,6 +1,9 @@
 package model.Shark;
 
 import model.Eagle.NormAttackEagleDecorator;
+import model.Enums.PieceType;
+import model.Terrain;
+import model.Tile;
 import model.interfaces.Piece;
 import resources.Sprites;
 
@@ -12,9 +15,12 @@ public class NormDummySharkDecorator extends SharkDecorator {
     }
 
     @Override
-    public void attack(Piece piece) {
-        super.attack(piece);
-        super.setHealth(super.getHealth() + 1);
+    public void attack(Tile tile) {
+        // Don't heal if you destroy terrain
+        if(tile.getTerrain() == null) {
+            super.setHealth(super.getHealth() + 1);
+        }
+        super.attack(tile);
     }
 
     @Override
@@ -25,5 +31,9 @@ public class NormDummySharkDecorator extends SharkDecorator {
         return newForm;
     }
 
-
+    // Used for debugging only - returns ANSI_BLUE D
+    @Override
+    public String toString() {
+        return "\u001B[34m D \u001B[0m";
+    }
 }

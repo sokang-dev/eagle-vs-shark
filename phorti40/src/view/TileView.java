@@ -49,6 +49,8 @@ public class TileView extends StackPane {
     public void setSprite() {
         if (tile.getPiece() != null)
             sprite.imageProperty().set(this.tile.getPiece().getSprite());
+        else if (tile.getTerrain() != null)
+            sprite.imageProperty().set(this.tile.getTerrain().getSprite());
         else
             sprite.imageProperty().set(null);
     }
