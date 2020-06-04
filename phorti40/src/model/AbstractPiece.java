@@ -57,9 +57,11 @@ public abstract class AbstractPiece implements Piece, Serializable {
         Set<Tile> validAttacks = new HashSet<>();
         Set<Piece> adjacentPieces = board.getAdjacentPieces(currentCoord);
 
+
         // Only add opponent adjacent pieces
         for (Piece piece : adjacentPieces) {
-            if (piece.getPieceType() != this.getPieceType()) {
+            if (piece.getPieceType() != this.getPieceType()&&
+                    piece.getStatus(StatusType.Untargetable) == null) {
                 validAttacks.add(piece.getTile());
             }
         }
@@ -111,6 +113,10 @@ public abstract class AbstractPiece implements Piece, Serializable {
             statuses.remove(status);
             statuses.add(status);
         }
+    }
+
+    public void removeStatus(StatusType type) {
+        statuses.remove(new Status(type, 0));
     }
 
     @Override
