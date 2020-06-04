@@ -51,30 +51,19 @@ public abstract class AbstractPiece implements Piece, Serializable {
         return validMoves;
     }
 
+    // Standard attack range is adjacent tiles (exclude diagonal)
     public Set<Tile> getValidAttacks(Tile currentCoord, Board board) {
 
         Set<Tile> validAttacks = new HashSet<>();
+        Set<Piece> adjacentPieces = board.getAdjacentPieces(currentCoord);
 
-        for (int i = -1; i <= 1; i++) {
-            for (int j = -1; j <= 1; j++) {
-
-                if (Math.abs(i) == Math.abs(j))
-                    continue;
-
-                int x = currentCoord.getX() + i;
-                int y = currentCoord.getY() + j;
-
-                if (Tile.isOutOfBounds(x, y))
-                    continue;
-
-                // Add pieces from the opposing team
-                if (board.getTile(x, y).getPiece() != null) {
-                    if (board.getPiece(x, y).getPieceType() != this.getPieceType()) {
-                        validAttacks.add(board.getTile(x, y));
-                    }
-                }
+        // Only add opponent adjacent pieces
+        for (Piece piece : adjacentPieces) {
+            if (piece.getPieceType() != this.getPieceType()) {
+                validAttacks.add(piece.getTile());
             }
         }
+
         return validAttacks;
     }
 
@@ -83,7 +72,7 @@ public abstract class AbstractPiece implements Piece, Serializable {
     }
 
     // Remove piece from current tile and set piece to a new tile.
-    public void move(Board board, Tile tile) {
+    public void move(Tile tile, Board board) {
         this.tile.removePiece();
         tile.setPiece(this);
     }
@@ -92,7 +81,7 @@ public abstract class AbstractPiece implements Piece, Serializable {
         piece.takeDamage();
     }
 
-    public void special(Tile tile) {
+    public void special(Tile tile, Board board) {
         System.out.println("This piece has no special.");
     }
 

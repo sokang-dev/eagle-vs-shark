@@ -77,4 +77,28 @@ public class Board implements Serializable {
 
         return pieces;
     }
+
+    public Set<Piece> getAdjacentPieces(Tile currentCoord) {
+        Set<Piece> pieces = new HashSet<>();
+
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+
+                if (Math.abs(i) == Math.abs(j))
+                    continue;
+
+                int x = currentCoord.getX() + i;
+                int y = currentCoord.getY() + j;
+
+                if (Tile.isOutOfBounds(x, y))
+                    continue;
+
+                if (getPiece(x, y) != null) {
+                    pieces.add(getPiece(x, y));
+                }
+            }
+        }
+
+        return pieces;
+    }
 }

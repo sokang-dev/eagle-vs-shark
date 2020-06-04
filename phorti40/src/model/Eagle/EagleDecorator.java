@@ -35,7 +35,7 @@ public abstract class EagleDecorator implements Piece, Serializable {
     }
 
     @Override
-    public void move(Board board, Tile tile) {
+    public void move(Tile tile, Board board) {
         getTile().removePiece();
         tile.setPiece(this);
     }
@@ -46,8 +46,8 @@ public abstract class EagleDecorator implements Piece, Serializable {
     }
 
     @Override
-    public void special(Tile tile) {
-        decoratedEagle.special(tile);
+    public void special(Tile tile, Board board) {
+        decoratedEagle.special(tile, board);
     }
 
     @Override

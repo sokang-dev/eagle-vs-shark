@@ -68,8 +68,11 @@ public class PieceController {
 
         if (specialClicked)
             gameController.getBoardView().highlightTiles(this.validSpecials, Constants.VALID_SPECIAL_TILE_COLOR);
-        else
-            selectTile(selectedPiece.getTile());
+        else {
+            gameController.getBoardView().highlightTiles(this.validSpecials != null ? this.validSpecials :
+                    new HashSet<>(), Constants.EMPTY_TILE_COLOR);
+        }
+
     }
 
     public void handleTransformButton(Event event) {
@@ -125,13 +128,13 @@ public class PieceController {
 
         // If valid move OR attack OR special
         if (validSpecials.contains(destinationTile) && specialClicked) {
-            selectedPiece.special(destinationTile);
+            selectedPiece.special(destinationTile, board);
             postActionBoardReset();
         } else if (validAttacks.contains(destinationTile)) {
             destinationTile.getPiece().takeDamage();
             postActionBoardReset();
         } else if (validMoves.contains(destinationTile)) {
-            selectedPiece.move(board, board.getTile(destinationTile.getX(), destinationTile.getY()));
+            selectedPiece.move(board.getTile(destinationTile.getX(), destinationTile.getY()), board);
             postActionBoardReset();
         }  else {
             System.out.println("Invalid selection!");

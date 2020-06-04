@@ -23,7 +23,7 @@ public class AltAttackEagleDecorator extends EagleDecorator {
     }
 
     @Override
-    public void special(Tile tile) {
+    public void special(Tile tile, Board board) {
         for (Tile t : super.getValidSpecials()) {
             t.getPiece().die();
         }

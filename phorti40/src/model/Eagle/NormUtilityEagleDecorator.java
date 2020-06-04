@@ -33,7 +33,7 @@ public class NormUtilityEagleDecorator extends EagleDecorator {
 
     // Stun the target
     @Override
-    public void special(Tile tile) {
+    public void special(Tile tile, Board board) {
         tile.getPiece().setStatus(StatusType.Stun, 1);
     }
 
