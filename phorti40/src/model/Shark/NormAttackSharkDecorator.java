@@ -30,6 +30,11 @@ public class NormAttackSharkDecorator extends SharkDecorator {
     @Override
     public Set<Tile> calcValidSpecials(Tile currentCoord, Board board) {
         Set<Tile> currentTile = new HashSet<>();
+
+        // Dont allow special if already untargetable
+        if(currentCoord.getPiece().getStatus(StatusType.Untargetable) != null)
+            return currentTile;
+
         currentTile.add(currentCoord);
         return currentTile;
     }
