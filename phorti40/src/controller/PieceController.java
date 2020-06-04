@@ -128,7 +128,7 @@ public class PieceController {
             selectedPiece.special(validSpecials);
             postActionBoardReset();
         } else if (validAttacks.contains(destinationTile)) {
-            destinationTile.getPiece().takeDamage();
+            selectedPiece.attack(destinationTile.getPiece());
             postActionBoardReset();
         } else if (validMoves.contains(destinationTile)) {
             selectedPiece.move(board, board.getTile(destinationTile.getX(), destinationTile.getY()));
