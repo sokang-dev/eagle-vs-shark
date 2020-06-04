@@ -179,7 +179,7 @@ public class Board implements Serializable {
                 int x = currentCoord.getX() + i;
                 int y = currentCoord.getY() + j;
 
-                if (Tile.isOutOfBounds(x, y))
+                if (getTile(x, y) == null)
                     continue;
 
                 if (getPiece(x, y) != null) {
