@@ -131,6 +131,10 @@ public abstract class AbstractPiece implements Piece, Serializable {
         }
     }
 
+    public void removeStatus(StatusType type) {
+        statuses.remove(new Status(type, 0));
+    }
+
     @Override
     public Piece transform() { return null; }
 

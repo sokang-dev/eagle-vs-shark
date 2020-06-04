@@ -14,11 +14,10 @@ public class AltAttackSharkDecorator extends SharkDecorator{
 
     // Attacks normally, but additionally gains movement on killing a piece
     @Override
-    public void attack(Piece piece) {
-        Tile targetTile = piece.getTile();
-        super.attack(piece);
+    public void attack(Tile tile) {
+        super.attack(tile);
 
-        if (targetTile.getPiece() == null)
+        if (tile.getPiece() == null)
             super.setBaseMovement(super.getBaseMovement() + 1);
     }
 

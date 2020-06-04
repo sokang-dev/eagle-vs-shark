@@ -21,8 +21,8 @@ public class NormAttackSharkDecorator extends SharkDecorator {
 
     // Attacks normally, becoming targetable again
     @Override
-    public void attack(Piece piece) {
-        super.attack(piece);
+    public void attack(Tile tile) {
+        super.attack(tile);
         super.removeStatus(StatusType.Untargetable);
     }
 
