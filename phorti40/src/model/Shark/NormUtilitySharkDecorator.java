@@ -27,7 +27,7 @@ public class NormUtilitySharkDecorator extends SharkDecorator {
                 int x = currentCoord.getX() + i;
                 int y = currentCoord.getY() + j;
 
-                if (Tile.isOutOfBounds(x, y))
+                if (board.getTile(x, y) == null)
                     continue;
 
                 if (board.getTile(x, y).getPiece() != null) {
