@@ -30,8 +30,8 @@ public abstract class EagleDecorator implements Piece, Serializable {
     }
 
     @Override
-    public Set<Tile> getValidSpecials(Tile currentCoord, Board board) {
-        return decoratedEagle.getValidSpecials(currentCoord, board);
+    public Set<Tile> calcValidSpecials(Tile currentCoord, Board board) {
+        return decoratedEagle.calcValidSpecials(currentCoord, board);
     }
 
     @Override
@@ -46,8 +46,8 @@ public abstract class EagleDecorator implements Piece, Serializable {
     }
 
     @Override
-    public void special(Set<Tile> validSpecials) {
-        decoratedEagle.special(validSpecials);
+    public void special(Tile tile) {
+        decoratedEagle.special(tile);
     }
 
     @Override
@@ -111,5 +111,15 @@ public abstract class EagleDecorator implements Piece, Serializable {
     @Override
     public void setHealth(int health) {
         decoratedEagle.setHealth(health);
+    }
+
+    @Override
+    public Set<Tile> getValidSpecials() {
+        return decoratedEagle.getValidSpecials();
+    }
+
+    @Override
+    public void setValidSpecials(Set<Tile> validSpecials) {
+        decoratedEagle.setValidSpecials(validSpecials);
     }
 }

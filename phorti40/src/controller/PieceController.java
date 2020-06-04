@@ -125,7 +125,7 @@ public class PieceController {
 
         // If valid move OR attack OR special
         if (validSpecials.contains(destinationTile) && specialClicked) {
-            selectedPiece.special(validSpecials);
+            selectedPiece.special(destinationTile);
             postActionBoardReset();
         } else if (validAttacks.contains(destinationTile)) {
             destinationTile.getPiece().takeDamage();
@@ -163,6 +163,7 @@ public class PieceController {
         this.selectedPiece = selectedPiece;
         this.validMoves = selectedPiece.getValidMoves(selectedPiece.getTile(), selectedPiece.getBaseMovement(), board);
         this.validAttacks = selectedPiece.getValidAttacks(selectedPiece.getTile(), board);
-        this.validSpecials = selectedPiece.getValidSpecials(selectedPiece.getTile(), board);
+        this.validSpecials = selectedPiece.calcValidSpecials(selectedPiece.getTile(), board);
+        selectedPiece.setValidSpecials(validSpecials);
     }
 }

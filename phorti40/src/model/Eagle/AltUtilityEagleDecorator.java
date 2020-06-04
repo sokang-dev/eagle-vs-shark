@@ -16,8 +16,8 @@ public class AltUtilityEagleDecorator extends EagleDecorator {
     }
 
     @Override
-    public Set<Tile> getValidSpecials(Tile currentCoord, Board board) {
-        return super.getValidSpecials(currentCoord, board);
+    public Set<Tile> calcValidSpecials(Tile currentCoord, Board board) {
+        return super.calcValidSpecials(currentCoord, board);
     }
 
     @Override
