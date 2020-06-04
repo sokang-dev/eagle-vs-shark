@@ -58,12 +58,6 @@ public class PieceController {
             return;
         }
 
-        // Piece does not have special abilities
-//        if (!selectedPiece.hasSpecial()) {
-//            gameInfoPanel.setErrorMessage("This piece has no specials!");
-//            return;
-//        }
-
         if (validSpecials.isEmpty()) {
             gameInfoPanel.setErrorMessage("No valid specials available!");
             return;

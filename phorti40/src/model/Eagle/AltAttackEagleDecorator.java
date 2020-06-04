@@ -1,6 +1,7 @@
 package model.Eagle;
 
 import model.Board;
+import model.Enums.StatusType;
 import model.Tile;
 import model.interfaces.Piece;
 import resources.Sprites;
@@ -26,6 +27,8 @@ public class AltAttackEagleDecorator extends EagleDecorator {
         for (Tile tile : validSpecials) {
             tile.getPiece().die();
         }
+
+        super.setStatus(StatusType.Stun, 2);
     }
 
     @Override
