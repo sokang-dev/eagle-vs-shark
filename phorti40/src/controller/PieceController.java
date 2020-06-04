@@ -69,8 +69,7 @@ public class PieceController {
         if (specialClicked)
             gameController.getBoardView().highlightTiles(this.validSpecials, Constants.VALID_SPECIAL_TILE_COLOR);
         else {
-            gameController.getBoardView().highlightTiles(this.validSpecials != null ? this.validSpecials :
-                    new HashSet<>(), Constants.EMPTY_TILE_COLOR);
+            gameController.getBoardView().highlightTiles(this.validSpecials, Constants.EMPTY_TILE_COLOR);
         }
 
     }
