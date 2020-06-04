@@ -1,14 +1,14 @@
 package model.Shark;
 
+import model.interfaces.Piece;
 import resources.Sprites;
 
-public class DummyShark extends Shark {
+public class NormDummySharkDecorator extends SharkDecorator {
 
-    public DummyShark() {
-        super();
+    public NormDummySharkDecorator(Piece decoratedShark) {
+        super(decoratedShark);
         super.setSprite(Sprites.Shark);
     }
-
     // Used for debugging only - returns ANSI_BLUE D
     @Override
     public String toString() {

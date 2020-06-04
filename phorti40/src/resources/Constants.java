@@ -12,5 +12,7 @@ public final class Constants {
     public static final String SAVE_PATH = "./save.txt";
     public static final int DEFAULT_ACTIONS_REMAINING = 3;
     public static final Color VALID_ATTACK_TILE_COLOR = Color.RED;
+
+    public static final Color VALID_SPECIAL_TILE_COLOR = Color.HOTPINK;
     public static final Color HP_TEXT_COLOR = Color.DARKBLUE;
 }

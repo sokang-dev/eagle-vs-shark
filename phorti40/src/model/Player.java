@@ -1,6 +1,7 @@
 package model;
 
 import model.Enums.PieceType;
+import model.interfaces.Piece;
 
 import java.io.Serializable;
 
@@ -20,6 +21,6 @@ public class Player implements Serializable {
         return pieceType;
     }
     public boolean isPlayerPiece(Piece piece) {
-        return this.pieceType == piece.pieceType;
+        return this.pieceType == piece.getPieceType();
     }
 }

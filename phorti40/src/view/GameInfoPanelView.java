@@ -5,6 +5,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import model.GameInfoPanel;
 import resources.Utilities;
 
@@ -12,10 +13,12 @@ public class GameInfoPanelView extends VBox {
 
     private GameInfoPanel gameInfoPanel;
     private GameController gameController;
+
     private Label playerTurn;
     private Label timeRemaining;
     private Label actionsRemaining;
     private Label saveStatusLabel;
+    private Label errorMessage;
 
     public GameInfoPanelView(GameInfoPanel gameInfoPanel, GameController gameController) {
         super();
@@ -26,6 +29,7 @@ public class GameInfoPanelView extends VBox {
         gameInfoPanel.getActionsRemainingProperty().addListener(new ActionsRemainingListener(this));
         gameInfoPanel.getCurrentPlayerProperty().addListener(new CurrentPlayerListener(this, gameInfoPanel));
         gameInfoPanel.getTimeRemainingProperty().addListener(new TimeRemainingListener(this));
+        gameInfoPanel.getErrorMessageProperty().addListener(new ErrorMessageListener(this, gameInfoPanel));
     }
 
     private void drawGameInfoPanel(){
@@ -36,6 +40,12 @@ public class GameInfoPanelView extends VBox {
         timeRemaining = new Label("Timer: "+ Utilities.formatMilliseconds(gameInfoPanel.getTimeRemaining()));
         actionsRemaining = new Label("Actions Left: " + gameInfoPanel.getActionsRemaining());
 
+        Button specialButton = new Button("Special");
+        specialButton.setOnAction(gameController.getPieceController()::handleSpecialButton);
+
+        errorMessage = new Label();
+        errorMessage.setTextFill(Color.RED);
+
         Button endTurnButton = new Button("End Turn");
         endTurnButton.setOnAction(gameController::handleEndTurnButton);
 
@@ -45,7 +55,7 @@ public class GameInfoPanelView extends VBox {
 
         Button undoButton = new Button("Undo");
         undoButton.setOnAction(gameController::handleUndo);
-        this.getChildren().addAll(playerTurn, timeRemaining, actionsRemaining, endTurnButton, saveStatusLabel, saveButton, undoButton);
+        this.getChildren().addAll(playerTurn, timeRemaining, actionsRemaining, specialButton, errorMessage, endTurnButton, saveStatusLabel, saveButton, undoButton);
     }
 
     public GameInfoPanel getGameInfoPanel(){
@@ -71,5 +81,7 @@ public class GameInfoPanelView extends VBox {
     public Label getSaveStatusLabel(){
         return saveStatusLabel;
     }
+
+    public Label getErrorMessage() { return errorMessage; }
 }
 
