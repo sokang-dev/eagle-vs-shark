@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import model.*;
+import model.Enums.StatusType;
 import model.interfaces.Piece;
 import resources.Constants;
 import view.TileView;
@@ -85,7 +86,13 @@ public class PieceController {
         else if (!currentPlayer.isPlayerPiece(piece)) {
             System.out.println("Wrong piece dumbass.");
             gameInfoPanel.setErrorMessage("Wrong piece selected!");
-        } else {
+        }
+        // If piece is currently stunned
+        else if (piece.getStatus(StatusType.Stun) != null) {
+            System.out.println("This piece is currently stunned!");
+            gameInfoPanel.setErrorMessage("This piece is stunned!");
+        }
+        else {
             // Store valid move and valid attacks
             storePieceAndValidMoves(piece);
 
