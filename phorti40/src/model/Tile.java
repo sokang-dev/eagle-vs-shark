@@ -43,14 +43,6 @@ public class Tile implements Serializable {
         return this.x == tile.getX() && this.y == tile.getY();
     }
 
-    public boolean hasTerrain() {
-        if (this.terrain != null) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     public int getX() {
         return this.x;
     }
