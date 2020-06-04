@@ -11,6 +11,8 @@ import model.Shark.Shark;
 import model.interfaces.Piece;
 import model.interfaces.Prototype;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.io.Serializable;
 
 import static resources.Constants.BOARD_HEIGHT;
@@ -95,5 +97,17 @@ public class Board implements Serializable, Prototype {
     @Override
     public Prototype clone() {
         return new Board(this);
+    }
+
+    public Set<Piece> getAllPieces() {
+        Set<Piece> pieces = new HashSet<>();
+
+        for (int i = 0; i < BOARD_WIDTH; i++) {
+            for (int j = 0; j < BOARD_HEIGHT; j++) {
+                if (getPiece(i, j) != null) pieces.add(getPiece(i, j));
+            }
+        }
+
+        return pieces;
     }
 }

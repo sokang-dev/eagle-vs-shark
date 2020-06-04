@@ -3,6 +3,8 @@ package model.interfaces;
 import javafx.scene.image.Image;
 import model.Board;
 import model.Enums.PieceType;
+import model.Enums.StatusType;
+import model.Status;
 import model.Tile;
 
 import java.util.Set;
@@ -22,11 +24,17 @@ public interface Piece {
 
     boolean hasSpecial();
 
-    void special();
+    void special(Set<Tile> validSpecials);
 
     void takeDamage();
 
     void die();
+
+    void setStatus(StatusType type, int duration);
+
+    Piece transform();
+
+    Status getStatus(StatusType type);
 
     PieceType getPieceType();
 

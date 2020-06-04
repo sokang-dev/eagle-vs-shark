@@ -3,6 +3,8 @@ package model.Eagle;
 import javafx.scene.image.Image;
 import model.Board;
 import model.Enums.PieceType;
+import model.Enums.StatusType;
+import model.Status;
 import model.Tile;
 import model.interfaces.Piece;
 
@@ -49,8 +51,8 @@ public abstract class EagleDecorator implements Piece, Serializable {
     }
 
     @Override
-    public void special() {
-        decoratedEagle.special();
+    public void special(Set<Tile> validSpecials) {
+        decoratedEagle.special(validSpecials);
     }
 
     @Override
@@ -60,6 +62,16 @@ public abstract class EagleDecorator implements Piece, Serializable {
 
     @Override
     public void die() { decoratedEagle.die(); }
+
+    @Override
+    public void setStatus(StatusType type, int duration) {
+        decoratedEagle.setStatus(type, duration);
+    }
+
+    @Override
+    public Status getStatus(StatusType type) {
+        return decoratedEagle.getStatus(type);
+    }
 
     @Override
     public PieceType getPieceType() {

@@ -2,6 +2,7 @@ package model.Eagle;
 
 import model.Board;
 import model.Enums.PieceType;
+import model.Enums.StatusType;
 import model.Tile;
 import model.interfaces.Piece;
 import resources.Sprites;
@@ -54,6 +55,8 @@ public class NormAttackEagleDecorator extends EagleDecorator {
     // NormAttackEagle's move kill every shark in its path
     @Override
     public void move(Board board, Tile tile) {
+        boolean kill = false;
+
         int oldX = super.getTile().getX();
         int oldY = super.getTile().getY();
         int newX = tile.getX();
@@ -70,8 +73,12 @@ public class NormAttackEagleDecorator extends EagleDecorator {
             Piece piece = board.getTile(x, y).getPiece();
             if (piece != null && piece.getPieceType() == PieceType.Shark) {
                 piece.die();
+                kill = true;
             }
         }
+
+        // If movement ends up in kill, NormAttackEagle will be stunned for 2 turns
+        if (kill) super.setStatus(StatusType.Stun, 2);
 
         super.move(board, tile);
     }
@@ -79,5 +86,13 @@ public class NormAttackEagleDecorator extends EagleDecorator {
     @Override
     public String toString() {
         return "\u001B[31m A \u001B[0m";
+    }
+
+    @Override
+    public Piece transform() {
+        Piece newForm = new AltAttackEagleDecorator(this.decoratedEagle);
+        super.getTile().setPiece(newForm);
+
+        return newForm;
     }
 }

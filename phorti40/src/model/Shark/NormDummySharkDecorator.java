@@ -14,4 +14,8 @@ public class NormDummySharkDecorator extends SharkDecorator {
     public String toString() {
         return "\u001B[34m D \u001B[0m";
     }
+    @Override
+    public Piece transform() {
+        return null;
+    }
 }

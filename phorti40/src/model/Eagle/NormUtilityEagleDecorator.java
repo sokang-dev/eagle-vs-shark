@@ -26,7 +26,7 @@ public class NormUtilityEagleDecorator extends EagleDecorator {
     }
 
     @Override
-    public void special() {
+    public void special(Set<Tile> validSpecials) {
         System.out.println("Bushhh");
     }
 
@@ -34,5 +34,9 @@ public class NormUtilityEagleDecorator extends EagleDecorator {
     @Override
     public String toString() {
         return "\u001B[31m U \u001B[0m";
+    }
+    @Override
+    public Piece transform() {
+        return null;
     }
 }

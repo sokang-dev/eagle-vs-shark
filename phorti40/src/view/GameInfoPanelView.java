@@ -40,6 +40,9 @@ public class GameInfoPanelView extends VBox {
         timeRemaining = new Label("Timer: "+ Utilities.formatMilliseconds(gameInfoPanel.getTimeRemaining()));
         actionsRemaining = new Label("Actions Left: " + gameInfoPanel.getActionsRemaining());
 
+        Button transformButton = new Button("Transform");
+        transformButton.setOnAction(gameController.getPieceController()::handleTransformButton);
+
         Button specialButton = new Button("Special");
         specialButton.setOnAction(gameController.getPieceController()::handleSpecialButton);
 
@@ -55,7 +58,7 @@ public class GameInfoPanelView extends VBox {
 
         Button undoButton = new Button("Undo");
         undoButton.setOnAction(gameController::handleUndo);
-        this.getChildren().addAll(playerTurn, timeRemaining, actionsRemaining, specialButton, errorMessage, endTurnButton, saveStatusLabel, saveButton, undoButton);
+        this.getChildren().addAll(playerTurn, timeRemaining, actionsRemaining, transformButton, specialButton, errorMessage, endTurnButton, saveStatusLabel, saveButton, undoButton);
     }
 
     public GameInfoPanel getGameInfoPanel(){
