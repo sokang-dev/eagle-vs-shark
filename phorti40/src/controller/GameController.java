@@ -39,8 +39,8 @@ public class GameController {
     private int initialTimeLimit;
     int turn =0;
 
-    public GameController(int timerInput) {
-        InitialiseGameController(new Board(), null, timerInput, DEFAULT_ACTIONS_REMAINING);
+    public GameController(int timerInput, int boardSizeInput, int pieceCountInput) {
+        InitialiseGameController(new Board(boardSizeInput, pieceCountInput), null, timerInput, DEFAULT_ACTIONS_REMAINING);
     }
 
     public GameController(SaveState loadState){

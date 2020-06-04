@@ -2,9 +2,10 @@ package model;
 
 import model.Enums.StatusType;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Status {
+public class Status implements Serializable {
 
     private StatusType type;
     private int duration;

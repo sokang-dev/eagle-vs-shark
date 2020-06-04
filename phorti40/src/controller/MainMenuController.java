@@ -19,8 +19,8 @@ public class MainMenuController {
     }
 
     // Initialise the game controller and game thread, then change the scene
-    public void handleNewGameButton(int timerInput, Event event) {
-        GameController gameController = new GameController(timerInput);
+    public void handleNewGameButton(int timerInput, int boardSizeInput, int pieceCountInput, Event event) {
+        GameController gameController = new GameController(timerInput, boardSizeInput, pieceCountInput);
         StartGame(gameController);
     }
 
