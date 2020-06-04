@@ -22,10 +22,12 @@ public abstract class AbstractPiece implements Piece, Serializable {
     protected Set<Status> statuses;
     protected transient Image sprite;
     protected PieceType pieceType;
+    private Set<Tile> validSpecials;
 
     protected AbstractPiece(PieceType pieceType) {
         this.pieceType = pieceType;
         statuses = new HashSet<>();
+        validSpecials = new HashSet<>();
     }
 
     // Get valid moves of a piece based on its baseMovement value
@@ -49,40 +51,30 @@ public abstract class AbstractPiece implements Piece, Serializable {
         return validMoves;
     }
 
+    // Standard attack range is adjacent tiles (exclude diagonal)
     public Set<Tile> getValidAttacks(Tile currentCoord, Board board) {
 
         Set<Tile> validAttacks = new HashSet<>();
+        Set<Piece> adjacentPieces = board.getAdjacentPieces(currentCoord);
 
-        for (int i = -1; i <= 1; i++) {
-            for (int j = -1; j <= 1; j++) {
 
-                if (Math.abs(i) == Math.abs(j))
-                    continue;
-
-                int x = currentCoord.getX() + i;
-                int y = currentCoord.getY() + j;
-
-                if (board.getTile(x, y) == null)
-                    continue;
-
-                // Add pieces from the opposing team
-                if (board.getTile(x, y).getPiece() != null) {
-                    if (board.getPiece(x, y).getPieceType() != this.getPieceType() &&
-                            board.getPiece(x, y).getStatus(StatusType.Untargetable) == null) {
-                        validAttacks.add(board.getTile(x, y));
-                    }
-                }
+        // Only add opponent adjacent pieces
+        for (Piece piece : adjacentPieces) {
+            if (piece.getPieceType() != this.getPieceType()&&
+                    piece.getStatus(StatusType.Untargetable) == null) {
+                validAttacks.add(piece.getTile());
             }
         }
+
         return validAttacks;
     }
 
-    public Set<Tile> getValidSpecials(Tile currentCoord, Board board) {
-        return new HashSet<>();
+    public Set<Tile> calcValidSpecials(Tile currentCoord, Board board) {
+        return this.validSpecials;
     }
 
     // Remove piece from current tile and set piece to a new tile.
-    public void move(Board board, Tile tile) {
+    public void move(Tile tile, Board board) {
         this.tile.removePiece();
         tile.setPiece(this);
     }
@@ -91,11 +83,7 @@ public abstract class AbstractPiece implements Piece, Serializable {
         piece.takeDamage();
     }
 
-    public boolean hasSpecial() {
-        return false;
-    }
-
-    public void special(Set<Tile> validSpecials) {
+    public void special(Tile tile, Board board) {
         System.out.println("This piece has no special.");
     }
 
@@ -177,6 +165,16 @@ public abstract class AbstractPiece implements Piece, Serializable {
 
     public void setHealth(int health) {
         this.health = health;
+    }
+
+    @Override
+    public Set<Tile> getValidSpecials() {
+        return this.validSpecials;
+    }
+
+    @Override
+    public void setValidSpecials(Set<Tile> validSpecials) {
+        this.validSpecials = validSpecials;
     }
 
     private void addAdjacentTiles(Tile currentCoord, Set<Tile> validMoves, Board board) {

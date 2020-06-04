@@ -4,6 +4,7 @@ import model.Eagle.Eagle;
 import model.Eagle.NormAttackEagleDecorator;
 import model.Eagle.NormDummyEagleDecorator;
 import model.Eagle.NormUtilityEagleDecorator;
+import model.Enums.PieceType;
 import model.Shark.NormAttackSharkDecorator;
 import model.Shark.NormDummySharkDecorator;
 import model.Shark.NormUtilitySharkDecorator;
@@ -149,6 +150,41 @@ public class Board implements Serializable {
         for (int i = 0; i < getSize(); i++) {
             for (int j = 0; j < getSize(); j++) {
                 if (getPiece(i, j) != null) pieces.add(getPiece(i, j));
+            }
+        }
+
+        return pieces;
+    }
+
+    public Set<Piece> getPiecesByType(PieceType pieceType) {
+        Set<Piece> pieces = new HashSet<>();
+
+        for (Piece piece : getAllPieces()) {
+            if (piece.getPieceType() == pieceType)
+                pieces.add(piece);
+        }
+
+        return pieces;
+    }
+
+    public Set<Piece> getAdjacentPieces(Tile currentCoord) {
+        Set<Piece> pieces = new HashSet<>();
+
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+
+                if (Math.abs(i) == Math.abs(j))
+                    continue;
+
+                int x = currentCoord.getX() + i;
+                int y = currentCoord.getY() + j;
+
+                if (getTile(x, y) == null)
+                    continue;
+
+                if (getPiece(x, y) != null) {
+                    pieces.add(getPiece(x, y));
+                }
             }
         }
 

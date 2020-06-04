@@ -28,14 +28,14 @@ public class NormAttackSharkDecorator extends SharkDecorator {
 
     // Special range is the shark itself
     @Override
-    public Set<Tile> getValidSpecials(Tile currentCoord, Board board) {
+    public Set<Tile> calcValidSpecials(Tile currentCoord, Board board) {
         Set<Tile> currentTile = new HashSet<>();
         currentTile.add(currentCoord);
         return currentTile;
     }
 
     @Override
-    public void special(Set<Tile> validSpecials) {
+    public void special(Tile tile, Board board) {
         super.setStatus(StatusType.Untargetable, 0);
     }
 
