@@ -3,12 +3,15 @@ package model.Shark;
 import javafx.scene.image.Image;
 import model.Board;
 import model.Enums.PieceType;
+import model.Enums.StatusType;
+import model.Status;
 import model.Tile;
 import model.interfaces.Piece;
 
+import java.io.Serializable;
 import java.util.Set;
 
-public abstract class SharkDecorator implements Piece {
+public abstract class SharkDecorator implements Piece, Serializable {
     protected Piece decoratedShark;
 
     public SharkDecorator(Piece decoratedShark) {
@@ -56,6 +59,16 @@ public abstract class SharkDecorator implements Piece {
 
     @Override
     public void die() { decoratedShark.die(); }
+
+    @Override
+    public void setStatus(StatusType type, int duration) {
+        decoratedShark.setStatus(type, duration);
+    }
+
+    @Override
+    public Status getStatus(StatusType type) {
+        return decoratedShark.getStatus(type);
+    }
 
     @Override
     public PieceType getPieceType() {

@@ -22,7 +22,7 @@ public class MainMenuView extends VBox {
 
     private void drawMainMenu(){
         this.setPadding(new Insets(20, 20, 20, 20));
-        this.setPrefWidth(650);
+        this.setPrefWidth(577);
         this.setSpacing(20);
 
         Label heading = new Label("Sharks vs. Eagles");
@@ -44,7 +44,7 @@ public class MainMenuView extends VBox {
 
 
         Button newGameButton = new Button("New Game");
-        newGameButton.setAlignment(Pos.CENTER);
+        newGameButton.setAlignment(Pos.CENTER_RIGHT);
         newGameButton.setOnAction(event -> {
             mainMenuController.handleNewGameButton(
                     Integer.parseInt(turnTimerInput.getText()),
@@ -52,10 +52,16 @@ public class MainMenuView extends VBox {
                     Integer.parseInt(pieceCountInput.getText()), event
             );
         });
-
+        Button resumeGameButton = new Button("Resume Game");
+        resumeGameButton.setOnAction(event -> {
+            mainMenuController.handleResumeGame(event);
+        });
         HBox newGameBox = new HBox(turnTimerInput, boardSizeInput, pieceCountInput, newGameButton);
+        HBox resumeGameBox = new HBox(resumeGameButton);
+
+        resumeGameBox.setAlignment(Pos.CENTER_RIGHT);
         newGameBox.setSpacing(5);
 
-        this.getChildren().addAll(heading, newGameBox);
+        this.getChildren().addAll(heading, newGameBox, resumeGameBox);
     }
 }

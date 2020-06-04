@@ -1,14 +1,23 @@
 package controller;
+import App.SaveStateManager;
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.event.Event;
+
+import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
+import javafx.util.Duration;
 import model.*;
 import model.Enums.PieceType;
+import model.Enums.StatusType;
+import model.interfaces.Piece;
 import view.BoardView;
 import view.GameInfoPanelView;
+
+import static resources.Constants.DEFAULT_ACTIONS_REMAINING;
 
 public class GameController {
 
@@ -27,19 +36,29 @@ public class GameController {
 
     private Boolean gameIsOver = false;
     private long timeLimit;
+    private int initialTimeLimit;
 
     public GameController(int timerInput, int boardSizeInput, int pieceCountInput) {
+        InitialiseGameController(new Board(boardSizeInput, pieceCountInput), null, timerInput, DEFAULT_ACTIONS_REMAINING);
+    }
+
+    public GameController(SaveState loadState){
+        InitialiseGameController(loadState.getGameBoard(), loadState.getCurrentPlayer(), loadState.getTimeLimit(), loadState.getActionsRemaining());
+    }
+
+    private void InitialiseGameController(Board gameBoard, Player currentPlayer, int timerInput, int actionsRemaining){
+        initialTimeLimit = timerInput;
         timeLimit = TimeUnit.SECONDS.toMillis(timerInput);
 
         //initialise the players
         playerOne = new Player("Player 1 (Shark)", PieceType.Shark);
         playerTwo = new Player("Player 2 (Eagle)", PieceType.Eagle);
         //set current turn
-        currentPlayer = playerOne;
+        this.currentPlayer = (currentPlayer == null) ? playerOne : currentPlayer;
 
-        this.gameBoard = new Board(boardSizeInput, pieceCountInput);
+        this.gameBoard = gameBoard;
         this.boardView = new BoardView(gameBoard);
-        this.gameInfoPanel = new GameInfoPanel(currentPlayer.getPlayerName(), timeLimit);
+        this.gameInfoPanel = new GameInfoPanel(this.currentPlayer.getPlayerName(), timeLimit, actionsRemaining);
         pieceController = new PieceController(boardView, this);
         this.gameInfoPanelView = new GameInfoPanelView(gameInfoPanel, this);
     }
@@ -62,6 +81,8 @@ public class GameController {
         }
         // After turn ends reset Actions and swap Players
         pieceController.pieceReset();
+        // Lower stun duration
+        lowerStatusDuration(currentPlayer.getPieceType(), StatusType.Stun);
         gameInfoPanel.setActionsRemaining(3);
         setNewCurrentPlayer(currentPlayer);
         gameInfoPanel.setTimeRemaining(timeLimit);
@@ -99,8 +120,44 @@ public class GameController {
         }
     }
 
+    private void lowerStatusDuration(PieceType pieceType, StatusType statusType) {
+        Set<Piece> pieces = gameBoard.getAllPieces();
+
+        for (Piece piece : pieces) {
+            // Only lower status duration when the opposite piece turn ends
+            if (piece.getPieceType() == pieceType) continue;
+
+            Status status = piece.getStatus(statusType);
+
+            if (status != null) {
+                piece.setStatus(StatusType.Stun, status.getDuration() - 1);
+            }
+        }
+    }
+
     public void handleEndTurnButton(Event event) {
         Platform.runLater(() -> gameInfoPanelView.getGameInfoPanel().setActionsRemaining(0));
+    }
+
+    public void handleSaveButton(Event event) {
+        gameInfoPanelView.getSaveStatusLabel().setVisible(true);
+        if (SaveStateManager.SaveState(createSaveState())){
+            Platform.runLater(() -> gameInfoPanelView.setSaveStatusLabel("Save success."));
+        }
+        else {
+            Platform.runLater(() -> gameInfoPanelView.setSaveStatusLabel("Save failed."));
+        };
+        // Hide the message after 4 seconds
+        PauseTransition visiblePause = new PauseTransition(
+                Duration.seconds(4)
+        );
+        visiblePause.setOnFinished(
+                pauseEvent -> gameInfoPanelView.getSaveStatusLabel().setVisible(false)
+        );
+        visiblePause.play();
+    }
+    private SaveState createSaveState() {
+        return new SaveState(gameBoard, currentPlayer, initialTimeLimit, gameInfoPanel.getActionsRemaining());
     }
 
     public Board getGameBoard() {
@@ -112,7 +169,6 @@ public class GameController {
     public GameInfoPanel getGameInfoPanel() { return this.gameInfoPanel; }
     public GameInfoPanelView getGameInfoPanelView() { return this.gameInfoPanelView; }
     public Player getCurrentPlayer() { return currentPlayer; }
-
     public PieceController getPieceController() {
         return this.pieceController;
     }

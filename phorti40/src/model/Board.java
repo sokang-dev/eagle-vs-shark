@@ -10,8 +10,11 @@ import model.Shark.NormUtilitySharkDecorator;
 import model.Shark.Shark;
 import model.interfaces.Piece;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.io.Serializable;
 
-public class Board {
+public class Board implements Serializable {
     private Tile[][] board;
 
     // Initialises board with initial piece positions
@@ -135,7 +138,20 @@ public class Board {
     public Piece getPiece(int i, int j) {
         return this.board[i][j].getPiece();
     }
-    public int getSize()  {
+
+    public int getSize() {
         return this.board.length;
+    }
+
+    public Set<Piece> getAllPieces() {
+        Set<Piece> pieces = new HashSet<>();
+
+        for (int i = 0; i < getSize(); i++) {
+            for (int j = 0; j < getSize(); j++) {
+                if (getPiece(i, j) != null) pieces.add(getPiece(i, j));
+            }
+        }
+
+        return pieces;
     }
 }
