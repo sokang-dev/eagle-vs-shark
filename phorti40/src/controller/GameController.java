@@ -21,16 +21,16 @@ public class GameController {
     private Board gameBoard;
     // Visual board
     private BoardView boardView;
-
     private GameInfoPanel gameInfoPanel;
     private GameInfoPanelView gameInfoPanelView;
+
+    private PieceController pieceController;
 
     private Player playerOne;
     private Player playerTwo;
     private Player currentPlayer;
 
     private Boolean gameIsOver = false;
-
     private long timeLimit;
     private int initialTimeLimit;
 
@@ -55,8 +55,8 @@ public class GameController {
         this.gameBoard = gameBoard;
         this.boardView = new BoardView(gameBoard);
         this.gameInfoPanel = new GameInfoPanel(this.currentPlayer.getPlayerName(), timeLimit, actionsRemaining);
+        pieceController = new PieceController(boardView, this);
         this.gameInfoPanelView = new GameInfoPanelView(gameInfoPanel, this);
-        new PieceController(boardView, this);
     }
 
     public int GameStart() {
@@ -76,6 +76,7 @@ public class GameController {
             Thread.yield();
         }
         // After turn ends reset Actions and swap Players
+        pieceController.pieceReset();
         gameInfoPanel.setActionsRemaining(3);
         setNewCurrentPlayer(currentPlayer);
         gameInfoPanel.setTimeRemaining(timeLimit);
@@ -117,16 +118,6 @@ public class GameController {
         Platform.runLater(() -> gameInfoPanelView.getGameInfoPanel().setActionsRemaining(0));
     }
 
-    public Board getGameBoard() {
-        return this.gameBoard;
-    }
-    public BoardView getBoardView() {
-        return this.boardView;
-    }
-    public GameInfoPanel getGameInfoPanel() { return this.gameInfoPanel; }
-    public GameInfoPanelView getGameInfoPanelView() { return this.gameInfoPanelView; }
-    public Player getCurrentPlayer() { return currentPlayer; }
-
     public void handleSaveButton(Event event) {
         gameInfoPanelView.getSaveStatusLabel().setVisible(true);
         if (SaveStateManager.SaveState(createSaveState())){
@@ -144,8 +135,20 @@ public class GameController {
         );
         visiblePause.play();
     }
-
-    private SaveState createSaveState(){
+    private SaveState createSaveState() {
         return new SaveState(gameBoard, currentPlayer, initialTimeLimit, gameInfoPanel.getActionsRemaining());
+    }
+
+    public Board getGameBoard() {
+        return this.gameBoard;
+    }
+    public BoardView getBoardView() {
+        return this.boardView;
+    }
+    public GameInfoPanel getGameInfoPanel() { return this.gameInfoPanel; }
+    public GameInfoPanelView getGameInfoPanelView() { return this.gameInfoPanelView; }
+    public Player getCurrentPlayer() { return currentPlayer; }
+    public PieceController getPieceController() {
+        return this.pieceController;
     }
 }

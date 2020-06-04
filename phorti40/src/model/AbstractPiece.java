@@ -3,6 +3,7 @@ package model;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import model.Enums.PieceType;
+import model.interfaces.Piece;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
@@ -12,7 +13,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-public abstract class Piece implements Serializable {
+public abstract class AbstractPiece implements Piece, Serializable {
 
     private Tile tile;
     private int health;
@@ -20,12 +21,11 @@ public abstract class Piece implements Serializable {
     protected transient Image sprite;
     protected PieceType pieceType;
 
-    protected Piece(PieceType pieceType) {
+    protected AbstractPiece(PieceType pieceType) {
         this.pieceType = pieceType;
     }
 
     // Get valid moves of a piece based on its baseMovement value
-    // Will get used more in assignment 2
     public Set<Tile> getValidMoves(Tile currentCoord, int movement, Board board) {
 
         Set<Tile> validMoves = new HashSet<>();
@@ -73,8 +73,12 @@ public abstract class Piece implements Serializable {
         return validAttacks;
     }
 
+    public Set<Tile> getValidSpecials(Tile currentCoord, Board board) {
+        return new HashSet<>();
+    }
+
     // Remove piece from current tile and set piece to a new tile.
-    public void move(Tile tile) {
+    public void move(Board board, Tile tile) {
         this.tile.removePiece();
         tile.setPiece(this);
     }
@@ -83,33 +87,24 @@ public abstract class Piece implements Serializable {
         piece.takeDamage();
     }
 
+    public boolean hasSpecial() {
+        return false;
+    }
+
+    public void special() {
+        System.out.println("This piece has no special.");
+    }
+
     public void takeDamage() {
         this.health -= 1;
 
         if (this.health < 1) {
-            this.tile.removePiece();
+            die();
         }
     }
 
-    private void addAdjacentTiles(Tile currentCoord, Set<Tile> validMoves, Board board) {
-        for (int i = -1; i <= 1; i++) {
-            for (int j = -1; j <= 1; j++) {
-                // Don't get diagonal Tiles
-                if (Math.abs(i) == Math.abs(j))
-                    continue;
-
-                int x = currentCoord.getX() + i;
-                int y = currentCoord.getY() + j;
-
-                // Don't add out of bounds Tiles
-                if (Tile.isOutOfBounds(x, y))
-                    continue;
-
-                // Add only unoccupied Tiles
-                if (board.getTile(x, y).getPiece() == null)
-                    validMoves.add(new Tile(x, y));
-            }
-        }
+    public void die() {
+        this.tile.removePiece();
     }
 
     public PieceType getPieceType() {
@@ -140,8 +135,33 @@ public abstract class Piece implements Serializable {
         return this.baseMovement;
     }
 
-    protected void setBaseMovement(int baseMovement) {
+    public void setBaseMovement(int baseMovement) {
         this.baseMovement = baseMovement;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    private void addAdjacentTiles(Tile currentCoord, Set<Tile> validMoves, Board board) {
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                // Don't get diagonal Tiles
+                if (Math.abs(i) == Math.abs(j))
+                    continue;
+
+                int x = currentCoord.getX() + i;
+                int y = currentCoord.getY() + j;
+
+                // Don't add out of bounds Tiles
+                if (Tile.isOutOfBounds(x, y))
+                    continue;
+
+                // Add only unoccupied Tiles
+                if (board.getTile(x, y).getPiece() == null)
+                    validMoves.add(new Tile(x, y));
+            }
+        }
     }
 
     // Custom serialisation to account for the Sprite
@@ -159,8 +179,5 @@ public abstract class Piece implements Serializable {
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
         in.defaultReadObject();
         sprite = in.readBoolean() ? new Image(in) : null;
-    }
-    protected void setHealth(int health) {
-        this.health = health;
     }
 }

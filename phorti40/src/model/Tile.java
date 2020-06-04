@@ -1,7 +1,7 @@
 package model;
 
+import model.interfaces.Piece;
 import resources.Constants;
-
 import java.io.Serializable;
 import java.util.Objects;
 
