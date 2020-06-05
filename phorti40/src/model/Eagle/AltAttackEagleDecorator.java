@@ -18,6 +18,7 @@ public class AltAttackEagleDecorator extends EagleDecorator {
     // AltAttackEagle's special range is the same as its attack
     @Override
     public Set<Tile> calcValidSpecials(Tile currentCoord, Board board) {
+        System.out.println("Yo");
         return super.getValidAttacks(currentCoord, board);
     }
 
