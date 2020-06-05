@@ -45,6 +45,7 @@ public class GameController {
 
     public GameController(SaveState loadState){
         InitialiseGameController(loadState.getGameBoard(), loadState.getCurrentPlayer(), loadState.getTimeLimit(), loadState.getActionsRemaining());
+        restoreGame(new GameMemento(loadState));
     }
 
     private void InitialiseGameController(Board gameBoard, Player currentPlayer, int timerInput, int actionsRemaining){
