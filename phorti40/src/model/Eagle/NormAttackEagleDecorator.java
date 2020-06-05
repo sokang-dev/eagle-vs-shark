@@ -34,7 +34,7 @@ public class NormAttackEagleDecorator extends EagleDecorator {
 
                 while (board.getTile(x, y) != null) {
                     // Add only unoccupied Tiles
-                    if (board.getTile(x, y).getPiece() == null)
+                    if (board.getTile(x, y).getPiece() == null && board.getTile(x, y).getTerrain() == null)
                         validMoves.add(new Tile(x, y));
 
                     x += i;
@@ -89,5 +89,10 @@ public class NormAttackEagleDecorator extends EagleDecorator {
         super.getTile().setPiece(newForm);
 
         return newForm;
+    }
+
+    @Override
+    public String toString() {
+        return "\u001B[31m D \u001B[0m";
     }
 }

@@ -46,17 +46,34 @@ public class Tile implements Serializable {
     public int getX() {
         return this.x;
     }
+
     public int getY() {
         return this.y;
     }
+
     public Piece getPiece() {
         return piece;
     }
+
     public void setPiece(Piece piece) {
         this.piece = piece;
         this.piece.setTile(this);
     }
+
     public void removePiece() {
         this.piece = null;
     }
+
+    public void setTerrain(Terrain terrain) {
+        this.terrain = terrain;
+    }
+
+    public Terrain getTerrain() {
+        return this.terrain;
+    }
+
+    public void removeTerrain() {
+        this.terrain = null;
+    }
+
 }

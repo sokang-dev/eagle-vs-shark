@@ -40,8 +40,8 @@ public abstract class SharkDecorator implements Piece, Serializable {
     }
 
     @Override
-    public void attack(Piece piece) {
-        decoratedShark.attack(piece);
+    public void attack(Tile tile) {
+        decoratedShark.attack(tile);
     }
 
     @Override

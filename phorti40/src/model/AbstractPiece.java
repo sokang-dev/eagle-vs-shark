@@ -55,17 +55,26 @@ public abstract class AbstractPiece implements Piece, Serializable {
     public Set<Tile> getValidAttacks(Tile currentCoord, Board board) {
 
         Set<Tile> validAttacks = new HashSet<>();
-        Set<Piece> adjacentPieces = board.getAdjacentPieces(currentCoord);
 
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
 
-        // Only add opponent adjacent pieces
-        for (Piece piece : adjacentPieces) {
-            if (piece.getPieceType() != this.getPieceType()&&
-                    piece.getStatus(StatusType.Untargetable) == null) {
-                validAttacks.add(piece.getTile());
+                if (Math.abs(i) == Math.abs(j))
+                    continue;
+
+                int x = currentCoord.getX() + i;
+                int y = currentCoord.getY() + j;
+
+                if (board.getTile(x, y) == null)
+                    continue;
+
+                // Add terrain
+                if (board.getTile(x, y).getTerrain() != null || (board.getTile(x, y).getPiece() != null && board.getTile(x, y).getPiece().getStatus(StatusType.Untargetable) == null)) {
+                    if (board.getTile(x, y).getPiece().getPieceType() != this.getPieceType())
+                        validAttacks.add(board.getTile(x, y));
+                }
             }
         }
-
         return validAttacks;
     }
 
@@ -79,8 +88,11 @@ public abstract class AbstractPiece implements Piece, Serializable {
         tile.setPiece(this);
     }
 
-    public void attack(Piece piece) {
-        piece.takeDamage();
+    public void attack(Tile tile) {
+        if(tile.getTerrain() != null)
+            tile.removeTerrain();
+        else
+            tile.getPiece().takeDamage();
     }
 
     public void special(Tile tile, Board board) {
@@ -192,7 +204,7 @@ public abstract class AbstractPiece implements Piece, Serializable {
                     continue;
 
                 // Add only unoccupied Tiles
-                if (board.getTile(x, y).getPiece() == null)
+                if (board.getTile(x, y).getPiece() == null && board.getTile(x,y).getTerrain() == null)
                     validMoves.add(new Tile(x, y));
             }
         }

@@ -80,7 +80,7 @@ public class PieceController {
             gameInfoPanel.setErrorMessage("No piece selected!");
             return;
         }
-
+        this.validSpecials.removeAll(validSpecials);
         selectedPiece = selectedPiece.transform();
         postActionBoardReset();
     }
@@ -130,7 +130,7 @@ public class PieceController {
             selectedPiece.special(destinationTile, board);
             postActionBoardReset();
         } else if (validAttacks.contains(destinationTile)) {
-            selectedPiece.attack(destinationTile.getPiece());
+            selectedPiece.attack(destinationTile);
             postActionBoardReset();
         } else if (validMoves.contains(destinationTile)) {
             selectedPiece.move(board.getTile(destinationTile.getX(), destinationTile.getY()), board);

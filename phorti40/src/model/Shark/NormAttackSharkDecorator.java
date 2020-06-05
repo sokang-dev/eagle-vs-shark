@@ -13,7 +13,7 @@ public class NormAttackSharkDecorator extends SharkDecorator {
 
     public NormAttackSharkDecorator(Piece decoratedShark) {
         super(decoratedShark);
-        super.setSprite(Sprites.AttackShark);
+        super.setSprite(Sprites.AttackSharkUnderwater);
 
         // Untargetable does not decrement
         super.setStatus(StatusType.Untargetable, 0);
@@ -21,8 +21,9 @@ public class NormAttackSharkDecorator extends SharkDecorator {
 
     // Attacks normally, becoming targetable again
     @Override
-    public void attack(Piece piece) {
-        super.attack(piece);
+    public void attack(Tile tile) {
+        super.attack(tile);
+        super.setSprite(Sprites.AttackShark);
         super.removeStatus(StatusType.Untargetable);
     }
 
@@ -42,6 +43,7 @@ public class NormAttackSharkDecorator extends SharkDecorator {
     @Override
     public void special(Tile tile, Board board) {
         super.setStatus(StatusType.Untargetable, 0);
+        super.setSprite(Sprites.AttackSharkUnderwater);
     }
 
     @Override
@@ -52,5 +54,10 @@ public class NormAttackSharkDecorator extends SharkDecorator {
         super.getTile().setPiece(newForm);
 
         return newForm;
+    }
+
+    @Override
+    public String toString() {
+        return "\u001B[34m D \u001B[0m";
     }
 }
