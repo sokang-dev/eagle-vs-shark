@@ -159,7 +159,14 @@ public class GameController {
     }
 
     public void handleUndo(Event event) {
-        restoreGame(SaveStateManager.Undo(2));
+        if (currentPlayer.getCanUndo())
+        {
+            restoreGame(SaveStateManager.Undo(2));
+            currentPlayer.setCanUndo(false);
+        }
+        else {
+            System.out.println("This player has already clicked Undo.");
+        };
     }
 
     private void restoreGame(GameMemento memento){
