@@ -20,10 +20,8 @@ public class GameEngine extends Application {
         primaryStage.setTitle("4040 OOSP");
 
         MainMenuController mainMenuController = new MainMenuController();
-        BorderPane pane = new BorderPane();
-        pane.setCenter(mainMenuController.getMainMenuView());
-        Scene scene = new Scene(pane);
-        primaryStage.setScene(scene);
+        Scene menuScene = mainMenuController.createMainMenu();
+        primaryStage.setScene(menuScene);
         primaryStage.show();
     }
 }

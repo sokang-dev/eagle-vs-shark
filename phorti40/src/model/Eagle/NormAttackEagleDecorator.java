@@ -71,7 +71,7 @@ public class NormAttackEagleDecorator extends EagleDecorator {
             int y = diffY > 0 ? oldY + i : (diffY < 0 ? oldY - i : oldY);
 
             Piece piece = board.getTile(x, y).getPiece();
-            if (piece != null && piece.getPieceType() == PieceType.Shark) {
+            if (piece != null && piece.getPieceType() == PieceType.Shark && piece.getStatus(StatusType.Untargetable) == null) {
                 piece.die();
                 kill = true;
             }

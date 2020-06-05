@@ -63,9 +63,6 @@ public class Board implements Serializable, Prototype {
                 sharkAmount++;
             }
 
-            board[1][3].setPiece(new NormUtilityEagleDecorator(new Eagle()));
-            board[0][3].setPiece(new NormDummyEagleDecorator(new Eagle()));
-            board[5][4].setPiece(new NormAttackEagleDecorator(new Eagle()));
             // Set Eagles
             Piece[] eagles = new Piece[] {
                     new NormUtilityEagleDecorator(new Eagle()),
@@ -113,10 +110,9 @@ public class Board implements Serializable, Prototype {
             if(board[x][y].getPiece() != null)
                 continue;
 
-            board[x][y].setPiece(new NormDummySharkDecorator(new Shark()));
+            board[x][y].setPiece(new NormDummyEagleDecorator(new Eagle()));
             extraEaglePieceCount--;
         }
-
 
         printBoard();
     }
@@ -220,5 +216,9 @@ public class Board implements Serializable, Prototype {
         }
 
         return pieces;
+    }
+
+    public boolean hasNoPieces() {
+        return getPiecesByType(PieceType.Shark).isEmpty() || getPiecesByType(PieceType.Eagle).isEmpty();
     }
 }

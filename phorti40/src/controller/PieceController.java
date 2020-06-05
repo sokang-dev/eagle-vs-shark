@@ -156,6 +156,12 @@ public class PieceController {
     private void postActionBoardReset() {
         pieceReset();
         gameController.getBoardView().refreshBoard();
+
+        if (board.hasNoPieces()) {
+//            gameController.setGameIsOver(true);
+            Platform.runLater(() -> gameInfoPanel.setActionsRemaining(0));
+        }
+
         Platform.runLater(() -> gameInfoPanel.setActionsRemaining(gameInfoPanel.getActionsRemaining() - 1));
     }
 

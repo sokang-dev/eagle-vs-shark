@@ -42,7 +42,6 @@ public class MainMenuView extends VBox {
         pieceCountInput.setPromptText("Pieces per side");
         pieceCountInput.setFocusTraversable(false);
 
-
         Button newGameButton = new Button("New Game");
         newGameButton.setAlignment(Pos.CENTER_RIGHT);
         newGameButton.setOnAction(event -> {
