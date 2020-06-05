@@ -46,12 +46,9 @@ public class GameController {
         InitialiseGameController(mainMenuController, new Board(boardSizeInput, pieceCountInput), null, timerInput, DEFAULT_ACTIONS_REMAINING);
     }
 
-    public GameController(SaveState loadState) {
-        InitialiseGameController(mainMenuController, loadState.getGameBoard(), loadState.getCurrentPlayer(), loadState.getTimeLimit(), loadState.getActionsRemaining());
-        restoreGame(new GameMemento(loadState));
-    }
     public GameController(MainMenuController mainMenuController, SaveState loadState){
         InitialiseGameController(mainMenuController, loadState.getGameBoard(), loadState.getCurrentPlayer(), loadState.getTimeLimit(), loadState.getActionsRemaining());
+        restoreGame(new GameMemento(loadState));
     }
 
     private void InitialiseGameController(MainMenuController mainMenuController, Board gameBoard, Player currentPlayer, int timerInput, int actionsRemaining){
