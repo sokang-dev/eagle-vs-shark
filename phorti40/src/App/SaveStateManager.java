@@ -2,6 +2,7 @@ package App;
 
 import model.GameMemento;
 import model.SaveState;
+import resources.Constants;
 
 import java.io.*;
 import java.util.EmptyStackException;
@@ -57,7 +58,14 @@ public class SaveStateManager {
     };
 
     public static void SaveGameMemento(GameMemento memento){
+        //only keep stack to a size that we actually need.
+        if (gameHistory.size() > Constants.GAME_HISTORY_MAX_SIZE)
+        {
+            gameHistory.removeElement(gameHistory.firstElement());
+        }
         gameHistory.push(memento);
+
+        //For debug
         System.out.println("STACK: ");
         PrintStack();
     }
@@ -85,8 +93,7 @@ public class SaveStateManager {
     public static void PrintStack()
     {
         for (GameMemento i : gameHistory) {
-            System.out.println("Tile: " + i.getState().getGameBoard().getBoard()
-                    + "Board: " + i.getState().getGameBoard());
+            System.out.println("Tile: " + i.getState().getGameBoard().getBoard() + "Board: " + i.getState().getGameBoard());
         }
     }
 }
