@@ -50,8 +50,4 @@ public class NormUtilityEagleDecorator extends EagleDecorator {
     public String toString() {
         return "\u001B[31m U \u001B[0m";
     }
-    @Override
-    public String toString() {
-        return "\u001B[31m D \u001B[0m";
-    }
 }

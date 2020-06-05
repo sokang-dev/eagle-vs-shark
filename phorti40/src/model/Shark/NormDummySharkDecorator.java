@@ -34,9 +34,4 @@ public class NormDummySharkDecorator extends SharkDecorator {
 
         return newForm;
     }
-
-    @Override
-    public String toString() {
-        return "\u001B[34m D \u001B[0m";
-    }
 }
