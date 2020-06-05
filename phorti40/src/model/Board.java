@@ -53,9 +53,6 @@ public class Board implements Serializable {
                 sharkAmount++;
             }
 
-            board[1][3].setPiece(new NormUtilityEagleDecorator(new Eagle()));
-            board[0][3].setPiece(new NormDummyEagleDecorator(new Eagle()));
-            board[5][4].setPiece(new NormAttackEagleDecorator(new Eagle()));
             // Set Eagles
             Piece[] eagles = new Piece[] {
                     new NormUtilityEagleDecorator(new Eagle()),
@@ -103,10 +100,9 @@ public class Board implements Serializable {
             if(board[x][y].getPiece() != null)
                 continue;
 
-            board[x][y].setPiece(new NormDummySharkDecorator(new Shark()));
+            board[x][y].setPiece(new NormDummyEagleDecorator(new Eagle()));
             extraEaglePieceCount--;
         }
-
 
         printBoard();
     }
