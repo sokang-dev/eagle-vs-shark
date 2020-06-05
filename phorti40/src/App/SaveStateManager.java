@@ -90,7 +90,7 @@ public class SaveStateManager {
         return gameHistory.size() > numberOfUndo;
     }
 
-    public static void PrintStack()
+    private static void PrintStack()
     {
         for (GameMemento i : gameHistory) {
             System.out.println("Tile: " + i.getState().getGameBoard().getBoard() + "Board: " + i.getState().getGameBoard());

@@ -4,11 +4,13 @@ import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.event.Event;
 
-import java.util.*;
+import java.util.EmptyStackException;
+import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.util.Duration;
 import model.*;
@@ -169,11 +171,14 @@ public class GameController {
 
             Alert undoPanel = new Alert(Alert.AlertType.CONFIRMATION, "How many turns?", ButtonTypeOne, ButtonTypeTwo, ButtonTypeThree, ButtonType.CANCEL);
 
-            Optional<ButtonType> result = undoPanel.showAndWait();
-            handleUndo(Integer.parseInt(result.get().getText()));
+            ButtonType result = undoPanel.showAndWait().get();
+            if (result != ButtonType.CANCEL)
+            {
+                handleUndo(Integer.parseInt(result.getText()));
+            }
         }
         else {
-            gameInfoPanel.setErrorMessage("his player has already clicked Undo.");
+            gameInfoPanel.setErrorMessage("This player has already clicked Undo.");
             System.out.println("This player has already clicked Undo.");
         };
     }

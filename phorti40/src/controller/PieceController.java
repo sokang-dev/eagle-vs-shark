@@ -123,7 +123,6 @@ public class PieceController {
         if (board.getPiece(destinationTile.getX(), destinationTile.getY()) != null) {
             gameController.getBoardView().highlightTiles(this.validMoves, Constants.EMPTY_TILE_COLOR);
             gameController.getBoardView().highlightTiles(this.validAttacks, Constants.EMPTY_TILE_COLOR);
-            this.pieceClicked = false;
         }
 
         // If valid move OR attack OR special
