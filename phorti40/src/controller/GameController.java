@@ -14,6 +14,8 @@ import model.*;
 import model.Enums.PieceType;
 import model.Enums.StatusType;
 import model.interfaces.Piece;
+import resources.Utilities;
+import sun.applet.Main;
 import view.BoardView;
 import view.GameInfoPanelView;
 
@@ -28,6 +30,7 @@ public class GameController {
     private GameInfoPanel gameInfoPanel;
     private GameInfoPanelView gameInfoPanelView;
 
+    private MainMenuController mainMenuController;
     private PieceController pieceController;
 
     private Player playerOne;
@@ -38,15 +41,17 @@ public class GameController {
     private long timeLimit;
     private int initialTimeLimit;
 
-    public GameController(int timerInput, int boardSizeInput, int pieceCountInput) {
-        InitialiseGameController(new Board(boardSizeInput, pieceCountInput), null, timerInput, DEFAULT_ACTIONS_REMAINING);
+    public GameController(MainMenuController mainMenuController, int timerInput, int boardSizeInput, int pieceCountInput) {
+        InitialiseGameController(mainMenuController, new Board(boardSizeInput, pieceCountInput), null, timerInput, DEFAULT_ACTIONS_REMAINING);
     }
 
-    public GameController(SaveState loadState){
-        InitialiseGameController(loadState.getGameBoard(), loadState.getCurrentPlayer(), loadState.getTimeLimit(), loadState.getActionsRemaining());
+    public GameController(MainMenuController mainMenuController, SaveState loadState){
+        InitialiseGameController(mainMenuController, loadState.getGameBoard(), loadState.getCurrentPlayer(), loadState.getTimeLimit(), loadState.getActionsRemaining());
     }
 
-    private void InitialiseGameController(Board gameBoard, Player currentPlayer, int timerInput, int actionsRemaining){
+    private void InitialiseGameController(MainMenuController mainMenuController, Board gameBoard, Player currentPlayer, int timerInput, int actionsRemaining){
+        this.mainMenuController = mainMenuController;
+
         initialTimeLimit = timerInput;
         timeLimit = TimeUnit.SECONDS.toMillis(timerInput);
 
@@ -67,10 +72,12 @@ public class GameController {
         initialiseTimer();
 
         // Overarching game loop
-        while(!gameIsOver)
-        {
+        while(!gameIsOver) {
             Turn();
         }
+
+//        Platform.exit();
+        Platform.runLater(() -> mainMenuController.showMainMenu());
         return 0;
     }
 
@@ -86,11 +93,13 @@ public class GameController {
         gameInfoPanel.setActionsRemaining(3);
         setNewCurrentPlayer(currentPlayer);
         gameInfoPanel.setTimeRemaining(timeLimit);
+
+        if (gameBoard.hasNoPieces())
+            setGameIsOver(true);
     }
 
     // Setup a timer that decrements time remaining, ending the turn when it hits 0
-    private void initialiseTimer()
-    {
+    private void initialiseTimer() {
         long second = 1000l;
 
         Timer turnTimer = new Timer();
@@ -156,6 +165,7 @@ public class GameController {
         );
         visiblePause.play();
     }
+
     private SaveState createSaveState() {
         return new SaveState(gameBoard, currentPlayer, initialTimeLimit, gameInfoPanel.getActionsRemaining());
     }
@@ -171,5 +181,8 @@ public class GameController {
     public Player getCurrentPlayer() { return currentPlayer; }
     public PieceController getPieceController() {
         return this.pieceController;
+    }
+    public void setGameIsOver(boolean isOver) {
+        this.gameIsOver = isOver;
     }
 }
