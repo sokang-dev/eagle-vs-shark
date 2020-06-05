@@ -46,6 +46,11 @@ public class NormAttackSharkDecorator extends SharkDecorator {
         super.setSprite(Sprites.AttackSharkUnderwater);
     }
 
+    // Used for debugging only - returns ANSI_BLUE A
+    @Override
+    public String toString() {
+        return "\u001B[34m A \u001B[0m";
+    }
     @Override
     public Piece transform() {
         super.removeStatus(StatusType.Untargetable);
@@ -54,10 +59,5 @@ public class NormAttackSharkDecorator extends SharkDecorator {
         super.getTile().setPiece(newForm);
 
         return newForm;
-    }
-
-    @Override
-    public String toString() {
-        return "\u001B[34m D \u001B[0m";
     }
 }

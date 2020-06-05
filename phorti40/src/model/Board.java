@@ -10,14 +10,24 @@ import model.Shark.NormDummySharkDecorator;
 import model.Shark.NormUtilitySharkDecorator;
 import model.Shark.Shark;
 import model.interfaces.Piece;
+import model.interfaces.Prototype;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.io.Serializable;
 
-public class Board implements Serializable {
+public class Board implements Serializable, Prototype {
     private Tile[][] board;
 
+    public Board(Board board){
+        Tile[][] clone = new Tile[board.getSize()][board.getSize()];
+        for(int i=0; i<board.getBoard().length; i++) {
+            for (int j = 0; j < board.getBoard()[i].length; j++) {
+                clone[i][j] = (Tile)board.getBoard()[i][j].clone();
+            }
+        }
+        this.board = clone;
+    }
     // Initialises board with initial piece positions
     public Board(int boardSize, int pieceCount) {
         board = new Tile[boardSize][boardSize];
@@ -107,6 +117,21 @@ public class Board implements Serializable {
         printBoard();
     }
 
+    public Tile[][] getBoard() {
+        return this.board;
+    }
+
+    public Tile getTile(int x, int y) {
+        if (x >= 0 && x < getSize() && y >= 0 && y < getSize())
+            return this.board[x][y];
+        // Return nothing if co-ords are out of bounds
+        return null;
+    }
+
+    public Piece getPiece(int i, int j) {
+        return this.board[i][j].getPiece();
+    }
+
     // Used for debugging only
     public void printBoard() {
         for (int i = 0; i < board.length; i++) {
@@ -125,24 +150,9 @@ public class Board implements Serializable {
         System.out.println();
     }
 
-    public Tile[][] getBoard() {
-        return this.board;
-    }
-    public Tile getTile(int x, int y) {
-        if (x >= 0 && x < getSize() && y >= 0 && y < getSize())
-            return this.board[x][y];
-
-        // Return nothing if co-ords are out of bounds
-        return null;
-    }
-    public Piece getPiece(int i, int j) {
-        return this.board[i][j].getPiece();
-    }
-
     public int getSize() {
         return this.board.length;
     }
-
     public Set<Piece> getAllPieces() {
         Set<Piece> pieces = new HashSet<>();
 
@@ -153,6 +163,24 @@ public class Board implements Serializable {
         }
 
         return pieces;
+    }
+
+    public void updatePiecesOnRestore(){
+        Tile[][] tiles = board;
+        for(int i=0; i<tiles.length; i++) {
+            for (int j = 0; j < tiles[i].length; j++) {
+                Tile current = tiles[i][j];
+                if (current.getPiece()==null)
+                    continue;
+                current.getPiece().setTile(current);
+
+            }
+        }
+    }
+
+    @Override
+    public Prototype clone() {
+        return new Board(this);
     }
 
     public Set<Piece> getPiecesByType(PieceType pieceType) {

@@ -1,11 +1,11 @@
 package model;
 
 import model.interfaces.Piece;
-import resources.Constants;
+import model.interfaces.Prototype;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class Tile implements Serializable {
+public class Tile implements Serializable, Prototype {
 
     private int x, y;
     private Piece piece;
@@ -20,6 +20,13 @@ public class Tile implements Serializable {
 
     public Tile(Piece piece) {
         this.piece = piece;
+    }
+
+    public Tile(Tile tile){
+        this.x = tile.x;
+        this.y = tile.y;
+        this.piece = tile.piece;
+        this.terrain = tile.terrain;
     }
 
     @Override
@@ -64,6 +71,10 @@ public class Tile implements Serializable {
         this.piece = null;
     }
 
+    @Override
+    public Prototype clone() {
+        return new Tile(this);
+    }
     public void setTerrain(Terrain terrain) {
         this.terrain = terrain;
     }
@@ -75,5 +86,4 @@ public class Tile implements Serializable {
     public void removeTerrain() {
         this.terrain = null;
     }
-
 }

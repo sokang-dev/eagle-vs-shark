@@ -18,4 +18,6 @@ public final class Constants {
 
     public static final Color VALID_SPECIAL_TILE_COLOR = Color.HOTPINK;
     public static final Color HP_TEXT_COLOR = Color.DARKBLUE;
+
+    public static final int GAME_HISTORY_MAX_SIZE = 7;
 }

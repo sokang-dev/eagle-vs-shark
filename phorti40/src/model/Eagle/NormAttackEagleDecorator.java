@@ -82,6 +82,11 @@ public class NormAttackEagleDecorator extends EagleDecorator {
 
         super.move(tile, board);
     }
+    // Used for debugging only - returns ANSI_RED A
+    @Override
+    public String toString() {
+        return "\u001B[31m A \u001B[0m";
+    }
 
     @Override
     public Piece transform() {
@@ -89,10 +94,5 @@ public class NormAttackEagleDecorator extends EagleDecorator {
         super.getTile().setPiece(newForm);
 
         return newForm;
-    }
-
-    @Override
-    public String toString() {
-        return "\u001B[31m D \u001B[0m";
     }
 }

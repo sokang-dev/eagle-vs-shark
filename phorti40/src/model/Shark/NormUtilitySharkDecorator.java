@@ -15,6 +15,11 @@ public class NormUtilitySharkDecorator extends SharkDecorator {
         super.setSprite(Sprites.UtilityShark);
     }
 
+    // Used for debugging only - returns ANSI_BLUE U
+    @Override
+    public String toString() {
+        return "\u001B[34m U \u001B[0m";
+    }
     @Override
     public Set<Tile> calcValidSpecials(Tile currentCoord, Board board) {
         // Adjacent pieces of the same team including diagonals
@@ -54,10 +59,5 @@ public class NormUtilitySharkDecorator extends SharkDecorator {
         super.getTile().setPiece(newForm);
 
         return newForm;
-    }
-
-    @Override
-    public String toString() {
-        return "\u001B[34m D \u001B[0m";
     }
 }

@@ -48,6 +48,7 @@ public class GameInfoPanelView extends VBox {
 
         errorMessage = new Label();
         errorMessage.setTextFill(Color.RED);
+        errorMessage.setWrapText(true);
 
         Button endTurnButton = new Button("End Turn");
         endTurnButton.setOnAction(gameController::handleEndTurnButton);
@@ -55,8 +56,10 @@ public class GameInfoPanelView extends VBox {
         saveStatusLabel = new Label();
         Button saveButton = new Button("Save");
         saveButton.setOnAction(gameController::handleSaveButton);
-        this.getChildren().addAll(playerTurn, timeRemaining, actionsRemaining, transformButton,
-                specialButton, errorMessage, endTurnButton, saveStatusLabel, saveButton);
+
+        Button undoButton = new Button("Undo");
+        undoButton.setOnAction(gameController::openUndoPanel);
+        this.getChildren().addAll(playerTurn, timeRemaining, actionsRemaining, transformButton, specialButton, errorMessage, endTurnButton, saveStatusLabel, saveButton, undoButton);
     }
 
     public GameInfoPanel getGameInfoPanel(){

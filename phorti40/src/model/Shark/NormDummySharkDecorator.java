@@ -13,7 +13,11 @@ public class NormDummySharkDecorator extends SharkDecorator {
         super(decoratedShark);
         super.setSprite(Sprites.Shark);
     }
-
+    // Used for debugging only - returns ANSI_BLUE D
+    @Override
+    public String toString() {
+        return "\u001B[34m D \u001B[0m";
+    }
     @Override
     public void attack(Tile tile) {
         // Don't heal if you destroy terrain
@@ -29,10 +33,5 @@ public class NormDummySharkDecorator extends SharkDecorator {
         super.getTile().setPiece(newForm);
 
         return newForm;
-    }
-
-    @Override
-    public String toString() {
-        return "\u001B[34m D \u001B[0m";
     }
 }

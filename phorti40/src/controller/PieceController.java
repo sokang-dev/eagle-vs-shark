@@ -174,4 +174,8 @@ public class PieceController {
         this.validSpecials = selectedPiece.calcValidSpecials(selectedPiece.getTile(), board);
         selectedPiece.setValidSpecials(validSpecials);
     }
+
+    public void setBoard(Board board){
+        this.board = board;
+    }
 }

@@ -4,18 +4,19 @@ import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.event.Event;
 
+import java.util.EmptyStackException;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.util.Duration;
 import model.*;
 import model.Enums.PieceType;
 import model.Enums.StatusType;
 import model.interfaces.Piece;
-import resources.Utilities;
-import sun.applet.Main;
 import view.BoardView;
 import view.GameInfoPanelView;
 
@@ -47,6 +48,7 @@ public class GameController {
 
     public GameController(MainMenuController mainMenuController, SaveState loadState){
         InitialiseGameController(mainMenuController, loadState.getGameBoard(), loadState.getCurrentPlayer(), loadState.getTimeLimit(), loadState.getActionsRemaining());
+        restoreGame(new GameMemento(loadState));
     }
 
     private void InitialiseGameController(MainMenuController mainMenuController, Board gameBoard, Player currentPlayer, int timerInput, int actionsRemaining){
@@ -72,11 +74,12 @@ public class GameController {
         initialiseTimer();
 
         // Overarching game loop
-        while(!gameIsOver) {
+        while(!gameIsOver)
+        {
+            autoSaveGameMemento(createGameMemento());
             Turn();
         }
 
-//        Platform.exit();
         Platform.runLater(() -> mainMenuController.showMainMenu());
         return 0;
     }
@@ -150,7 +153,7 @@ public class GameController {
 
     public void handleSaveButton(Event event) {
         gameInfoPanelView.getSaveStatusLabel().setVisible(true);
-        if (SaveStateManager.SaveState(createSaveState())){
+        if (SaveStateManager.SaveState(createGameMemento())){
             Platform.runLater(() -> gameInfoPanelView.setSaveStatusLabel("Save success."));
         }
         else {
@@ -166,10 +169,61 @@ public class GameController {
         visiblePause.play();
     }
 
+    public void openUndoPanel(Event event) {
+        if (currentPlayer.getCanUndo())
+        {
+            ButtonType ButtonTypeOne = new ButtonType("1");
+            ButtonType ButtonTypeTwo = new ButtonType("2");
+            ButtonType ButtonTypeThree = new ButtonType("3");
+
+            Alert undoPanel = new Alert(Alert.AlertType.CONFIRMATION, "How many turns?", ButtonTypeOne, ButtonTypeTwo, ButtonTypeThree, ButtonType.CANCEL);
+
+            ButtonType result = undoPanel.showAndWait().get();
+            if (result != ButtonType.CANCEL)
+            {
+                handleUndo(Integer.parseInt(result.getText()));
+            }
+        }
+        else {
+            gameInfoPanel.setErrorMessage("This player has already clicked Undo.");
+            System.out.println("This player has already clicked Undo.");
+        };
+    }
+    public void handleUndo (int numberOfUndo){
+        System.out.println("Number of Undo:" + numberOfUndo);
+        int turnsToUndo = numberOfUndo*2;
+        try {
+            restoreGame(SaveStateManager.Undo(turnsToUndo));
+            currentPlayer.setCanUndo(false);
+        }catch (EmptyStackException ex){
+            gameInfoPanel.setErrorMessage("Not enough turns have passed to undo.");
+            System.out.println("Not enough turns have passed to undo.");
+        }
+    }
+
+    private void restoreGame(GameMemento memento) {
+        this.gameBoard = memento.getState().getGameBoard();
+        this.currentPlayer = memento.getState().getCurrentPlayer();
+        this.getGameInfoPanel().setActionsRemaining(memento.getState().getActionsRemaining());
+        this.pieceController.setBoard(gameBoard);
+        gameBoard.updatePiecesOnRestore();
+        this.boardView.setBoard(gameBoard);
+        this.boardView.setBoardView(this.boardView.RestoreTileView());
+    }
+
     private SaveState createSaveState() {
         return new SaveState(gameBoard, currentPlayer, initialTimeLimit, gameInfoPanel.getActionsRemaining());
     }
 
+    private GameMemento createGameMemento(){
+        SaveState saveState = new SaveState((Board) gameBoard.clone(), currentPlayer, initialTimeLimit, gameInfoPanel.getActionsRemaining());
+        return new GameMemento(saveState);
+    }
+
+    private void autoSaveGameMemento(GameMemento memento)
+    {
+        SaveStateManager.SaveGameMemento(memento);
+    }
     public Board getGameBoard() {
         return this.gameBoard;
     }
