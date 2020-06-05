@@ -73,11 +73,6 @@ public class Tile implements Serializable, Prototype {
 
     @Override
     public Prototype clone() {
-        if (this.getPiece()!= null)
-        {
-            if(this.getPiece().getTile() != this)
-                this.removePiece();
-        }
         return new Tile(this);
     }
     public void setTerrain(Terrain terrain) {
