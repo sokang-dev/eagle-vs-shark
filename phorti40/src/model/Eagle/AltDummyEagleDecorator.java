@@ -29,7 +29,7 @@ public class AltDummyEagleDecorator extends EagleDecorator {
                 if (board.getTile(x, y) == null)
                     continue;
 
-                if (board.getTile(x, y).getPiece() == null)
+                if (board.getTile(x, y).getPiece() == null && board.getTile(x, y).getTerrain() == null)
                     validSpecials.add(board.getTile(x, y));
             }
         }
