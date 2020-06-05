@@ -2,7 +2,9 @@ package App;
 
 import model.GameMemento;
 import model.SaveState;
+
 import java.io.*;
+import java.util.EmptyStackException;
 import java.util.Stack;
 
 import static resources.Constants.SAVE_PATH;
@@ -61,10 +63,23 @@ public class SaveStateManager {
     }
 
     public static GameMemento Undo(int numberOfUndo){
-        for (int i = 0; i < numberOfUndo ; i++) {
-            gameHistory.pop();
+        try {
+            if (!canGameHistoryUndo(numberOfUndo))
+            {
+                throw new EmptyStackException();
+            }
+            for (int i = 0; i < numberOfUndo ; i++) {
+                gameHistory.pop();
+            }
+            return gameHistory.pop();
+        } catch (EmptyStackException ex)
+        {
+            throw new EmptyStackException();
         }
-        return gameHistory.pop();
+    }
+
+    private static boolean canGameHistoryUndo(int numberOfUndo){
+        return gameHistory.size() > numberOfUndo;
     }
 
     public static void PrintStack()
@@ -72,8 +87,6 @@ public class SaveStateManager {
         for (GameMemento i : gameHistory) {
             System.out.println("Tile: " + i.getState().getGameBoard().getBoard()
                     + "Board: " + i.getState().getGameBoard());
-
-            //i.getState().getGameBoard().printBoard();
         }
     }
 }

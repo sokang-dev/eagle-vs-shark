@@ -4,11 +4,12 @@ import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.event.Event;
 
-import java.util.Set;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.util.Duration;
 import model.*;
 import model.Enums.PieceType;
@@ -158,15 +159,33 @@ public class GameController {
         visiblePause.play();
     }
 
-    public void handleUndo(Event event) {
+    public void openUndoPanel(Event event) {
         if (currentPlayer.getCanUndo())
         {
-            restoreGame(SaveStateManager.Undo(2));
-            currentPlayer.setCanUndo(false);
+            ButtonType ButtonTypeOne = new ButtonType("1");
+            ButtonType ButtonTypeTwo = new ButtonType("2");
+            ButtonType ButtonTypeThree = new ButtonType("3");
+
+            Alert undoPanel = new Alert(Alert.AlertType.CONFIRMATION, "How many turns?", ButtonTypeOne, ButtonTypeTwo, ButtonTypeThree, ButtonType.CANCEL);
+
+            Optional<ButtonType> result = undoPanel.showAndWait();
+            handleUndo(Integer.parseInt(result.get().getText()));
         }
         else {
+            gameInfoPanel.setErrorMessage("his player has already clicked Undo.");
             System.out.println("This player has already clicked Undo.");
         };
+    }
+    public void handleUndo (int numberOfUndo){
+        System.out.println("Number of Undo:" + numberOfUndo);
+        int turnsToUndo = numberOfUndo*2;
+        try {
+            restoreGame(SaveStateManager.Undo(turnsToUndo));
+            currentPlayer.setCanUndo(false);
+        }catch (EmptyStackException ex){
+            gameInfoPanel.setErrorMessage("Not enough turns have passed to undo.");
+            System.out.println("Not enough turns have passed to undo.");
+        }
     }
 
     private void restoreGame(GameMemento memento){
