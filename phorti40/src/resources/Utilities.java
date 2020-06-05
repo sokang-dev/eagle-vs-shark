@@ -21,3 +21,4 @@ public final class Utilities {
 
     public static void setPrimaryStage(Stage stage) { primaryStage = stage; }
 }
+

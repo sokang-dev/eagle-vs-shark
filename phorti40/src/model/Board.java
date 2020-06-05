@@ -4,6 +4,7 @@ import model.Eagle.Eagle;
 import model.Eagle.NormAttackEagleDecorator;
 import model.Eagle.NormDummyEagleDecorator;
 import model.Eagle.NormUtilityEagleDecorator;
+import model.Enums.PieceType;
 import model.Shark.NormAttackSharkDecorator;
 import model.Shark.NormDummySharkDecorator;
 import model.Shark.NormUtilitySharkDecorator;
@@ -139,9 +140,12 @@ public class Board implements Serializable, Prototype {
     public void printBoard() {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board.length; j++) {
-                Piece piece = this.getPiece(i, j);
-                if (piece != null)
-                    System.out.print(piece.toString());
+
+                if(this.getTile(i,j).getTerrain() != null) {
+                    System.out.print(" T ");
+                }
+                else if (this.getPiece(i,j) != null)
+                    System.out.print(this.getPiece(i,j).toString());
                 else
                     System.out.print(" 0 ");
             }
@@ -181,5 +185,40 @@ public class Board implements Serializable, Prototype {
     @Override
     public Prototype clone() {
         return new Board(this);
+    }
+
+    public Set<Piece> getPiecesByType(PieceType pieceType) {
+        Set<Piece> pieces = new HashSet<>();
+
+        for (Piece piece : getAllPieces()) {
+            if (piece.getPieceType() == pieceType)
+                pieces.add(piece);
+        }
+
+        return pieces;
+    }
+
+    public Set<Piece> getAdjacentPieces(Tile currentCoord) {
+        Set<Piece> pieces = new HashSet<>();
+
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+
+                if (Math.abs(i) == Math.abs(j))
+                    continue;
+
+                int x = currentCoord.getX() + i;
+                int y = currentCoord.getY() + j;
+
+                if (this.getTile(x, y) == null)
+                    continue;
+
+                if (getPiece(x, y) != null) {
+                    pieces.add(getPiece(x, y));
+                }
+            }
+        }
+
+        return pieces;
     }
 }

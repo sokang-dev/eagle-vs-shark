@@ -2,7 +2,6 @@ package model;
 
 import model.interfaces.Piece;
 import model.interfaces.Prototype;
-import resources.Constants;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -54,16 +53,20 @@ public class Tile implements Serializable, Prototype {
     public int getX() {
         return this.x;
     }
+
     public int getY() {
         return this.y;
     }
+
     public Piece getPiece() {
         return piece;
     }
+
     public void setPiece(Piece piece) {
         this.piece = piece;
         this.piece.setTile(this);
     }
+
     public void removePiece() {
         this.piece = null;
     }
@@ -76,5 +79,16 @@ public class Tile implements Serializable, Prototype {
                 this.removePiece();
         }
         return new Tile(this);
+    }
+    public void setTerrain(Terrain terrain) {
+        this.terrain = terrain;
+    }
+
+    public Terrain getTerrain() {
+        return this.terrain;
+    }
+
+    public void removeTerrain() {
+        this.terrain = null;
     }
 }

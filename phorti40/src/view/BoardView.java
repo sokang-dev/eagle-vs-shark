@@ -63,6 +63,7 @@ public class BoardView extends GridPane {
                 boardView[x][y].setHP();
             }
         }
+        gameBoard.printBoard();
     }
 
     public void highlightTiles(Set<Tile> tiles, Color color) {

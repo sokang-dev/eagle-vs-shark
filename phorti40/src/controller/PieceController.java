@@ -68,8 +68,10 @@ public class PieceController {
 
         if (specialClicked)
             gameController.getBoardView().highlightTiles(this.validSpecials, Constants.VALID_SPECIAL_TILE_COLOR);
-        else
-            selectTile(selectedPiece.getTile());
+        else {
+            gameController.getBoardView().highlightTiles(this.validSpecials, Constants.EMPTY_TILE_COLOR);
+        }
+
     }
 
     public void handleTransformButton(Event event) {
@@ -78,7 +80,7 @@ public class PieceController {
             gameInfoPanel.setErrorMessage("No piece selected!");
             return;
         }
-
+        this.validSpecials.removeAll(validSpecials);
         selectedPiece = selectedPiece.transform();
         postActionBoardReset();
     }
@@ -126,13 +128,13 @@ public class PieceController {
 
         // If valid move OR attack OR special
         if (validSpecials.contains(destinationTile) && specialClicked) {
-            selectedPiece.special(validSpecials);
+            selectedPiece.special(destinationTile, board);
             postActionBoardReset();
         } else if (validAttacks.contains(destinationTile)) {
-            destinationTile.getPiece().takeDamage();
+            selectedPiece.attack(destinationTile);
             postActionBoardReset();
         } else if (validMoves.contains(destinationTile)) {
-            selectedPiece.move(board, board.getTile(destinationTile.getX(), destinationTile.getY()));
+            selectedPiece.move(board.getTile(destinationTile.getX(), destinationTile.getY()), board);
             postActionBoardReset();
         }  else {
             System.out.println("Invalid selection!");
@@ -164,7 +166,8 @@ public class PieceController {
         this.selectedPiece = selectedPiece;
         this.validMoves = selectedPiece.getValidMoves(selectedPiece.getTile(), selectedPiece.getBaseMovement(), board);
         this.validAttacks = selectedPiece.getValidAttacks(selectedPiece.getTile(), board);
-        this.validSpecials = selectedPiece.getValidSpecials(selectedPiece.getTile(), board);
+        this.validSpecials = selectedPiece.calcValidSpecials(selectedPiece.getTile(), board);
+        selectedPiece.setValidSpecials(validSpecials);
     }
 
     public void setBoard(Board board){

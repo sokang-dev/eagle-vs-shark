@@ -34,7 +34,7 @@ public class NormAttackEagleDecorator extends EagleDecorator {
 
                 while (board.getTile(x, y) != null) {
                     // Add only unoccupied Tiles
-                    if (board.getTile(x, y).getPiece() == null)
+                    if (board.getTile(x, y).getPiece() == null && board.getTile(x, y).getTerrain() == null)
                         validMoves.add(new Tile(x, y));
 
                     x += i;
@@ -54,7 +54,7 @@ public class NormAttackEagleDecorator extends EagleDecorator {
 
     // NormAttackEagle's move kill every shark in its path
     @Override
-    public void move(Board board, Tile tile) {
+    public void move(Tile tile, Board board) {
         boolean kill = false;
 
         int oldX = super.getTile().getX();
@@ -80,7 +80,7 @@ public class NormAttackEagleDecorator extends EagleDecorator {
         // If movement ends up in kill, NormAttackEagle will be stunned for 2 turns
         if (kill) super.setStatus(StatusType.Stun, 2);
 
-        super.move(board, tile);
+        super.move(tile, board);
     }
     // Used for debugging only - returns ANSI_RED A
     @Override
@@ -94,5 +94,10 @@ public class NormAttackEagleDecorator extends EagleDecorator {
         super.getTile().setPiece(newForm);
 
         return newForm;
+    }
+
+    @Override
+    public String toString() {
+        return "\u001B[31m D \u001B[0m";
     }
 }

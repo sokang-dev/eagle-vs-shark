@@ -12,20 +12,20 @@ public class AltAttackEagleDecorator extends EagleDecorator {
 
     public AltAttackEagleDecorator(Piece decoratedEagle) {
         super(decoratedEagle);
-        // TODO: Change to AltAttackEagle sprite
-        super.setSprite(Sprites.AttackEagle);
+        super.setSprite(Sprites.AltAttackEagle);
     }
 
     // AltAttackEagle's special range is the same as its attack
     @Override
-    public Set<Tile> getValidSpecials(Tile currentCoord, Board board) {
+    public Set<Tile> calcValidSpecials(Tile currentCoord, Board board) {
+        System.out.println("Yo");
         return super.getValidAttacks(currentCoord, board);
     }
 
     @Override
-    public void special(Set<Tile> validSpecials) {
-        for (Tile tile : validSpecials) {
-            tile.getPiece().die();
+    public void special(Tile tile, Board board) {
+        for (Tile t : super.getValidSpecials()) {
+            t.getPiece().die();
         }
 
         super.setStatus(StatusType.Stun, 2);
@@ -37,5 +37,10 @@ public class AltAttackEagleDecorator extends EagleDecorator {
         super.getTile().setPiece(newForm);
 
         return newForm;
+    }
+
+    @Override
+    public String toString() {
+        return "\u001B[31m D \u001B[0m";
     }
 }

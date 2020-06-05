@@ -29,28 +29,23 @@ public abstract class SharkDecorator implements Piece, Serializable {
     }
 
     @Override
-    public Set<Tile> getValidSpecials(Tile currentCoord, Board board) {
-        return decoratedShark.getValidSpecials(currentCoord, board);
+    public Set<Tile> calcValidSpecials(Tile currentCoord, Board board) {
+        return decoratedShark.calcValidSpecials(currentCoord, board);
     }
 
     @Override
-    public void move(Board board, Tile tile) {
+    public void move(Tile tile, Board board) {
         getTile().removePiece();
         tile.setPiece(this);
     }
 
     @Override
-    public void attack(Piece piece) {
-        decoratedShark.attack(piece);
+    public void attack(Tile tile) {
+        decoratedShark.attack(tile);
     }
 
     @Override
-    public boolean hasSpecial() {
-        return decoratedShark.hasSpecial();
-    }
-
-    @Override
-    public void special(Set<Tile> validSpecials) { decoratedShark.special(validSpecials); }
+    public void special(Tile tile, Board board) { decoratedShark.special(tile, board); }
 
     @Override
     public void takeDamage() {
@@ -63,6 +58,11 @@ public abstract class SharkDecorator implements Piece, Serializable {
     @Override
     public void setStatus(StatusType type, int duration) {
         decoratedShark.setStatus(type, duration);
+    }
+
+    @Override
+    public void removeStatus(StatusType status) {
+        decoratedShark.removeStatus(status);
     }
 
     @Override
@@ -113,5 +113,15 @@ public abstract class SharkDecorator implements Piece, Serializable {
     @Override
     public void setHealth(int health) {
         decoratedShark.setHealth(health);
+    }
+
+    @Override
+    public Set<Tile> getValidSpecials() {
+        return decoratedShark.getValidSpecials();
+    }
+
+    @Override
+    public void setValidSpecials(Set<Tile> validSpecials) {
+        decoratedShark.setValidSpecials(validSpecials);
     }
 }
