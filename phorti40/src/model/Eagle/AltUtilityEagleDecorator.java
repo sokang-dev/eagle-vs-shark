@@ -5,6 +5,7 @@ import model.Tile;
 import model.interfaces.Piece;
 import resources.Sprites;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class AltUtilityEagleDecorator extends EagleDecorator {
@@ -14,10 +15,27 @@ public class AltUtilityEagleDecorator extends EagleDecorator {
         super.setSprite(Sprites.AltUtilityEagle);
     }
 
-    // AltUtilityEagle's special has the same range as attack
+    // All adjacent pieces including diagonals and allies
     @Override
     public Set<Tile> calcValidSpecials(Tile currentCoord, Board board) {
-        return super.getValidAttacks(currentCoord, board);
+        Set<Tile> validSpecials = new HashSet<>();
+
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+
+                int x = currentCoord.getX() + i;
+                int y = currentCoord.getY() + j;
+
+                if (board.getTile(x, y) == null)
+                    continue;
+
+                if (board.getTile(x, y).getPiece() != null) {
+                        validSpecials.add(board.getTile(x, y));
+                }
+            }
+        }
+        validSpecials.remove(currentCoord);
+        return validSpecials;
     }
 
     @Override
