@@ -24,7 +24,10 @@ public class BoardView extends GridPane {
 
     private void initialiseBoardView() {
         boardView = new TileView[gameBoard.getSize()][gameBoard.getSize() ];
+        AddTileViewsToBoard(boardView);
+    }
 
+    private void AddTileViewsToBoard(TileView[][] board){
         for (Tile[] tileArr : gameBoard.getBoard()) {
             for (Tile tile : tileArr) {
                 int x = tile.getX();
@@ -34,7 +37,7 @@ public class BoardView extends GridPane {
                 tileView.setSprite();
                 tileView.setHP();
 
-                boardView[x][y] = tileView;
+                board[x][y] = tileView;
 
                 GridPane.setRowIndex(tileView, x);
                 GridPane.setColumnIndex(tileView, y);
@@ -43,27 +46,13 @@ public class BoardView extends GridPane {
         }
     }
 
-    public TileView[][] GenerateTileView(){
+    public TileView[][] RestoreTileView(){
         this.getChildren().removeAll(this.getChildren());
         TileView[][] tileViews = new TileView[gameBoard.getSize()][gameBoard.getSize()];
-        for (Tile[] tileArr : gameBoard.getBoard()) {
-            for (Tile tile : tileArr) {
-                int x = tile.getX();
-                int y = tile.getY();
-
-                TileView tileView = new TileView(tile);
-                tileView.setSprite();
-                tileView.setHP();
-
-                tileViews[x][y] = tileView;
-
-                GridPane.setRowIndex(tileView, x);
-                GridPane.setColumnIndex(tileView, y);
-                this.getChildren().addAll(tileView);
-            }
-        }
+        AddTileViewsToBoard(tileViews);
         return tileViews;
     }
+
     public void refreshBoard() {
         for (Tile[] tileArr : gameBoard.getBoard()) {
             for (Tile tile : tileArr) {

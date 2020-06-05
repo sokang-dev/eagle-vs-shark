@@ -169,7 +169,7 @@ public class GameController {
         this.pieceController.setBoard(gameBoard);
         gameBoard.updatePiecesOnRestore();
         this.boardView.setBoard(gameBoard);
-        this.boardView.setBoardView(this.boardView.GenerateTileView());
+        this.boardView.setBoardView(this.boardView.RestoreTileView());
     }
 
     private GameMemento createGameMemento(){
