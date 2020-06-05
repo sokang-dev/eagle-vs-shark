@@ -1,6 +1,7 @@
 package controller;
 
 import App.SaveStateManager;
+import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -12,6 +13,8 @@ import model.SaveState;
 import resources.Constants;
 import resources.Utilities;
 import view.MainMenuView;
+
+import java.lang.management.PlatformLoggingMXBean;
 
 public class MainMenuController {
 
@@ -33,7 +36,7 @@ public class MainMenuController {
             pieceCountError.show();
         }
         else {
-            GameController gameController = new GameController(timerInput, boardSizeInput, pieceCountInput);
+            GameController gameController = new GameController(this, timerInput, boardSizeInput, pieceCountInput);
             StartGame(gameController);
         }
 }
@@ -45,7 +48,7 @@ public class MainMenuController {
             loadingError.show();
         }
         else {
-            GameController gameController = new GameController(state);
+            GameController gameController = new GameController(this, state);
             StartGame(gameController);
         }
     }
@@ -63,6 +66,24 @@ public class MainMenuController {
             gameController.GameStart();
         }).start());
         primaryStage.show();
+
+        primaryStage.setOnCloseRequest(event -> {
+            gameController.setGameIsOver(true);
+            Platform.exit();
+            System.exit(0);
+        });
+    }
+
+    public void showMainMenu() {
+        Scene scene = createMainMenu();
+        Stage primaryStage = Utilities.getPrimaryStage();
+        primaryStage.setScene(scene);
+    }
+
+    public Scene createMainMenu() {
+        BorderPane pane = new BorderPane();
+        pane.setCenter(this.getMainMenuView());
+        return new Scene(pane);
     }
 
     public MainMenuView getMainMenuView() { return mainMenuView; }

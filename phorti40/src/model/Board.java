@@ -189,4 +189,8 @@ public class Board implements Serializable {
 
         return pieces;
     }
+
+    public boolean hasNoPieces() {
+        return getPiecesByType(PieceType.Shark).isEmpty() || getPiecesByType(PieceType.Eagle).isEmpty();
+    }
 }
